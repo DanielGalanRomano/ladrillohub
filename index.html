@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Todo desarrollo real state — Comparamos precios, vos elegís</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5F7;--card:#fff;--ink:#11263A;--mut:#5B6B7A;--line:#D3DCE3;--acc:#E8A200;--blue:#1F5FA8;--ok:#2E8B57;--warn:#C98500;--bad:#C0392B;--sold:#6b7280;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1A25;--card:#15242F;--ink:#E7EEF4;--mut:#93A5B5;--line:#2A3D4C;--blue:#6FA8E8;--acc:#F0B429}}
+:root[data-theme="dark"]{--bg:#0E1A25;--card:#15242F;--ink:#E7EEF4;--mut:#93A5B5;--line:#2A3D4C;--blue:#6FA8E8;--acc:#F0B429}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Archivo,system-ui,-apple-system,Segoe UI,sans-serif}
+.w{max-width:1080px;margin:0 auto;padding:0 18px}
+header{border-bottom:1px solid var(--line);padding:14px 0}
+header .w{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:18px;letter-spacing:-.01em}
+.brand i{font-style:normal;display:inline-block;width:10px;height:10px;background:var(--acc);margin-right:8px}
+.tag{color:var(--mut);font-size:14px}
+.hero{padding:44px 0 30px}
+.hero .w{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:0 0 14px;font-weight:800;letter-spacing:-.03em}
+.hero p{color:var(--mut);margin:0 0 20px;max-width:46ch}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);border:0;padding:12px 20px;font:600 15px Archivo,sans-serif;cursor:pointer;border-radius:4px;text-decoration:none}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn:focus-visible,select:focus-visible,input:focus-visible,.seg button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.race{background:var(--card);border:1px solid var(--line);padding:18px;border-radius:6px}
+.race h3{margin:0 0 4px;font-size:15px}
+.race small{color:var(--mut)}
+.rw{margin-top:14px}
+.rw div.l{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.bar{height:10px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar b{display:block;height:100%;background:var(--acc)}
+.ends{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-top:14px;border-top:1px dashed var(--line);padding-top:6px}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+label.f{display:flex;flex-direction:column;font-size:12px;color:var(--mut);gap:4px;flex:1 1 150px}
+select,input[type=text],input[type=number],input[type=email],input[type=tel]{font:15px Archivo,sans-serif;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+h2{font-size:26px;margin:38px 0 6px;letter-spacing:-.02em}
+.sub{color:var(--mut);margin:0 0 16px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.card.sel{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue)}
+.card h3{margin:0;font-size:19px}
+.mut{color:var(--mut);font-size:13px}
+.price{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.row{display:flex;justify-content:space-between;font-size:13px;gap:8px}
+.ver{color:var(--ok);font-size:12px;font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.cmp{margin-top:auto;display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer;padding-top:8px;border-top:1px solid var(--line)}
+.cmp input{width:18px;height:18px;accent-color:var(--blue)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-weight:600}
+td:first-child,th:first-child{color:var(--mut);font-weight:400;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.empty{padding:22px;color:var(--mut);text-align:center}
+.seg{display:flex;gap:8px;margin-bottom:14px}
+.seg button{flex:1;padding:12px;font:600 15px Archivo,sans-serif;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;cursor:pointer}
+.seg button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 16px}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px}
+.lead{margin-top:16px;border-left:4px solid var(--acc);padding:6px 0 6px 16px}
+.lead dt{color:var(--mut);font-size:12px;margin-top:8px}.lead dd{margin:0;font-weight:600}
+#bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--bg);padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));display:none;justify-content:space-between;align-items:center;gap:10px;z-index:5}
+#bar .btn{background:var(--acc);color:#11263A}
+footer{padding:30px 0 90px;color:var(--mut);font-size:13px}
+dialog{border:1px solid var(--line);border-radius:8px;padding:14px;width:min(760px,94vw);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(10,20,30,.6)}
+.gh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{font:600 13px Archivo,sans-serif;padding:8px 12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.gs{aspect-ratio:16/10;background:var(--bg);border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.gs img{width:100%;height:100%;object-fit:contain}
+.gn{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.cv{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:4px;background:var(--line)}
+@media(max-width:760px){.hero .w{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="w"><div class="brand"><i></i>Todo desarrollo real state</div><div class="tag">Comparamos precios, vos elegís</div></div></header>
+
+<section class="hero"><div class="w">
+<div>
+<h1>Comparamos precios, vos elegís.</h1>
+<p>Desarrollos en pozo y en construcción de Belgrano, Núñez y Olivos, lado a lado: precio por m², avance de obra, anticipo y entrega.</p>
+<a class="btn" href="#buscar">Buscar desarrollos</a>
+</div>
+<div class="race" aria-label="Avance de obra de proyectos">
+<h3>Avance de obra hoy</h3><small>Desarrollos en Belgrano, Núñez y Olivos</small>
+<div id="race"></div>
+<div class="ends"><span>Inicio de obra</span><span>Avance</span><span>Posesión</span></div>
+</div>
+</div></section>
+
+<main class="w" id="buscar">
+<div class="filters">
+<label class="f">Barrio<select id="fb"><option value="">Todos</option><option>Belgrano</option><option>Núñez</option><option>Olivos</option></select></label>
+<label class="f">Ambientes<select id="fa"><option value="">Todos</option><option>2</option><option>3</option></select></label>
+<label class="f">Precio máximo (US$)<input id="fp" type="number" inputmode="numeric" placeholder="250000" step="5000"></label>
+<label class="f">Estado de obra<select id="fe"><option value="">Todos</option><option value="0">Menos de 30%</option><option value="1">30% a 70%</option><option value="2">Más de 70%</option></select></label>
+</div>
+<h2>Desarrollos</h2>
+<p class="sub" id="cnt"></p>
+<div class="grid" id="list"></div>
+
+<h2 id="comparar">Comparador</h2>
+<p class="sub">Tildá entre 2 y 5 desarrollos y compará todo en una tabla.</p>
+<div class="tw" id="cmpbox"></div>
+
+<h2 id="contacto">Recibí información de tus favoritos</h2>
+<p class="sub">Contanos qué buscás y las desarrolladoras te contactan con datos concretos.</p>
+<div class="box">
+<div class="seg" role="group" aria-label="Objetivo"><button type="button" aria-pressed="true" data-t="Comprar para vivir">Quiero comprar</button><button type="button" aria-pressed="false" data-t="Invertir">Quiero invertir</button></div>
+<form id="fm">
+<div class="fg">
+<label class="f">Presupuesto total (US$)<input id="q1" type="number" required placeholder="220000"></label>
+<label class="f">Anticipo disponible (US$)<input id="q2" type="number" required placeholder="80000"></label>
+<label class="f">Barrio<select id="q3"><option>Belgrano</option><option>Núñez</option><option>Olivos</option></select></label>
+<label class="f">Ambientes<select id="q4"><option>2</option><option>3</option></select></label>
+<label class="f">Cuándo pensás comprar<select id="q5"><option>Ya</option><option selected>En 3 meses</option><option>En 6 meses</option><option>En más de 1 año</option></select></label>
+<label class="f">Forma de pago<select id="q6"><option>Financiar el saldo</option><option>Contado</option></select></label>
+</div>
+<div class="mut">Desarrollos elegidos</div>
+<div class="chips" id="chips"></div>
+<div class="fg">
+<label class="f">Nombre<input id="n1" type="text" required autocomplete="name"></label>
+<label class="f">WhatsApp<input id="n2" type="tel" required autocomplete="tel"></label>
+<label class="f">Email<input id="n3" type="email" required autocomplete="email"></label>
+</div>
+<label class="cmp" style="border:0;padding:0 0 12px;margin:0"><input type="checkbox" id="cons" required>Acepto que mis datos se compartan con las desarrolladoras elegidas para que me contacten.</label>
+<button class="btn" type="submit">Solicitar información</button>
+</form>
+<div id="ok" hidden></div>
+</div>
+</main>
+
+<footer><div class="w">Prototipo con datos de ejemplo. Los desarrollos, precios y desarrolladoras son ficticios y no se envía ninguna información.</div></footer>
+
+<dialog id="gal" aria-labelledby="gt">
+<div class="gh"><strong id="gt"></strong><button type="button" class="btn alt" id="gx">Cerrar</button></div>
+<div class="tabs" id="gtabs" role="tablist"></div>
+<div class="gs" id="gst"></div>
+<div class="gn"><button type="button" class="btn alt" id="gp" aria-label="Foto anterior">‹</button><span id="gc"></span><button type="button" class="btn alt" id="gn2" aria-label="Foto siguiente">›</button></div>
+<p class="mut" id="gcap"></p>
+</dialog>
+
+<div id="bar"><span id="barc"></span><a class="btn" href="#comparar">Ver comparación</a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+let D=[
+{n:'Torre Virrey',b:'Belgrano',d:'Alfa Desarrollos',a:2,p:210000,m:68,e:'2027',av:65,an:30,c:24,pi:1,co:'Opcional',u:'18/09/2026',s:'g',v:1},
+{n:'Ombú Belgrano',b:'Belgrano',d:'Norte Construcciones',a:2,p:225000,m:65,e:'2028',av:20,an:40,c:36,pi:1,co:'Incluida',u:'15/09/2026',s:'g',v:1},
+{n:'Blanco Cabildo',b:'Belgrano',d:'Alfa Desarrollos',a:2,p:240000,m:73,e:'2027',av:90,an:25,c:30,pi:1,co:'Opcional',u:'19/09/2026',s:'y',v:1},
+{n:'Río Núñez',b:'Núñez',d:'Costa Urbana',a:2,p:198000,m:60,e:'2028',av:30,an:35,c:36,pi:0,co:'Opcional',u:'10/09/2026',s:'g',v:0},
+{n:'Parque Manzana 12',b:'Núñez',d:'Costa Urbana',a:2,p:232000,m:70,e:'2027',av:75,an:30,c:30,pi:1,co:'Incluida',u:'17/09/2026',s:'g',v:1},
+{n:'Olivos Alto',b:'Olivos',d:'Sur Proyectos',a:2,p:185000,m:58,e:'2027',av:55,an:30,c:24,pi:1,co:'Opcional',u:'12/09/2026',s:'y',v:0},
+{n:'Libertador 3300',b:'Olivos',d:'Norte Construcciones',a:2,p:245000,m:72,e:'2028',av:15,an:40,c:48,pi:1,co:'Incluida',u:'16/09/2026',s:'g',v:1},
+{n:'Casa Naranjos',b:'Olivos',d:'Sur Proyectos',a:3,p:310000,m:95,e:'2027',av:80,an:35,c:24,pi:1,co:'Incluida',u:'18/09/2026',s:'r',v:1}
+].map((x,i)=>({...x,i,x:Math.round(x.p/x.m)}));
+const demoImg=(t,c)=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="800" height="500" fill="${c}"/><text x="400" y="260" font-family="sans-serif" font-size="30" fill="#fff" text-anchor="middle">${t}</text></svg>`);
+D.forEach(x=>{const m=(t,c,n)=>Array.from({length:n},(_,k)=>({url:demoImg(t+' (ejemplo) '+(k+1),c)}));x.ph={render:m('Render','#1F5FA8',3),avance:m('Avance de obra','#B57A00',2),terreno:m('Terreno','#3C7A57',2)};x.cv=x.ph.render[0].url});
+const ST={g:['Disponible','var(--ok)'],y:['Últimas unidades','var(--warn)'],r:['Reservado','var(--bad)']};
+const fm=n=>'US$'+n.toLocaleString('es-AR');
+const $=id=>document.getElementById(id);
+let sel=[],tipo='Comprar para vivir';
+
+const renderRace=()=>$('race').innerHTML=[...D].sort((a,b)=>b.av-a.av).slice(0,4).map(x=>`<div class="rw"><div class="l"><span>${x.n}</span><span>${x.av}%</span></div><div class="bar"><b style="width:${x.av}%"></b></div></div>`).join('');
+
+renderRace();
+function filt(){
+ const b=$('fb').value,a=$('fa').value,p=+$('fp').value,e=$('fe').value;
+ return D.filter(x=>(!b||x.b===b)&&(!a||x.a==a)&&(!p||x.p<=p)&&(e===''||(e==='0'?x.av<30:e==='1'?x.av>=30&&x.av<=70:x.av>70)));
+}
+function render(){
+ const r=filt();
+ $('cnt').textContent=r.length+(r.length===1?' desarrollo encontrado':' desarrollos encontrados');
+ $('list').innerHTML=r.length?r.map(x=>`<article class="card${sel.includes(x.i)?' sel':''}">
+ ${x.cv?`<img class="cv" src="${x.cv}" alt="Render de ${x.n}" loading="lazy">`:''}
+ <div class="row"><span class="mut">${x.b} · ${x.d}</span>${x.v?'<span class="ver">✓ Verificado</span>':''}</div>
+ <h3>${x.n}</h3>
+ <div class="price">${fm(x.p)} <span class="mut" style="font-weight:400">desde</span></div>
+ <div class="row"><span>${fm(x.x)}/m²</span><span>${x.m} m² · ${x.a} amb.</span></div>
+ <div><div class="row mut"><span>Avance de obra</span><span>${x.av}% · entrega ${x.e}</span></div><div class="bar"><b style="width:${x.av}%"></b></div></div>
+ <div class="row mut"><span><i class="dot" style="background:${ST[x.s][1]}"></i>${ST[x.s][0]}</span><span>Actualizado ${x.u}</span></div>
+ <div class="cmp" style="justify-content:space-between"><label style="display:flex;gap:8px;align-items:center;cursor:pointer"><input type="checkbox" data-i="${x.i}" ${sel.includes(x.i)?'checked':''}>Comparar</label><button type="button" class="btn alt" data-f="${x.i}" style="padding:7px 12px;font-size:14px">Ver fotos</button></div></article>`).join(''):'<div class="empty">No hay desarrollos con esos filtros. Probá subir el precio máximo o quitar un filtro.</div>';
+}
+function table(){
+ const s=sel.map(i=>D[i]);
+ if(s.length<2){$('cmpbox').innerHTML='<div class="empty">Elegí al menos 2 desarrollos para comparar.</div>';return}
+ const R=[['Barrio',x=>x.b],['Desarrolladora',x=>x.d],['Precio desde',x=>fm(x.p)],['USD/m²',x=>fm(x.x)],['Superficie',x=>x.m+' m²'],['Entrega',x=>x.e],
+ ['Avance',x=>`${x.av}%<div class="bar" style="margin-top:4px"><b style="width:${x.av}%"></b></div>`],['Anticipo',x=>x.an+'%'],['Cuotas',x=>x.c],['Pileta',x=>x.pi?'✓':'—'],['Cochera',x=>x.co],['Stock',x=>ST[x.s][0]],['Actualizado',x=>x.u]];
+ const xs=s.map(x=>x.x);
+ $('cmpbox').innerHTML=`<table><thead><tr><th></th>${s.map(x=>`<th>${x.n}</th>`).join('')}</tr></thead><tbody>${R.map(r=>`<tr><td>${r[0]}</td>${s.map(x=>`<td>${r[1](x)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+ <div class="empty" style="text-align:left">Estos ${s.length} desarrollos van de ${fm(Math.min(...xs))} a ${fm(Math.max(...xs))} por m².</div>`;
+}
+function chips(){$('chips').innerHTML=sel.length?sel.map(i=>`<span class="chip">${D[i].n}</span>`).join(''):'<span class="mut">Todavía no elegiste ninguno. Tildá “Comparar” en las fichas.</span>'}
+function bar(){const b=$('bar');b.style.display=sel.length?'flex':'none';$('barc').textContent=sel.length+(sel.length===1?' desarrollo elegido':' desarrollos elegidos')}
+function upd(){render();table();chips();bar()}
+
+$('list').addEventListener('change',e=>{
+ const i=+e.target.dataset.i;
+ if(e.target.checked){if(sel.length>=5){e.target.checked=false;alert('Podés comparar hasta 5 desarrollos.');return}sel.push(i)}else sel=sel.filter(v=>v!==i);
+ upd();
+});
+['fb','fa','fp','fe'].forEach(id=>$(id).addEventListener('input',render));
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');tipo=b.dataset.t});
+$('fm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(sel.length<1){alert('Elegí al menos un desarrollo para solicitar información.');return}
+ const v=id=>$(id).value;
+ if(sb){const {error}=await sb.from('leads').insert({objetivo:tipo,presupuesto:+v('q1'),anticipo:+v('q2'),barrio:v('q3'),ambientes:+v('q4'),cuando:v('q5'),pago:v('q6'),nombre:v('n1'),whatsapp:v('n2'),email:v('n3'),proyectos:sel.map(i=>D[i].id),consentimiento:$('cons').checked});
+  if(error){alert('No pudimos enviar tu solicitud. Probá de nuevo en unos minutos.');return}}
+ $('ok').hidden=false;
+ $('ok').innerHTML=`<dl class="lead"><dt>Solicitud lista para las desarrolladoras</dt><dd>${v('n1')} · ${v('n2')} · ${v('n3')}</dd>
+ <dt>Objetivo</dt><dd>${tipo}</dd><dt>Presupuesto y anticipo</dt><dd>${fm(+v('q1'))} · anticipo ${fm(+v('q2'))} · ${v('q6').toLowerCase()}</dd>
+ <dt>Busca</dt><dd>${v('q4')} ambientes en ${v('q3')}, comprando ${v('q5').toLowerCase()}</dd>
+ <dt>Interesado en</dt><dd>${sel.map(i=>D[i].n).join(', ')}</dd></dl>
+ <p class="mut">${sb?'Recibimos tu solicitud y te contactamos con la información de estos desarrollos.':'Así llega el contacto a cada desarrolladora. En este prototipo no se envía nada.'}</p>`;
+ $('ok').scrollIntoView({block:'nearest'});
+});
+const TIPOS=[['render','Render del proyecto terminado'],['avance','Avance real de obra'],['terreno','Terreno']];
+let gp=null,gt='render',gi=0;
+const gl=()=>((gp&&gp.ph)||{})[gt]||[];
+function gal(i){gp=D[i];gt=(TIPOS.find(t=>((gp.ph||{})[t[0]]||[]).length)||TIPOS[0])[0];gi=0;$('gal').showModal();gdraw()}
+function gdraw(){
+ const L=gl(),lab=TIPOS.find(t=>t[0]===gt)[1];
+ $('gt').innerHTML=gp.n;
+ $('gtabs').innerHTML=TIPOS.map(([k,l])=>`<button type="button" role="tab" data-t="${k}" aria-selected="${k===gt}">${l} (${((gp.ph||{})[k]||[]).length})</button>`).join('');
+ $('gst').innerHTML=L.length?`<img src="${esc(L[gi].url)}" alt="${gp.n} - ${lab}">`:'<div class="empty">Todavía no hay fotos de esta sección.</div>';
+ $('gp').style.visibility=$('gn2').style.visibility=L.length<2?'hidden':'visible';
+ $('gc').textContent=L.length?(gi+1)+' de '+L.length:'';
+ $('gcap').textContent=(gt==='avance'&&L[gi]&&L[gi].fecha)?'Foto subida el '+new Date(L[gi].fecha).toLocaleDateString('es-AR'):'';
+}
+const gm=d=>{const n=gl().length;if(n<2)return;gi=(gi+d+n)%n;gdraw()};
+$('gp').onclick=()=>gm(-1);$('gn2').onclick=()=>gm(1);$('gx').onclick=()=>$('gal').close();
+$('gtabs').onclick=e=>{const t=e.target.dataset.t;if(t){gt=t;gi=0;gdraw()}};
+$('gal').addEventListener('click',e=>{if(e.target===$('gal'))$('gal').close()});
+$('gal').addEventListener('keydown',e=>{if(e.key==='ArrowLeft')gm(-1);if(e.key==='ArrowRight')gm(1)});
+let tx=null;
+$('gst').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+$('gst').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)gm(dx<0?1:-1);tx=null});
+$('list').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(b)gal(+b.dataset.f)});
+upd();
+const CFG=window.CFG||{};
+const sb=(CFG.url&&!CFG.url.startsWith('PEGAR')&&window.supabase)?supabase.createClient(CFG.url,CFG.key):null;
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+if(sb)sb.from('projects').select('*').eq('publicado',true).order('nombre').then(async ({data,error})=>{
+ if(error||!data||!data.length)return;
+ D=data.map((r,i)=>({id:r.id,i,n:esc(r.nombre),b:esc(r.barrio),d:esc(r.desarrolladora),a:r.ambientes,p:+r.precio,m:+r.m2,e:esc(r.entrega),av:r.avance,an:r.anticipo,c:r.cuotas,pi:r.pileta?1:0,co:esc(r.cochera),u:new Date(r.updated_at).toLocaleDateString('es-AR'),s:r.stock,v:r.verificado?1:0,x:Math.round(r.precio/r.m2)}));
+ const {data:fs}=await sb.from('project_photos').select('*').order('orden').order('created_at');
+ (fs||[]).forEach(f=>{const p=D.find(z=>z.id===f.project_id);if(p){p.ph=p.ph||{};(p.ph[f.tipo]=p.ph[f.tipo]||[]).push({url:f.url,fecha:f.created_at})}});
+ D.forEach(x=>{x.ph=x.ph||{};const c=(x.ph.render||[])[0];x.cv=c?esc(c.url):''});
+ sel=[];renderRace();upd();
+ document.querySelector('footer .w').textContent='Información cargada por cada desarrolladora y revisada por Todo desarrollo real state.';
+});
+</script>
+</body>
+</html>
