@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de desarrolladoras — Todo desarrollo real state</title>
+<style>
+:root{--bg:#F2F5F7;--card:#fff;--ink:#11263A;--mut:#5B6B7A;--line:#D3DCE3;--acc:#E8A200}
+@media(prefers-color-scheme:dark){:root{--bg:#0E1A25;--card:#15242F;--ink:#E7EEF4;--mut:#93A5B5;--line:#2A3D4C}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.w{max-width:900px;margin:0 auto;padding:18px}
+h1{font-size:22px;margin:0 0 16px}h2{font-size:20px;margin:28px 0 10px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:4px}
+input,select{font:15px inherit;padding:9px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+input[type=checkbox]{width:auto}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:12px}
+button{font:600 15px inherit;padding:10px 16px;border-radius:4px;border:1.5px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+button.alt{background:transparent;color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #1F5FA8;outline-offset:2px}
+.it{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border:0}.it small{color:var(--mut);display:block}
+.it div:last-child{display:flex;gap:8px;align-items:center}
+.it select{width:auto}
+.th{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:8px 0}
+.th figure{margin:0}.th img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.th button{width:100%;padding:4px;font-size:13px;margin-top:4px}
+h3{font-size:15px;margin:14px 0 4px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Panel de desarrolladoras</h1>
+<div id="cfg" class="box" hidden>Falta configurar Supabase en config.js.</div>
+
+<div id="login" class="box" hidden>
+<form id="lg"><div class="g">
+<label>Email<input id="em" type="email" required autocomplete="email"></label>
+<label>Contraseña (mínimo 6 caracteres)<input id="pw" type="password" required minlength="6" autocomplete="current-password"></label>
+</div>
+<button>Ingresar</button> <button type="button" class="alt" id="su">Crear cuenta</button></form>
+</div>
+
+<div id="app" hidden>
+<div class="it"><span id="who"></span><button class="alt" id="out">Salir</button></div>
+<h2>Mis desarrollos</h2>
+<div class="box" id="mine"></div>
+<div class="box" id="ph" hidden style="margin-bottom:16px"><div class="it"><strong id="pht"></strong><button class="alt" id="phx">Cerrar</button></div>
+<p style="color:var(--mut);font-size:14px;margin:0">Subí fotos del render, del avance real de la obra y del terreno. Se reducen automáticamente a 1600 px.</p><div id="phb"></div></div>
+<h2 id="ft">Nuevo desarrollo</h2>
+<div class="box"><form id="pf"></form></div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ST={g:'Disponible',y:'Últimas unidades',r:'Reservado'};
+const opt=s=>s.split(';').map(o=>{const [v,l]=o.split('|');return `<option value="${v}">${l||v}</option>`}).join('');
+const F=[['nombre','Nombre del desarrollo','text'],['desarrolladora','Desarrolladora','text'],['barrio','Barrio','sel:Belgrano;Núñez;Olivos'],['ambientes','Ambientes','number'],['precio','Precio desde (US$)','number'],['m2','Superficie (m²)','number'],['entrega','Año de entrega','text'],['avance','Avance de obra (%)','number'],['anticipo','Anticipo (%)','number'],['cuotas','Cantidad de cuotas','number'],['cochera','Cochera','sel:Incluida;Opcional;No'],['stock','Stock','sel:g|Disponible;y|Últimas unidades;r|Reservado'],['pileta','Tiene pileta','chk']];
+$('pf').innerHTML='<div class="g">'+F.map(([k,l,t])=>t==='chk'?`<label><span><input type="checkbox" name="${k}"> ${l}</span></label>`:t.startsWith('sel:')?`<label>${l}<select name="${k}">${opt(t.slice(4))}</select></label>`:`<label>${l}<input name="${k}" type="${t}" required step="any"></label>`).join('')+'</div><button>Guardar</button> <button type="button" class="alt" id="nw">Limpiar</button>';
+
+let sb,user,edit=null,rows=[];
+if(!window.CFG||!CFG.url||CFG.url.startsWith('PEGAR')){$('cfg').hidden=false}else{sb=supabase.createClient(CFG.url,CFG.key);boot()}
+
+async function boot(){
+ const {data}=await sb.auth.getSession();user=data.session&&data.session.user;
+ $('login').hidden=!!user;$('app').hidden=!user;
+ if(user){$('who').textContent=user.email;load()}
+}
+$('lg').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value,password:$('pw').value});error?alert('No pudimos ingresar: '+error.message):boot()};
+$('su').onclick=async()=>{const {error}=await sb.auth.signUp({email:$('em').value,password:$('pw').value});alert(error?error.message:'Cuenta creada. Confirmá tu email y después ingresá.')};
+$('out').onclick=async()=>{await sb.auth.signOut();boot()};
+
+async function load(){
+ const {data,error}=await sb.from('projects').select('*').eq('owner',user.id).order('nombre');
+ if(error)return alert(error.message);
+ rows=data;
+ $('mine').innerHTML=rows.length?rows.map(r=>`<div class="it"><div><strong>${esc(r.nombre)}</strong><small>${esc(r.barrio)} · US$${Number(r.precio).toLocaleString('es-AR')} · avance ${r.avance}% · ${r.publicado?'Publicado':'En revisión'}${r.verificado?' · Verificado':''}</small><small>Actualizado ${new Date(r.updated_at).toLocaleDateString('es-AR')}</small></div>
+ <div><select data-s="${r.id}" aria-label="Stock">${Object.entries(ST).map(([k,v])=>`<option value="${k}"${k===r.stock?' selected':''}>${v}</option>`).join('')}</select><button class="alt" data-f="${r.id}">Fotos</button><button class="alt" data-e="${r.id}">Editar</button><button class="alt" data-d="${r.id}">Borrar</button></div></div>`).join(''):'<p>Todavía no cargaste desarrollos. Completá el formulario de abajo.</p>';
+}
+$('mine').addEventListener('change',async e=>{const id=e.target.dataset.s;if(!id)return;const {error}=await sb.from('projects').update({stock:e.target.value}).eq('id',id);error?alert(error.message):load()});
+$('mine').addEventListener('click',async e=>{
+ const d=e.target.dataset;
+ if(d.e){const r=rows.find(x=>x.id===d.e);edit=r.id;F.forEach(([k,,t])=>{const el=$('pf').elements[k];t==='chk'?el.checked=r[k]:el.value=r[k]??''});$('ft').textContent='Editar '+r.nombre;$('pf').scrollIntoView()}
+ if(d.f){const r=rows.find(x=>x.id===d.f);pid=r.id;$('pht').textContent='Fotos de '+r.nombre;$('ph').hidden=false;loadPh();$('ph').scrollIntoView()}
+ if(d.d&&confirm('¿Borrar este desarrollo?')){const {error}=await sb.from('projects').delete().eq('id',d.d);error?alert(error.message):load()}
+});
+function reset(){edit=null;$('pf').reset();$('ft').textContent='Nuevo desarrollo'}
+$('nw').onclick=reset;
+$('pf').onsubmit=async e=>{
+ e.preventDefault();const o={};
+ F.forEach(([k,,t])=>{const el=e.target.elements[k];o[k]=t==='chk'?el.checked:t==='number'?+el.value:el.value});
+ const {error}=await(edit?sb.from('projects').update(o).eq('id',edit):sb.from('projects').insert(o));
+ if(error)return alert('No se pudo guardar: '+error.message);
+ alert(edit?'Cambios guardados.':'Desarrollo enviado. Lo revisamos y lo publicamos en el portal.');reset();load();
+};
+const TP=[['render','Render del proyecto terminado'],['avance','Avance real de obra'],['terreno','Terreno']];
+let pid=null;
+const shrink=f=>new Promise((ok,ko)=>{const im=new Image();im.onload=()=>{const s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(b=>b?ok(b):ko(new Error('imagen no válida')),'image/jpeg',.82)};im.onerror=()=>ko(new Error('imagen no válida'));im.src=URL.createObjectURL(f)});
+async function loadPh(){
+ const {data,error}=await sb.from('project_photos').select('*').eq('project_id',pid).order('orden').order('created_at');
+ if(error)return alert(error.message);
+ const by={};data.forEach(f=>(by[f.tipo]=by[f.tipo]||[]).push(f));
+ $('phb').innerHTML=TP.map(([k,l])=>`<h3>${l} (${(by[k]||[]).length})</h3><div class="th">${(by[k]||[]).map(f=>`<figure><img src="${esc(f.url)}" alt=""><button class="alt" data-x="${f.id}" data-p="${esc(f.path)}">Quitar</button></figure>`).join('')}</div><input type="file" accept="image/*" multiple data-k="${k}" aria-label="Agregar fotos: ${l}">`).join('');
+}
+$('phb').addEventListener('change',async e=>{
+ const k=e.target.dataset.k;if(!k)return;
+ const fs=[...e.target.files];e.target.disabled=true;
+ for(const [n,f] of fs.entries()){
+  try{
+   const b=await shrink(f),path=`${user.id}/${pid}/${k}-${Date.now()}-${n}.jpg`;
+   const u=await sb.storage.from('fotos').upload(path,b,{contentType:'image/jpeg'});if(u.error)throw u.error;
+   const url=sb.storage.from('fotos').getPublicUrl(path).data.publicUrl;
+   const i=await sb.from('project_photos').insert({project_id:pid,tipo:k,path,url});if(i.error)throw i.error;
+  }catch(er){alert('No se pudo subir '+f.name+': '+(er.message||er));break}
+ }
+ loadPh();
+});
+$('phb').addEventListener('click',async e=>{
+ const d=e.target.dataset;if(!d.x||!confirm('¿Quitar esta foto?'))return;
+ await sb.storage.from('fotos').remove([d.p]);
+ const {error}=await sb.from('project_photos').delete().eq('id',d.x);error?alert(error.message):loadPh();
+});
+$('phx').onclick=()=>{$('ph').hidden=true;pid=null};
+</script>
+</body>
+</html>
