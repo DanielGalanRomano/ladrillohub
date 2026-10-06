@@ -63,6 +63,26 @@ tr:last-child td{border-bottom:0}
 .note{font-size:13px;color:var(--muted)}
 .cta{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:13px 20px;border-radius:12px;font-weight:800}
 footer{padding:28px 0 50px;color:var(--muted);font-size:13px}
+
+.ideal2{display:grid;gap:22px}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.profile{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 20px;position:relative;overflow:hidden}
+.profile:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.profile .ico{width:54px;height:54px;border-radius:16px;background:var(--cs);display:grid;place-items:center;font-size:28px;margin-bottom:14px}
+.profile h3{font-size:19px;margin-bottom:6px}
+.profile p{margin:0;color:var(--muted);font-size:14.5px}
+.p1{--c:#ef3b52;--cs:#fff0f2}.p2{--c:#14804b;--cs:#eaf7ef}.p3{--c:#e8960c;--cs:#fff4de}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+.panel>h3{margin-bottom:16px}
+.feat{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}
+.feat:first-of-type{border-top:0;padding-top:0}
+.feat .ico{flex:0 0 44px;height:44px;border-radius:13px;background:var(--soft);display:grid;place-items:center;font-size:22px}
+.feat b{display:block;margin-bottom:1px}
+.feat span{color:var(--muted);font-size:14.5px}
+.dist{flex:0 0 auto;margin-left:auto;align-self:center;background:var(--green-soft);color:var(--green);font-weight:800;font-size:13px;padding:6px 11px;border-radius:999px;white-space:nowrap}
+.feat.go .ico{background:var(--green-soft)}
+@media(max-width:780px){.profiles,.panels{grid-template-columns:1fr}.dist{display:none}}
 @media(max-width:780px){
  .hero,.ideal{grid-template-columns:1fr}.hero-photo{min-height:300px}.facts{grid-template-columns:1fr 1fr}
  .gal{grid-template-columns:1fr 1fr}.gal figure.wide{grid-column:span 2}.check-grid,.position-grid,.ref-grid{grid-template-columns:1fr}
@@ -78,12 +98,12 @@ footer{padding:28px 0 50px;color:var(--muted);font-size:13px}
    <span class="badge">Venta</span>
    <h1>3 ambientes en penúltimo piso con balcón corrido</h1>
    <p class="section-lead">Muy luminoso, tranquilo y con balcón corrido al frente. Penúltimo piso y una ubicación que conecta Palermo con toda la ciudad.</p>
-   <div class="price"><small>Valor sugerido de publicación</small><strong>USD 159.000</strong></div>
+   <div class="price"><small>Valor sugerido de publicación</small><strong>USD 169.000</strong></div>
   </div>
  </div>
  <div class="facts">
-  <div class="fact">57,86 m²<span>totales</span></div>
-  <div class="fact">49,36 m²<span>interiores</span></div>
+  <div class="fact">63 m²<span>totales</span></div>
+  <div class="fact">54,50 m²<span>cubiertos</span></div>
   <div class="fact">8,50 m²<span>balcón corrido</span></div>
   <div class="fact">2<span>dormitorios</span></div>
  </div>
@@ -92,7 +112,7 @@ footer{padding:28px 0 50px;color:var(--muted);font-size:13px}
 <section id="fotos"><h2>Galería</h2><p class="section-lead">Fotos retocadas de presentación: corrección suave de luz, contraste y balance para que los ambientes se perciban más claros, manteniendo el estado real. La foto del dormitorio chico conserva elementos del estado actual; para eliminar las cajas de forma realista conviene hacer una edición generativa específica.</p><div class="gal"><figure class="wide"><img src="living-posterior-con-salida-al-balcon.jpg" alt="Living posterior con salida al balcón"><figcaption>Living posterior con salida al balcón</figcaption></figure>
 <figure class="wide"><img src="balcon-corrido-vista-a-salguero-y-guemes.jpg" alt="Balcón corrido — vista a Salguero y Güemes"><figcaption>Balcón corrido — vista a Salguero y Güemes</figcaption></figure>
 <figure class=""><img src="balcon-corrido-vista-longitudinal.jpg" alt="Balcón corrido — vista longitudinal"><figcaption>Balcón corrido — vista longitudinal</figcaption></figure>
-
+<figure class=""><img src="vista-desde-el-balcon-hacia-el-lado-opuesto.jpg" alt="Vista desde el balcón hacia el lado opuesto"><figcaption>Vista desde el balcón hacia el lado opuesto</figcaption></figure>
 <figure class=""><img src="dormitorio-principal.jpg" alt="Dormitorio principal"><figcaption>Dormitorio principal</figcaption></figure>
 <figure class=""><img src="dormitorio-secundario.jpg" alt="Dormitorio secundario"><figcaption>Dormitorio secundario</figcaption></figure>
 <figure class=""><img src="cocina.jpg" alt="Cocina"><figcaption>Cocina</figcaption></figure>
@@ -107,8 +127,8 @@ footer{padding:28px 0 50px;color:var(--muted);font-size:13px}
 <div class="check"><div class="icon">✓</div><div><b>Edificio de 18 unidades</b>Edificio chico, sin encargado y con un ascensor.</div></div>
 <div class="check"><div class="icon">✓</div><div><b>Ubicación estratégica</b>Acceso rápido a Santa Fe, Plaza Italia y Libertador.</div></div></div></section>
 <section id="pos"><h2>Posicionamiento de venta</h2><div class="position-grid">
-<div class="pos featured"><div class="label">Valor sugerido</div><div class="big">USD 159.000</div><p>Precio de publicación recomendado para la estrategia actual.</p></div>
-<div class="pos"><div class="label">Superficie</div><div class="big">57,86 m²</div><p>49,36 m² interiores + 8,50 m² de balcón.</p></div>
+<div class="pos featured"><div class="label">Valor sugerido</div><div class="big">USD 169.000</div><p>Precio de publicación recomendado para la estrategia actual.</p></div>
+<div class="pos"><div class="label">Superficie</div><div class="big">63 m²</div><p>54,50 m² cubiertos + 8,50 m² de balcón.</p></div>
 <div class="pos"><div class="label">Estado</div><div class="big">Baño nuevo</div><p>Sin reciclado integral, con retoques de pre-venta.</p></div>
 <div class="pos"><div class="label">Ubicación</div><div class="big">Penúltimo piso</div><p>Al frente, en la esquina de Salguero y Güemes.</p></div>
 <div class="pos"><div class="label">Convivencia</div><div class="big">Muy tranquila</div><p>Arriba vive una pareja de adultos mayores.</p></div>
@@ -117,31 +137,33 @@ footer{padding:28px 0 50px;color:var(--muted);font-size:13px}
 
 <section id="ideal">
 <h2>Ideal para</h2>
-<div class="ideal">
- <div class="ideal-card">
-  <h3>Un departamento adaptable a distintas etapas</h3>
-  <div class="people"><div class="person">Pareja con hijos</div><div class="person">Parejas de adultos mayores</div><div class="person">Parejas solas</div></div>
-  <ul>
-   <li>El dormitorio extra puede funcionar como cuarto de chicos, bebé o estudio para trabajar.</li>
-   <li>Expensas bajas para la zona y la superficie: aproximadamente <b>$250.000</b>.</li>
-   <li>Mucha seguridad y edificio chico.</li>
-  </ul>
+<div class="ideal2">
+ <div class="profiles">
+  <div class="profile p1"><div class="ico">👨‍👩‍👧</div><h3>Pareja con hijos</h3><p>Dos dormitorios, edificio chico y seguro, y un balcón corrido para que los chicos tengan aire libre.</p></div>
+  <div class="profile p2"><div class="ico">🌿</div><h3>Parejas de adultos mayores</h3><p>Muy silencioso, con ascensor, buena luz todo el día y comercios y transporte a pocas cuadras.</p></div>
+  <div class="profile p3"><div class="ico">💑</div><h3>Parejas solas</h3><p>Espacio de sobra, un segundo ambiente para armar a gusto y la vida de Palermo en la puerta.</p></div>
  </div>
- <div class="ideal-card">
-  <h3>Conectividad y vida de barrio</h3>
-  <ul>
-   <li>Colectivos a dos cuadras sobre Av. Santa Fe.</li>
-   <li>Plaza Italia a 8 cuadras, con acceso a colectivos rápidos hacia distintas zonas del conurbano.</li>
-   <li>A 10 cuadras del corredor verde de Av. del Libertador.</li>
-   <li>En las arterias principales hay mucha gente joven y movimiento durante la noche.</li>
-  </ul>
+ <div class="panels">
+  <div class="panel">
+   <h3>Se adapta a cada etapa</h3>
+   <div class="feat"><div class="ico">🛏️</div><div><b>Un dormitorio, mil usos</b><span>Cuarto de chicos, habitación de bebé o estudio para trabajar desde casa.</span></div></div>
+   <div class="feat"><div class="ico">💸</div><div><b>Expensas bajas</b><span>Aproximadamente $250.000, bajas para la zona y la superficie.</span></div></div>
+   <div class="feat"><div class="ico">🔐</div><div><b>Seguridad y edificio chico</b><span>18 unidades y puerta Pentágono: tranquilidad y buena convivencia.</span></div></div>
+  </div>
+  <div class="panel">
+   <h3>Conectividad y vida de barrio</h3>
+   <div class="feat go"><div class="ico">🚌</div><div><b>Colectivos sobre Av. Santa Fe</b><span>Líneas a pocos pasos de casa.</span></div><div class="dist">2 cuadras</div></div>
+   <div class="feat go"><div class="ico">🚉</div><div><b>Plaza Italia</b><span>Colectivos rápidos hacia distintas zonas del conurbano.</span></div><div class="dist">8 cuadras</div></div>
+   <div class="feat go"><div class="ico">🌳</div><div><b>Corredor verde de Libertador</b><span>Ideal para correr, andar en bici o pasear.</span></div><div class="dist">10 cuadras</div></div>
+   <div class="feat go"><div class="ico">🌙</div><div><b>Movimiento nocturno</b><span>En las arterias principales hay mucha gente joven y vida de noche.</span></div></div>
+  </div>
  </div>
 </div>
 </section>
 
-<section id="superficies"><h2>Superficies por ambiente</h2><table><thead><tr><th>Ambiente</th><th>Medidas</th><th>Superficie</th></tr></thead><tbody><tr><td>Dormitorio chico</td><td>3,00 × 2,45 m</td><td>7,35 m²</td></tr><tr><td>Baño</td><td>1,80 × 1,80 m</td><td>3,24 m²</td></tr><tr><td>Espacio bañera + mueble</td><td>0,70 × 2,40 m</td><td>1,68 m²</td></tr><tr><td>Dormitorio principal</td><td>3,20 × 3,50 m</td><td>11,20 m²</td></tr><tr><td>Pasillo</td><td>0,77 × 1,70 m</td><td>1,31 m²</td></tr><tr><td>Living posterior</td><td>3,20 × 4,50 m</td><td>14,40 m²</td></tr><tr><td>Semiliving de ingreso</td><td>2,20 × 2,50 m</td><td>5,50 m²</td></tr><tr><td>Cocina</td><td>1,80 × 2,60 m</td><td>4,68 m²</td></tr><tr><td>Balcón</td><td>1,25 × 6,80 m</td><td>8,50 m²</td></tr></tbody><tfoot><tr><th colspan="2">Interior estimado</th><th>49,36 m²</th></tr><tr><th colspan="2">Balcón</th><th>8,50 m²</th></tr><tr><th colspan="2">TOTAL</th><th>57,86 m²</th></tr></tfoot></table><p class="note">El mueble empotrado del dormitorio principal (0,60 × 1,90 m) está incluido dentro de los 11,20 m² del dormitorio y no se suma nuevamente.</p></section>
-<section id="descripcion"><h2>Sobre el departamento</h2><p>3 ambientes en penúltimo piso, al frente, sobre la esquina de Salguero y Güemes. El balcón corrido de aproximadamente 8,50 m² acompaña el frente y ofrece una vista abierta.</p><p>La unidad cuenta con 49,36 m² interiores estimados, 2 dormitorios, mucha luz natural y una condición muy silenciosa: los ruidos son los propios de la calle y arriba vive una pareja de adultos mayores. El edificio tiene 18 unidades, un ascensor, no tiene encargado y cuenta con puerta Pentágono.</p></section>
+<section id="superficies"><h2>Superficies por ambiente</h2><table><thead><tr><th>Ambiente</th><th>Medidas</th><th>Superficie</th></tr></thead><tbody><tr><td>Dormitorio chico</td><td>3,10 × 2,60 m</td><td>8,06 m²</td></tr><tr><td>Baño</td><td>1,80 × 1,80 m</td><td>3,24 m²</td></tr><tr><td>Espacio bañera + mueble</td><td>0,70 × 2,40 m</td><td>1,68 m²</td></tr><tr><td>Dormitorio principal</td><td>3,40 × 3,60 m</td><td>12,24 m²</td></tr><tr><td>Pasillo</td><td>0,80 × 1,90 m</td><td>1,52 m²</td></tr><tr><td>Living posterior</td><td>3,40 × 4,80 m</td><td>16,32 m²</td></tr><tr><td>Semiliving de ingreso</td><td>2,40 × 2,60 m</td><td>6,24 m²</td></tr><tr><td>Cocina</td><td>2,00 × 2,60 m</td><td>5,20 m²</td></tr><tr><td>Balcón</td><td>1,25 × 6,80 m</td><td>8,50 m²</td></tr></tbody><tfoot><tr><th colspan="2">Superficie cubierta</th><th>54,50 m²</th></tr><tr><th colspan="2">Balcón</th><th>8,50 m²</th></tr><tr><th colspan="2">TOTAL</th><th>63,00 m²</th></tr></tfoot></table><p class="note">El mueble empotrado del dormitorio principal (0,60 × 1,90 m) está incluido dentro de los 12,24 m² del dormitorio y no se suma nuevamente.</p></section>
+<section id="descripcion"><h2>Sobre el departamento</h2><p>3 ambientes en penúltimo piso, al frente, sobre la esquina de Salguero y Güemes. El balcón corrido de aproximadamente 8,50 m² acompaña el frente y ofrece una vista abierta.</p><p>La unidad cuenta con 54,50 m² cubiertos, 2 dormitorios, mucha luz natural y una condición muy silenciosa: los ruidos son los propios de la calle y arriba vive una pareja de adultos mayores. El edificio tiene 18 unidades, un ascensor, no tiene encargado y cuenta con puerta Pentágono.</p></section>
 
 <section id="cta"><h2>Coordiná una visita</h2><p>Vení a ver la luz, el balcón y la amplitud de los ambientes.</p><a class="cta" href="ficha-salguero-guemes.pdf" download="ficha-salguero-guemes.pdf">Descargar ficha PDF</a></section>
-<footer>Ladrillo Hub · Ficha de publicación · Valor sugerido: USD 159.000 · Referencia orientativa sujeta a revisión según estado final y mercado.</footer>
+<footer>Ladrillo Hub · Ficha de publicación · Valor sugerido: USD 169.000 · Referencia orientativa sujeta a revisión según estado final y mercado.</footer>
 </div></body></html>
