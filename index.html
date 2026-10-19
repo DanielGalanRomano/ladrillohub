@@ -511,7 +511,7 @@ function facade(kind,seed,av,k){
  return 'data:image/svg+xml,'+encodeURIComponent(s);
 }
 /* las imágenes se generan al pedirlas y se guardan, para no cargar de más al abrir la página */
-const demoPh=x=>{const mk=(kind,n)=>Array.from({length:n},(_,k)=>{let u;return{get url(){return u||(u=facade(kind,x.i+1,x.av,k))}}});return{render:mk('render',3),avance:mk('avance',2),terreno:mk('terreno',2)}};
+const demoPh=x=>{const mk=(kind,n)=>Array.from({length:n},(_,k)=>{let u;return{get url(){return u||(u=facade(kind,x.i+1,x.av,k))}}});return{render:[{url:'render.jpg'}],avance:mk('avance',2),terreno:mk('terreno',2)}};
 D.forEach(x=>{x.ph=demoPh(x);x.cv=x.ph.render[0].url});
 const ST={g:['Disponible','var(--ok)'],y:['Últimas unidades','var(--warn)'],r:['Reservado','var(--bad)']};
 const fm=n=>'US$'+n.toLocaleString('es-AR');
