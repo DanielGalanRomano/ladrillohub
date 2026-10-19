@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -223,6 +222,22 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 .rep u{color:var(--mut)}
 .dfoot{display:none}
 
+/* ---------- postulación de vendedores ---------- */
+.sell{margin-top:56px;display:grid;grid-template-columns:1.2fr auto;gap:24px;align-items:center;background:var(--gray);border-radius:24px;padding:clamp(24px,4vw,40px)}
+.sell h2{margin:0 0 6px}
+.sell p{margin:0;color:var(--mut);max-width:56ch}
+#vend{border-radius:24px;width:min(720px,94vw);max-height:94vh;overflow:auto;padding:clamp(20px,4vw,32px);box-shadow:0 12px 48px rgba(0,0,0,.35)}
+#vend h3{margin:0;font-size:24px;font-weight:700}
+#vend .gh{margin-bottom:6px}
+#vend .fg{margin-top:18px}
+#vend .f textarea{width:100%;min-height:96px;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font:400 16px var(--f);resize:vertical}
+#vend .f textarea:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+#vend .f input[type=url]{width:100%;height:52px;padding:0 14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font:400 16px var(--f)}
+#vend .f input[type=url]:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:var(--bad);font-size:14px;margin:0 0 12px}
+@media(max-width:700px){.sell{grid-template-columns:1fr}}
+
 @media(max-width:980px){
  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
  .hd{position:static}
@@ -281,6 +296,7 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
   <div class="hr">
    <a class="pill" href="#comparar">Comparar<i id="hc"></i></a>
    <a class="pill" href="#contacto">Recibir información</a>
+   <button type="button" class="pill" data-vend>Vendé con nosotros</button>
   </div>
  </div>
  <div class="cats" role="group" aria-label="Elegir barrio">
@@ -339,7 +355,37 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 </form>
 <div id="ok" hidden></div>
 </div>
+<section class="sell" id="vender">
+<div>
+<h2>¿Sos inmobiliaria o desarrolladora?</h2>
+<p>Postulate para vender con Ladrillo Hub: publicá tus proyectos y recibí consultas de compradores e inversores con presupuesto y anticipo ya definidos.</p>
+</div>
+<button type="button" class="btn" data-vend>Quiero postularme</button>
+</section>
 </main>
+
+<dialog id="vend" aria-labelledby="vt">
+<div class="gh"><h3 id="vt">Postulate para vender</h3><button type="button" class="btn alt" id="vx">Cerrar</button></div>
+<p class="mut">Completá tus datos y nuestro equipo te contacta para validar tu inmobiliaria y activar tu cuenta.</p>
+<form id="fv" novalidate>
+<div class="fg">
+<label class="f">Tipo<select id="v1" required><option>Inmobiliaria</option><option>Desarrolladora</option><option>Corredor independiente</option></select></label>
+<label class="f">Nombre de la inmobiliaria o empresa<input id="v2" type="text" required autocomplete="organization"></label>
+<label class="f">Tu nombre<input id="v3" type="text" required autocomplete="name"></label>
+<label class="f">WhatsApp<input id="v4" type="tel" required autocomplete="tel"></label>
+<label class="f">Email<input id="v5" type="email" required autocomplete="email"></label>
+<label class="f">Barrio principal<select id="v6"><option>Belgrano</option><option>Núñez</option><option>Olivos</option><option>Otro</option></select></label>
+<label class="f">Propiedades o proyectos a publicar<select id="v7"><option>1 a 3</option><option>4 a 10</option><option>Más de 10</option></select></label>
+<label class="f">Sitio web o Instagram (opcional)<input id="v8" type="url" placeholder="https://"></label>
+</div>
+<label class="f">Contanos qué vendés (opcional)<textarea id="v9"></textarea></label>
+<div class="hp" aria-hidden="true"><label>No completar<input id="vh" type="text" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent" style="margin-top:18px"><input type="checkbox" id="vc" required><span>Acepto que Ladrillo Hub use estos datos para contactarme por esta postulación.</span></label>
+<p class="err" id="ve" hidden></p>
+<button class="btn" type="submit" id="vs">Enviar postulación</button>
+</form>
+<div id="vok" hidden><p><b>¡Listo! Recibimos tu postulación.</b></p><p class="mut">Te escribimos por WhatsApp o email para validar tus datos. Gracias por querer sumarte.</p><button type="button" class="btn alt" id="vx2">Cerrar</button></div>
+</dialog>
 
 <footer><div class="w">Prototipo con datos de ejemplo. Los desarrollos, precios y desarrolladoras son ficticios y no se envía ninguna información.</div></footer>
 
@@ -559,6 +605,28 @@ $('detc').addEventListener('click',e=>{
 });
 $('dx').onclick=()=>$('det').close();
 $('det').addEventListener('click',e=>{if(e.target===$('det')&&outside($('det'),e))$('det').close()});
+
+/* ---------- postulación de vendedores (Google Sheets vía Apps Script) ---------- */
+// Pegá acá la URL de la "aplicación web" de Apps Script (termina en /exec), o definila en config.js como CFG.sheetUrl
+const SELLER_URL=CFG.sheetUrl||'PEGAR_URL_DE_APPS_SCRIPT';
+const vd=$('vend');
+document.querySelectorAll('[data-vend]').forEach(b=>b.onclick=()=>{$('fv').hidden=false;$('vok').hidden=true;$('ve').hidden=true;vd.showModal()});
+$('vx').onclick=$('vx2').onclick=()=>vd.close();
+vd.addEventListener('click',e=>{if(e.target===vd&&outside(vd,e))vd.close()});
+$('fv').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const err=m=>{$('ve').textContent=m;$('ve').hidden=false};
+ if($('vh').value)return; // trampa anti-spam
+ if(!$('fv').checkValidity()){$('fv').reportValidity();return}
+ const btn=$('vs');btn.disabled=true;btn.textContent='Enviando...';
+ const data={tipo:$('v1').value,empresa:$('v2').value.trim(),contacto:$('v3').value.trim(),whatsapp:$('v4').value.trim(),email:$('v5').value.trim(),barrio:$('v6').value,cantidad:$('v7').value,web:$('v8').value.trim(),mensaje:$('v9').value.trim(),consentimiento:'Sí'};
+ try{
+  if(SELLER_URL.startsWith('PEGAR'))await new Promise(r=>setTimeout(r,500)); // modo demo: no envía nada
+  else await fetch(SELLER_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+  $('fv').hidden=true;$('vok').hidden=false;$('fv').reset();
+ }catch(_){err('No pudimos enviar tu postulación. Probá de nuevo en unos minutos.')}
+ btn.disabled=false;btn.textContent='Enviar postulación';
+});
 
 upd();
 if(sb)sb.from('projects').select('*').eq('publicado',true).order('nombre').then(async ({data,error})=>{
