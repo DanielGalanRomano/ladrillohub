@@ -53,7 +53,7 @@ svg{flex:none}
 .sg input::-webkit-outer-spin-button,.sg input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .sg input::placeholder{color:var(--mut)}
 .sg.set select,.sg.set input{color:var(--ink);font-weight:600}
-.sb{align-self:center;width:44px;height:36px;border-radius:50%;border:0;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:4px}
+.sb{align-self:center;width:44px;height:44px;border-radius:50%;border:0;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:4px}
 .sb .bt{display:none}
 .cats{display:flex;gap:34px;overflow-x:auto;padding:14px 0 0;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
@@ -227,22 +227,6 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 .rep u{color:var(--mut)}
 .dfoot{display:none}
 
-/* ---------- postulación de vendedores ---------- */
-.sell{margin-top:56px;display:grid;grid-template-columns:1.2fr auto;gap:24px;align-items:center;background:var(--gray);border-radius:24px;padding:clamp(24px,4vw,40px)}
-.sell h2{margin:0 0 6px}
-.sell p{margin:0;color:var(--mut);max-width:56ch}
-#vend{border-radius:24px;width:min(720px,94vw);max-height:94vh;overflow:auto;padding:clamp(20px,4vw,32px);box-shadow:0 12px 48px rgba(0,0,0,.35)}
-#vend h3{margin:0;font-size:24px;font-weight:700}
-#vend .gh{margin-bottom:6px}
-#vend .fg{margin-top:18px}
-#vend .f textarea{width:100%;min-height:96px;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font:400 16px var(--f);resize:vertical}
-#vend .f textarea:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
-#vend .f input[type=url]{width:100%;height:52px;padding:0 14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font:400 16px var(--f)}
-#vend .f input[type=url]:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.err{color:var(--bad);font-size:14px;margin:0 0 12px}
-@media(max-width:700px){.sell{grid-template-columns:1fr}}
-
 @media(max-width:980px){
  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
  .hd{position:static}
@@ -301,7 +285,6 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
   <div class="hr">
    <a class="pill" href="#comparar">Comparar<i id="hc"></i></a>
    <a class="pill" href="#contacto">Recibir información</a>
-   <button type="button" class="pill" data-vend>Vendé con nosotros</button>
    <button type="button" class="pill gb" id="login"></button>
   </div>
  </div>
@@ -361,37 +344,7 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 </form>
 <div id="ok" hidden></div>
 </div>
-<section class="sell" id="vender">
-<div>
-<h2>¿Sos inmobiliaria o desarrolladora?</h2>
-<p>Postulate para vender con Ladrillo Hub: publicá tus proyectos y recibí consultas de compradores e inversores con presupuesto y anticipo ya definidos.</p>
-</div>
-<button type="button" class="btn" data-vend>Quiero postularme</button>
-</section>
 </main>
-
-<dialog id="vend" aria-labelledby="vt">
-<div class="gh"><h3 id="vt">Postulate para vender</h3><button type="button" class="btn alt" id="vx">Cerrar</button></div>
-<p class="mut">Completá tus datos y nuestro equipo te contacta para validar tu inmobiliaria y activar tu cuenta.</p>
-<form id="fv" novalidate>
-<div class="fg">
-<label class="f">Tipo<select id="v1" required><option>Inmobiliaria</option><option>Desarrolladora</option><option>Corredor independiente</option></select></label>
-<label class="f">Nombre de la inmobiliaria o empresa<input id="v2" type="text" required autocomplete="organization"></label>
-<label class="f">Tu nombre<input id="v3" type="text" required autocomplete="name"></label>
-<label class="f">WhatsApp<input id="v4" type="tel" required autocomplete="tel"></label>
-<label class="f">Email<input id="v5" type="email" required autocomplete="email"></label>
-<label class="f">Barrio principal<select id="v6"><option>Belgrano</option><option>Núñez</option><option>Olivos</option><option>Otro</option></select></label>
-<label class="f">Propiedades o proyectos a publicar<select id="v7"><option>1 a 3</option><option>4 a 10</option><option>Más de 10</option></select></label>
-<label class="f">Sitio web o Instagram (opcional)<input id="v8" type="url" placeholder="https://"></label>
-</div>
-<label class="f">Contanos qué vendés (opcional)<textarea id="v9"></textarea></label>
-<div class="hp" aria-hidden="true"><label>No completar<input id="vh" type="text" tabindex="-1" autocomplete="off"></label></div>
-<label class="consent" style="margin-top:18px"><input type="checkbox" id="vc" required><span>Acepto que Ladrillo Hub use estos datos para contactarme por esta postulación.</span></label>
-<p class="err" id="ve" hidden></p>
-<button class="btn" type="submit" id="vs">Enviar postulación</button>
-</form>
-<div id="vok" hidden><p><b>¡Listo! Recibimos tu postulación.</b></p><p class="mut">Te escribimos por WhatsApp o email para validar tus datos. Gracias por querer sumarte.</p><button type="button" class="btn alt" id="vx2">Cerrar</button></div>
-</dialog>
 
 <footer><div class="w">Prototipo con datos de ejemplo. Los desarrollos, precios y desarrolladoras son ficticios y no se envía ninguna información.</div></footer>
 
@@ -427,92 +380,8 @@ let D=[
 {n:'Libertador 3300',b:'Olivos',d:'Norte Construcciones',a:2,p:245000,m:72,e:'2028',av:15,an:40,c:48,pi:1,co:'Incluida',u:'16/09/2026',s:'g',v:1},
 {n:'Casa Naranjos',b:'Olivos',d:'Sur Proyectos',a:3,p:310000,m:95,e:'2027',av:80,an:35,c:24,pi:1,co:'Incluida',u:'18/09/2026',s:'r',v:1}
 ].map((x,i)=>({...x,i,x:Math.round(x.p/x.m)}));
-/* ---------- imágenes de ejemplo: fachada de edificio tech generada en SVG ---------- */
-const rng=s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
-const PAL=[
- {t:'#0b1026',b:'#3b2a6b',g1:'#1b3a5c',g2:'#2f6f9f',ac:'#22d3ee',lit:'#ffd479'},
- {t:'#0a1a2f',b:'#1f5f7a',g1:'#123a4a',g2:'#2c8aa6',ac:'#5eead4',lit:'#fff1b8'},
- {t:'#1a1033',b:'#7a3b6e',g1:'#2a2a5a',g2:'#5b64b8',ac:'#f472b6',lit:'#ffd9a0'},
- {t:'#0c1b24',b:'#2d5b52',g1:'#173b3a',g2:'#3a8f86',ac:'#a3e635',lit:'#fff0c2'}
-];
-function facade(kind,seed,av,k){
- const R=rng(seed*97+k*13+7),P=PAL[(seed+k)%PAL.length],W=800,H=500,gY=440,day=kind!=='render';
- const cols=7+((seed+k)%3),rows=11+((seed*3+k)%4),w=340,x0=230+(k-1)*40,lobbyH=44,top=40,fh=(gY-lobbyH-top)/rows,cw=w/cols;
- const f1=n=>(+n).toFixed(1);
- let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><defs>`+
- `<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${day?'#8fbbe3':P.t}"/><stop offset="1" stop-color="${day?'#eaf2f9':P.b}"/></linearGradient>`+
- `<linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${P.g2}"/><stop offset="1" stop-color="${P.g1}"/></linearGradient></defs>`+
- `<rect width="${W}" height="${H}" fill="url(#sk)"/>`;
- const rect=(x,y,wd,h,fill,op)=>`<rect x="${f1(x)}" y="${f1(y)}" width="${f1(wd)}" height="${f1(h)}" fill="${fill}"${op!=null?` opacity="${op}"`:''}/>`;
- /* detalles de fondo */
- if(day){for(let i=0;i<4;i++)s+=`<ellipse cx="${f1(80+R()*640)}" cy="${f1(40+R()*90)}" rx="${f1(50+R()*40)}" ry="${f1(12+R()*8)}" fill="#fff" opacity=".6"/>`}
- else{for(let i=0;i<26;i++)s+=`<circle cx="${f1(R()*W)}" cy="${f1(R()*170)}" r="${f1(.6+R()*1.1)}" fill="#fff" opacity="${f1(.3+R()*.6)}"/>`}
- /* edificios vecinos */
- const nbA=day?'#c3cbd2':'#0a0f1f',nbB=day?'#b3bec8':'#0d1327';
- const nb=(x,wd,h,f)=>{let o=rect(x,gY-h,wd,h,f);for(let yy=gY-h+14;yy<gY-20;yy+=22)for(let xx=x+10;xx<x+wd-14;xx+=20)o+=rect(xx,yy,9,11,day?'#8fa1b3':P.lit,day?.55:(R()<.18?.5:.07));return o};
- if(kind==='terreno'){
-  s+=nb(0,250,gY-70,nbA)+nb(550,250,gY-110,nbB);
-  s+=rect(250,260,300,gY-260,'#d6dde3',.85);
-  for(let yy=280;yy<gY-30;yy+=26)for(let xx=266;xx<530;xx+=28)s+=rect(xx,yy,12,14,'#a9b8c6',.7);
-  s+=rect(0,gY,W,H-gY,'#a28b6b');
-  for(let i=0;i<5;i++)s+=`<ellipse cx="${f1(280+R()*260)}" cy="${f1(gY+8+R()*24)}" rx="${f1(30+R()*40)}" ry="${f1(8+R()*8)}" fill="#8b7656" opacity=".8"/>`;
-  s+=rect(220,400,360,78,'#4b7f9a');
-  for(let xx=222;xx<580;xx+=9)s+=rect(xx,400,3,78,'#3a6a83',.55);
-  s+=rect(214,392,372,10,'#2f5970');
-  for(const px of [226,400,574])s+=rect(px,388,8,92,'#2f5970');
-  s+=`<rect x="640" y="${gY-20}" width="10" height="56" fill="#6b4f2d"/><circle cx="645" cy="${gY-34}" r="34" fill="#3C7A57"/><circle cx="662" cy="${gY-14}" r="22" fill="#2f6a49"/>`;
- }else{
-  s+=nb(20,110,150+R()*60,nbA)+nb(120,80,100+R()*50,nbB)+nb(640,90,170+R()*50,nbA)+nb(724,76,120+R()*40,nbB);
-  let tTop=top,nF=rows;
-  if(kind==='avance'){nF=Math.max(3,Math.round(rows*Math.max(av,12)/100));tTop=gY-lobbyH-nF*fh}
-  const gF=kind==='avance'?Math.floor(nF*.55):rows; /* pisos con vidrio */
-  const gTop=gY-lobbyH-gF*fh;
-  /* cuerpo de vidrio */
-  s+=rect(x0,gTop,w,gF*fh+lobbyH,'url(#gl)');
-  for(let r=0;r<gF;r++)for(let c=0;c<cols;c++){const lit=R()<.2;s+=rect(x0+c*cw+2,gTop+r*fh+2,cw-4,fh-4,lit?P.lit:'#fff',lit?f1(.75+R()*.2):f1(.04+R()*.1))}
-  if(kind==='avance'){
-   /* pisos en estructura de hormigón */
-   for(let f=gF;f<nF;f++){const y=gY-lobbyH-(f+1)*fh;
-    s+=rect(x0,y,w,fh,'#1e293b',.12);
-    for(let c=0;c<=cols;c++)s+=rect(x0+c*cw-2,y,4,fh,'#b9c0c7');
-    s+=rect(x0-4,y+fh-5,w+8,5,'#a3abb3')}
-   s+=rect(x0-4,tTop-1,w+8,5,'#a3abb3');
-   s+=rect(x0,tTop,w,Math.min(2,nF-gF)*fh,'#3a7d44',.22);
-  }
-  /* aletas y losas */
-  for(let c=0;c<=cols;c++)s+=rect(x0+c*cw-2,gTop,4,gF*fh,'#05080f',.55);
-  for(let r=0;r<=gF;r++)s+=rect(x0,gTop+r*fh-1.5,w,3,'#05080f',.5);
-  s+=`<polygon points="${f1(x0)},${f1(gTop)} ${f1(x0+w*.45)},${f1(gTop)} ${f1(x0+w*.15)},${f1(gY-lobbyH)} ${f1(x0)},${f1(gY-lobbyH)}" fill="#fff" opacity=".06"/>`;
-  if(kind==='render'){
-   const ac=1+((seed+k)%(cols-1));
-   s+=rect(x0+ac*cw-1.5,gTop,3,gF*fh,P.ac,.9)+rect(x0+ac*cw-5,gTop,10,gF*fh,P.ac,.22);
-   s+=rect(x0-6,top-14,w+12,14,P.ac,.18)+rect(x0-6,top-8,w+12,8,'#0b1220')+rect(x0-6,top-8,w+12,3,P.ac);
-   s+=rect(x0+w*.3,top-24,w*.25,16,'#0b1220')+`<path d="M${f1(x0+w*.8)} ${top-8}V${top-46}" stroke="#0b1220" stroke-width="3"/><circle cx="${f1(x0+w*.8)}" cy="${top-46}" r="3.5" fill="${P.ac}"/>`;
-   /* hall de acceso */
-   s+=rect(x0,gY-lobbyH,w,lobbyH,'#0b1220');
-   for(let c=0;c<cols;c++)s+=rect(x0+c*cw+3,gY-lobbyH+8,cw-6,lobbyH-8,P.lit,c%2?.55:.8);
-   s+=rect(x0-10,gY-lobbyH-2,w+20,5,P.ac,.85);
-   s+=rect(0,gY,W,H-gY,'#05070f')+rect(x0,gY,w,40,'url(#gl)',.25);
-   for(let i=0;i<8;i++)s+=`<circle cx="${f1(40+i*100)}" cy="${gY+14}" r="3" fill="${P.lit}" opacity=".8"/>`;
-  }else{
-   /* planta baja en obra, vallado y grúa */
-   s+=rect(x0,gY-lobbyH,w,lobbyH,'#8a929a');
-   for(let xx=x0-30;xx<x0+w+60;xx+=24)s+=rect(xx,gY-22,24,22,((xx-x0)/24|0)%2?'#e8a317':'#2b3036');
-   s+=rect(0,gY,W,H-gY,'#8b949c');
-   const mx=x0+w+36,jy=Math.max(18,tTop-70);
-   s+=`<g stroke="#e8a317" stroke-width="2.4" fill="none"><path d="M${mx-5} ${jy}V${gY}M${mx+5} ${jy}V${gY}"/><path d="M${mx-5} ${jy}`;
-   for(let yy=jy+18,d=1;yy<gY;yy+=18,d=-d)s+=`L${mx+5*d} ${yy}`;
-   s+=`"/><path d="M${mx-130} ${jy}H${mx+80}" stroke-width="5"/><path d="M${mx-130} ${jy}L${mx} ${jy-34}L${mx+80} ${jy}" stroke-width="1.6"/><path d="M${mx-96} ${jy}V${jy+56}" stroke="#2b3036" stroke-width="1.6"/></g>`;
-   s+=rect(mx-104,jy+54,16,12,'#2b3036')+rect(mx+40,jy+3,26,14,'#555d66')+rect(mx-8,jy-8,16,10,'#e8a317');
-  }
- }
- const lab={render:'Render ilustrativo',avance:'Avance de obra (ilustrativo)',terreno:'Terreno (ilustrativo)'}[kind];
- s+=`<rect x="14" y="${H-38}" width="210" height="24" rx="12" fill="#000" opacity=".45"/><text x="28" y="${H-21}" font-family="sans-serif" font-size="12" fill="#fff">${lab}</text></svg>`;
- return 'data:image/svg+xml,'+encodeURIComponent(s);
-}
-/* las imágenes se generan al pedirlas y se guardan, para no cargar de más al abrir la página */
-const demoPh=x=>{const mk=(kind,n)=>Array.from({length:n},(_,k)=>{let u;return{get url(){return u||(u=facade(kind,x.i+1,x.av,k))}}});return{render:[{url:'render.jpg'}],avance:mk('avance',2),terreno:mk('terreno',2)}};
-D.forEach(x=>{x.ph=demoPh(x);x.cv=x.ph.render[0].url});
+const demoImg=(t,c)=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="800" height="500" fill="${c}"/><text x="400" y="260" font-family="sans-serif" font-size="30" fill="#fff" text-anchor="middle">${t}</text></svg>`);
+D.forEach(x=>{const m=(t,c,n)=>Array.from({length:n},(_,k)=>({url:demoImg(t+' (ejemplo) '+(k+1),c)}));x.ph={render:m('Render','#8a9096',3),avance:m('Avance de obra','#B57A00',2),terreno:m('Terreno','#3C7A57',2)};x.cv=x.ph.render[0].url});
 const ST={g:['Disponible','var(--ok)'],y:['Últimas unidades','var(--warn)'],r:['Reservado','var(--bad)']};
 const fm=n=>'US$'+n.toLocaleString('es-AR');
 const $=id=>document.getElementById(id);
@@ -696,28 +565,6 @@ $('detc').addEventListener('click',e=>{
 $('dx').onclick=()=>$('det').close();
 $('det').addEventListener('click',e=>{if(e.target===$('det')&&outside($('det'),e))$('det').close()});
 
-/* ---------- postulación de vendedores (Google Sheets vía Apps Script) ---------- */
-// Pegá acá la URL de la "aplicación web" de Apps Script (termina en /exec), o definila en config.js como CFG.sheetUrl
-const SELLER_URL=CFG.sheetUrl||'https://script.google.com/macros/s/AKfycbzvyQdQSFvYOvW8lKw0LqjJ1qCnjg_eKBIa_yfeurknSY_-ePikbxJH_i_x0QsJYYHM/exec';
-const vd=$('vend');
-document.querySelectorAll('[data-vend]').forEach(b=>b.onclick=()=>{$('fv').hidden=false;$('vok').hidden=true;$('ve').hidden=true;vd.showModal()});
-$('vx').onclick=$('vx2').onclick=()=>vd.close();
-vd.addEventListener('click',e=>{if(e.target===vd&&outside(vd,e))vd.close()});
-$('fv').addEventListener('submit',async e=>{
- e.preventDefault();
- const err=m=>{$('ve').textContent=m;$('ve').hidden=false};
- if($('vh').value)return; // trampa anti-spam
- if(!$('fv').checkValidity()){$('fv').reportValidity();return}
- const btn=$('vs');btn.disabled=true;btn.textContent='Enviando...';
- const data={tipo:$('v1').value,empresa:$('v2').value.trim(),contacto:$('v3').value.trim(),whatsapp:$('v4').value.trim(),email:$('v5').value.trim(),barrio:$('v6').value,cantidad:$('v7').value,web:$('v8').value.trim(),mensaje:$('v9').value.trim(),consentimiento:'Sí'};
- try{
-  if(SELLER_URL.startsWith('PEGAR'))await new Promise(r=>setTimeout(r,500)); // modo demo: no envía nada
-  else await fetch(SELLER_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
-  $('fv').hidden=true;$('vok').hidden=false;$('fv').reset();
- }catch(_){err('No pudimos enviar tu postulación. Probá de nuevo en unos minutos.')}
- btn.disabled=false;btn.textContent='Enviar postulación';
-});
-
 /* ---------- ingreso con Google (Supabase Auth) ---------- */
 const G_ICON='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
 let user=null;
@@ -752,8 +599,7 @@ if(sb)sb.from('projects').select('*').eq('publicado',true).order('nombre').then(
  D=data.map((r,i)=>({id:r.id,i,n:esc(r.nombre),b:esc(r.barrio),d:esc(r.desarrolladora),a:r.ambientes,p:+r.precio,m:+r.m2,e:esc(r.entrega),av:r.avance,an:r.anticipo,c:r.cuotas,pi:r.pileta?1:0,co:esc(r.cochera),u:new Date(r.updated_at).toLocaleDateString('es-AR'),s:r.stock,v:r.verificado?1:0,x:Math.round(r.precio/r.m2)}));
  const {data:fs}=await sb.from('project_photos').select('*').order('orden').order('created_at');
  (fs||[]).forEach(f=>{const p=D.find(z=>z.id===f.project_id);if(p){p.ph=p.ph||{};(p.ph[f.tipo]=p.ph[f.tipo]||[]).push({url:f.url,fecha:f.created_at})}});
- D.forEach(x=>{x.ph=x.ph||{};if(!(x.ph.render||[]).length)x.ph.render=demoPh(x).render.slice(0,1); /* sin fotos cargadas: render ilustrativo */
-  const c=x.ph.render[0];x.cv=esc(c.url)});
+ D.forEach(x=>{x.ph=x.ph||{};const c=(x.ph.render||[])[0];x.cv=c?esc(c.url):''});
  sel=[];renderRace();upd();
  document.querySelector('footer .w').textContent='Información cargada por cada desarrolladora y revisada por Ladrillo Hub.';
 });
