@@ -608,7 +608,7 @@ $('det').addEventListener('click',e=>{if(e.target===$('det')&&outside($('det'),e
 
 /* ---------- postulación de vendedores (Google Sheets vía Apps Script) ---------- */
 // Pegá acá la URL de la "aplicación web" de Apps Script (termina en /exec), o definila en config.js como CFG.sheetUrl
-const SELLER_URL=CFG.sheetUrl||'PEGAR_URL_DE_APPS_SCRIPT';
+const SELLER_URL=CFG.sheetUrl||'https://script.google.com/macros/s/AKfycbzvyQdQSFvYOvW8lKw0LqjJ1qCnjg_eKBIa_yfeurknSY_-ePikbxJH_i_x0QsJYYHM/exec';
 const vd=$('vend');
 document.querySelectorAll('[data-vend]').forEach(b=>b.onclick=()=>{$('fv').hidden=false;$('vok').hidden=true;$('ve').hidden=true;vd.showModal()});
 $('vx').onclick=$('vx2').onclick=()=>vd.close();
