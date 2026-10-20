@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,11 +38,6 @@ svg{flex:none}
 .pill:hover{background:var(--soft)}
 .pill i{font-style:normal;background:#222;color:#fff;border-radius:999px;min-width:20px;height:20px;padding:0 6px;display:inline-grid;place-items:center;font-size:12px}
 .pill i:empty{display:none}
-.pill svg{width:18px;height:18px}
-.pill.gb{border-color:var(--line2)}
-.pill.gb:hover{border-color:var(--ink)}
-.pill .ua{width:26px;height:26px;border-radius:50%;object-fit:cover;background:var(--gray)}
-.pill .mut{font-size:13px;font-weight:500}
 .sp{display:flex;align-items:stretch;background:var(--card);border:1px solid var(--line);border-radius:999px;box-shadow:0 3px 10px rgba(0,0,0,.08);padding:0 8px 0 0;min-width:0}
 .sg{display:flex;flex-direction:column;justify-content:center;padding:10px 24px;border-radius:999px;position:relative;cursor:pointer;min-width:0}
 .sg+.sg::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:1px;background:var(--line)}
@@ -259,7 +255,7 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
  .grid{grid-template-columns:1fr}
  h2{margin-top:36px}
  .dt{font-size:24px}
- .hr .pill:first-child,.hr .pill:nth-child(2){display:none}
+ .hr .pill:first-child{display:none}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:active,.rsv:active{transform:none}}
 </style>
@@ -285,7 +281,6 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
   <div class="hr">
    <a class="pill" href="#comparar">Comparar<i id="hc"></i></a>
    <a class="pill" href="#contacto">Recibir información</a>
-   <button type="button" class="pill gb" id="login"></button>
   </div>
  </div>
  <div class="cats" role="group" aria-label="Elegir barrio">
@@ -564,34 +559,6 @@ $('detc').addEventListener('click',e=>{
 });
 $('dx').onclick=()=>$('det').close();
 $('det').addEventListener('click',e=>{if(e.target===$('det')&&outside($('det'),e))$('det').close()});
-
-/* ---------- ingreso con Google (Supabase Auth) ---------- */
-const G_ICON='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
-let user=null;
-function paintUser(){
- const b=$('login');
- if(user){
-  const m=user.user_metadata||{},full=m.full_name||m.name||'',nm=full||user.email||'Mi cuenta',pic=m.avatar_url||m.picture;
-  b.innerHTML=(pic?`<img class="ua" src="${esc(pic)}" alt="" referrerpolicy="no-referrer">`:'')+`<span>${esc(String(nm).split(' ')[0])}</span><span class="mut">Salir</span>`;
-  b.setAttribute('aria-label','Cerrar sesión de '+nm);
-  if(!$('n1').value)$('n1').value=full;
-  if(!$('n3').value)$('n3').value=user.email||'';
- }else{
-  b.innerHTML=G_ICON+'<span>Ingresar con Google</span>';
-  b.setAttribute('aria-label','Ingresar con Google');
- }
-}
-$('login').onclick=async()=>{
- if(!sb){alert('Para activar el ingreso con Google hay que conectar Supabase en config.js y habilitar el proveedor Google en Authentication > Providers.');return}
- if(user){await sb.auth.signOut();return}
- const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});
- if(error)alert('No pudimos iniciar sesión con Google. Probá de nuevo en unos minutos.');
-};
-if(sb){
- sb.auth.getSession().then(({data})=>{user=(data&&data.session)?data.session.user:null;paintUser()});
- sb.auth.onAuthStateChange((_e,ses)=>{user=ses?ses.user:null;paintUser()});
-}
-paintUser();
 
 upd();
 if(sb)sb.from('projects').select('*').eq('publicado',true).order('nombre').then(async ({data,error})=>{
