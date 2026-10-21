@@ -228,7 +228,7 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
   <h2>Tipo de venta</h2>
   <p class="hint">Es importante que el comprador sepa desde el principio cómo se concreta la operación.</p>
   <div class="rcs" role="radiogroup">
-   <label class="rc"><input type="radio" name="tipoVenta" value="Escritura directa" required><b>Escritura directa</b><span>Tenés la escritura a tu nombre y vendés con traspaso de dominio.</span></label>
+   <label class="rc"><input type="radio" name="tipoVenta" value="Escritura directa"><b>Escritura directa</b><span>Tenés la escritura a tu nombre y vendés con traspaso de dominio.</span></label>
    <label class="rc"><input type="radio" name="tipoVenta" value="Cesión de derechos"><b>Cesión de derechos</b><span>Cedés tu boleto o derechos sobre una unidad (por ejemplo, en pozo o en obra).</span></label>
   </div>
 
@@ -263,17 +263,17 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
   <h2>La propiedad</h2>
   <p class="hint">Lo básico que se ve primero en tu aviso.</p>
   <div class="fg">
-   <label class="f">Tipo de propiedad <span class="req">*</span><select name="tipo" required><option value="">Elegí…</option><option>Departamento</option><option>PH</option><option>Casa</option><option>Local</option><option>Otro</option></select></label>
-   <label class="f">Barrio <span class="req">*</span><input type="text" name="barrio" required placeholder="Ej. Palermo" autocomplete="off"></label>
+   <label class="f">Tipo de propiedad<select name="tipo"><option value="">Elegí…</option><option>Departamento</option><option>PH</option><option>Casa</option><option>Local</option><option>Otro</option></select></label>
+   <label class="f">Barrio<input type="text" name="barrio" placeholder="Ej. Palermo" autocomplete="off"></label>
   </div>
   <div class="fg one">
-   <label class="f">Título del aviso <span class="req">*</span><input type="text" name="titulo" required maxlength="90" placeholder="Ej. 3 ambientes en penúltimo piso con balcón corrido"></label>
-   <label class="f">Bajada corta <span class="req">*</span><small>Una o dos frases que resuman lo mejor de la propiedad.</small><textarea name="bajada" required maxlength="260" placeholder="Muy luminoso, tranquilo y con balcón corrido al frente…"></textarea></label>
+   <label class="f">Título del aviso<input type="text" name="titulo" maxlength="90" placeholder="Ej. 3 ambientes en penúltimo piso con balcón corrido"></label>
+   <label class="f">Bajada corta<small>Una o dos frases que resuman lo mejor de la propiedad.</small><textarea name="bajada" maxlength="260" placeholder="Muy luminoso, tranquilo y con balcón corrido al frente…"></textarea></label>
   </div>
   <div class="fg">
-   <label class="f">Ubicación que se muestra <span class="req">*</span><small>Calle e intersección o zona. No hace falta la altura.</small><input type="text" name="zona" required placeholder="Ej. Salguero y Güemes"></label>
+   <label class="f">Ubicación que se muestra<small>Calle e intersección o zona. No hace falta la altura.</small><input type="text" name="zona" placeholder="Ej. Salguero y Güemes"></label>
    <label class="f">Dirección exacta (privada)<small>No se publica. La usamos para verificar.</small><input type="text" name="direccion" placeholder="Calle, número, piso y depto" autocomplete="street-address"></label>
-   <label class="f">Precio de publicación (USD) <span class="req">*</span><input type="number" name="precio" required min="1" step="500" inputmode="numeric" placeholder="169000"></label>
+   <label class="f">Precio de publicación (USD) <span class="req">*</span><input type="number" name="precio" required min="1" step="any" inputmode="numeric" placeholder="169000"></label>
   </div>
  </fieldset>
 
@@ -282,14 +282,14 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
   <h2>Superficie y características</h2>
   <p class="hint">Son los datos que se muestran como cifras destacadas en el aviso.</p>
   <div class="fg">
-   <label class="f">Superficie total (m²) <span class="req">*</span><input type="number" name="m2total" required min="1" step="0.01" inputmode="decimal" placeholder="63"></label>
-   <label class="f">Superficie cubierta (m²) <span class="req">*</span><input type="number" name="m2cub" required min="1" step="0.01" inputmode="decimal" placeholder="54,5"></label>
+   <label class="f">Superficie total (m²) <span class="req">*</span><input type="number" name="m2total" required min="1" step="any" inputmode="decimal" placeholder="63"></label>
+   <label class="f">Superficie cubierta (m²) <span class="req">*</span><input type="number" name="m2cub" required min="1" step="any" inputmode="decimal" placeholder="54,5"></label>
    <label class="f">Balcón / terraza (m²)<input type="number" name="m2balcon" min="0" step="0.01" inputmode="decimal" placeholder="8,5"></label>
    <label class="f">Tipo de balcón<select name="balconTipo"><option value="">No tiene / no aplica</option><option>Balcón</option><option>Balcón corrido</option><option>Terraza</option><option>Patio</option></select></label>
   </div>
   <div class="fg">
-   <label class="f">Ambientes <span class="req">*</span><select name="ambientes" required><option value="">Elegí…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6 o más</option></select></label>
-   <label class="f">Dormitorios <span class="req">*</span><select name="dormitorios" required><option value="">Elegí…</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5 o más</option></select></label>
+   <label class="f">Ambientes<select name="ambientes"><option value="">Elegí…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6 o más</option></select></label>
+   <label class="f">Dormitorios<select name="dormitorios"><option value="">Elegí…</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5 o más</option></select></label>
    <label class="f">Baños<select name="banos"><option value="">Elegí…</option><option>1</option><option>2</option><option>3</option><option>4 o más</option></select></label>
    <label class="f">Piso<input type="text" name="piso" placeholder="Ej. Penúltimo piso"></label>
   </div>
@@ -362,7 +362,7 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
   <h2>Descripción de la propiedad</h2>
   <p class="hint">Contala como se la contarías a alguien que viene a verla.</p>
   <div class="fg one">
-   <label class="f">Sobre el departamento <span class="req">*</span><textarea name="descripcion" required style="min-height:170px" placeholder="3 ambientes en penúltimo piso, al frente, sobre la esquina de…"></textarea></label>
+   <label class="f">Sobre el departamento<textarea name="descripcion" style="min-height:170px" placeholder="3 ambientes en penúltimo piso, al frente, sobre la esquina de…"></textarea></label>
   </div>
  </fieldset>
 
@@ -457,6 +457,7 @@ const CFG = {
   supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuanp0a3N3Y2llcG9wdHR4bXFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU2MzIsImV4cCI6MjEwODE2MTYzMn0.dL4y4RSRdWF2DY4acO1viCPl2dnTsiCXzL54imizPeM"             // Supabase → Project Settings → API → anon public key
 };
 /* ==================================================================== */
+
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -576,13 +577,12 @@ drop.addEventListener("drop", e => addFiles(e.dataTransfer.files));
 function updateProgress() {
   const names = new Set();
   $$("[required]", fm).forEach(el => names.add(el.name));
-  let done = 0, total = names.size + 1;
+  let done = 0, total = names.size;
   names.forEach(n => {
     const els = $$('[name="' + n + '"]', fm);
     const ok = els.some(e => (e.type === "radio" || e.type === "checkbox") ? e.checked : e.value.trim());
     if (ok) done++;
   });
-  if (photos.length) done++;
   const pct = Math.round(done / total * 100);
   ["bar", "bar2"].forEach(id => $("#" + id).style.width = pct + "%");
   ["pct", "pct2"].forEach(id => $("#" + id).textContent = pct + "%");
@@ -680,13 +680,11 @@ fm.addEventListener("submit", async e => {
   if (!fm.checkValidity()) {
     const bad = $$(":invalid", fm).find(el => !el.disabled);
     fm.reportValidity();
-    err.textContent = "Faltan datos obligatorios. Revisá los campos marcados.";
+    const lab = el => ((el.closest("label.consent,label.f") || {}).textContent || el.name).replace(/\*/g, "").trim().split("\n")[0].slice(0, 60);
+    const miss = [...new Set($$(":invalid", fm).map(lab))];
+    err.textContent = "Falta completar: " + miss.join(", ") + ".";
     if (bad) bad.scrollIntoView({ block: "center", behavior: "smooth" });
     return;
-  }
-  if (!photos.length) {
-    err.textContent = "Cargá al menos una foto de la propiedad.";
-    $("#s-fotos").scrollIntoView({ behavior: "smooth" }); return;
   }
   const d = collect(), text = summary(d), btn = $("#send");
   let ref = "LH-" + Date.now().toString(36).toUpperCase(), sent = false;
