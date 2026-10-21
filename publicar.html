@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publicá tu propiedad · Dueño Directo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--f:Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--bg:#fff;--card:#fff;--ink:#222;--mut:#6a6a6a;--line:#ddd;--line2:#8a8a8a;--soft:#f7f7f7;--gray:#f2f2f2;
+--grad:linear-gradient(to right,#e61e4d 0%,#e31c5f 50%,#d70466 100%);
+--ok:#1a8b4a;--bad:#c13515;
+--sh:0 6px 16px rgba(0,0,0,.12);--sh2:0 0 0 1px rgba(0,0,0,.04),0 2px 6px rgba(0,0,0,.06),0 10px 28px rgba(0,0,0,.12);
+color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+svg{flex:none}
+.w{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+/* encabezado */
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.hw{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;white-space:nowrap;text-decoration:none;color:#e31c5f;font:800 20px/1 var(--f);letter-spacing:-.02em}
+.logo svg{width:32px;height:32px}
+.logo span{color:var(--ink)}
+.logo span b{color:#e31c5f;font-weight:800}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid transparent;background:transparent;color:var(--ink);font:600 14px var(--f);text-decoration:none;cursor:pointer}
+.pill:hover{background:var(--soft)}
+.pill.waP{background:#1fa855;color:#fff}
+.pill.waP:hover{background:#188a45}
+.hr{display:flex;gap:8px}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border:0;border-radius:999px;background:var(--grad);color:#fff;font:600 16px var(--f);cursor:pointer;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn.ghost:hover{background:var(--soft)}
+.btn.wa{background:#1fa855}
+.btn.wa:hover{background:#188a45}
+.btn.sm{height:40px;padding:0 18px;font-size:14px}
+.btn.full{width:100%}
+.wa-ic{width:20px;height:20px;fill:currentColor}
+
+/* título */
+.top{padding:36px 0 8px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--mut);font:600 14px var(--f);text-decoration:none;margin-bottom:14px}
+.back:hover{color:var(--ink)}
+h1{font-size:clamp(30px,4.6vw,44px);line-height:1.08;margin:0 0 8px;font-weight:800;letter-spacing:-.03em}
+.lead{color:var(--mut);font-size:17px;margin:0;max-width:62ch}
+
+/* layout */
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(24px,4vw,56px);align-items:start;margin-top:24px}
+form{counter-reset:sec;display:grid;gap:20px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.4vw,32px);margin:0;min-width:0}
+.box>h2{counter-increment:sec;display:flex;align-items:center;gap:12px;margin:0 0 4px;font:700 22px/1.2 var(--f);letter-spacing:-.01em}
+.box>h2::before{content:counter(sec);display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;font:700 15px var(--f)}
+.hint{color:var(--mut);font-size:14.5px;margin:0 0 20px}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px}
+.fg.one{grid-template-columns:1fr}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+label.f small{font-weight:400;color:var(--mut);font-size:12.5px}
+.f select,.f input[type=text],.f input[type=number],.f input[type=email],.f input[type=tel],.f input[type=date],.f textarea{width:100%;height:52px;padding:0 14px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);font:400 16px var(--f)}
+.f textarea{height:auto;min-height:110px;padding:12px 14px;resize:vertical;line-height:1.45}
+.f select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:40px}
+.f select:focus,.f input:focus,.f textarea:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.f input:user-invalid,.f select:user-invalid,.f textarea:user-invalid{border-color:var(--bad)}
+.req{color:#e31c5f}
+.lbl{font-size:13px;font-weight:600;margin:4px 0 8px;display:block}
+.sep{height:1px;background:var(--line);margin:22px 0}
+.sub3{font:700 16px var(--f);margin:0 0 4px}
+
+/* tarjetas de opción */
+.rcs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.rc{position:relative;display:flex;flex-direction:column;gap:4px;border:1px solid var(--line2);border-radius:20px;padding:18px 20px;cursor:pointer;background:var(--card)}
+.rc:hover{border-color:var(--ink)}
+.rc input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.rc b{font:700 17px var(--f)}
+.rc span{color:var(--mut);font-size:14px}
+.rc:has(input:checked){border:2px solid var(--ink);background:var(--soft);padding:17px 19px}
+.rc:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+.cond{margin-top:20px;padding:20px;background:var(--gray);border-radius:20px}
+.cond .f input,.cond .f select{background:#fff}
+.cond>.sub3{margin-bottom:14px}
+
+/* chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.chip{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:500 14px var(--f);cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chk{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:500 14px var(--f);cursor:pointer;background:var(--card)}
+.chk input{accent-color:#e31c5f;width:16px;height:16px;margin:0}
+.chk:has(input:checked){border-color:var(--ink);background:var(--soft)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;margin:0 0 14px;cursor:pointer}
+.consent input{width:20px;height:20px;margin:1px 0 0;accent-color:#e31c5f;flex:none}
+
+/* repetidores */
+.rp{display:grid;gap:10px;margin-bottom:12px}
+.row{display:grid;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
+.row input,.row textarea,.row select{width:100%;height:46px;padding:0 12px;border:1px solid var(--line2);border-radius:10px;background:#fff;font:400 15px var(--f)}
+.row textarea{height:46px;padding:10px 12px;resize:vertical;min-height:46px}
+.row input:focus,.row textarea:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.row .rm{width:36px;height:36px;border-radius:50%;border:1px solid var(--line2);background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.row .rm:hover{border-color:var(--ink);background:var(--soft)}
+.row.c-pf{grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr) 36px}
+.row.c-con{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 110px 36px}
+.row.c-amb{grid-template-columns:minmax(0,1.4fr) 90px 90px 92px 36px}
+.row .m2{font:700 15px var(--f);text-align:right;white-space:nowrap}
+.addb{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;border:1px dashed var(--line2);background:#fff;font:600 14px var(--f);cursor:pointer}
+.addb:hover{border-color:var(--ink);background:var(--soft)}
+.tot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;padding:14px 18px;border-radius:16px;background:var(--gray);font-size:15px}
+.tot b{font-weight:700}
+.colh{display:grid;gap:10px;padding:0 12px;font:600 12px var(--f);color:var(--mut);margin-bottom:-4px}
+.colh.c-amb{grid-template-columns:minmax(0,1.4fr) 90px 90px 92px 36px}
+
+/* fotos */
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:30px 20px;border:2px dashed var(--line2);border-radius:20px;background:var(--soft);cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--ink);background:var(--gray)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.drop b{font:600 16px var(--f)}
+.drop span{color:var(--mut);font-size:14px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:16px}
+.ph{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}
+.ph .im{position:relative;aspect-ratio:4/3;background:var(--gray)}
+.ph .im img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .cov{position:absolute;left:10px;top:10px;background:var(--card);border-radius:999px;padding:4px 10px;font:600 12px var(--f);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.ph .x{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.96);box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer;display:grid;place-items:center}
+.ph .cp{padding:10px}
+.ph .cp input{width:100%;height:40px;border:1px solid var(--line2);border-radius:10px;padding:0 10px;font:400 14px var(--f)}
+.ph .cp input:focus{outline:0;border-color:var(--ink)}
+.ph .mv{display:flex;gap:6px;margin-top:8px}
+.ph .mv button{flex:1;height:32px;border:1px solid var(--line);border-radius:999px;background:var(--card);font:600 12px var(--f);cursor:pointer}
+.ph .mv button:hover:not(:disabled){border-color:var(--ink)}
+.ph .mv button:disabled{opacity:.4;cursor:default}
+.pn{font-size:14px;color:var(--mut);margin-top:12px}
+.pn.err{color:var(--bad);font-weight:600}
+
+/* panel lateral */
+.dr{position:sticky;top:84px;display:grid;gap:16px}
+.bk{background:var(--card);border-radius:24px;box-shadow:var(--sh2);padding:24px}
+.bk .pr{font:800 34px/1.1 var(--f);letter-spacing:-.03em}
+.bk .pr span{font:600 15px var(--f);color:var(--mut);letter-spacing:0}
+.bk ul{list-style:none;margin:14px 0 18px;padding:0;display:grid;gap:8px;font-size:14.5px}
+.bk li{display:flex;gap:8px;align-items:flex-start}
+.bk li svg{color:var(--ok);margin-top:2px}
+.prog{height:6px;background:var(--gray);border-radius:3px;overflow:hidden;margin:6px 0 4px}
+.prog b{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .3s}
+.pl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-top:4px}
+.note{font-size:13px;color:var(--mut);margin:12px 0 0;text-align:center}
+.nav{background:var(--soft);border-radius:20px;padding:16px 18px;font-size:14px}
+.nav b{display:block;margin-bottom:8px}
+.nav a{display:block;padding:4px 0;color:var(--mut);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.mbar{display:none}
+
+/* resultado */
+#ok{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,40px);box-shadow:var(--sh2)}
+#ok h2{margin:0 0 8px;font:800 28px/1.15 var(--f);letter-spacing:-.02em}
+#ok p{color:var(--mut);margin:0 0 14px}
+#ok .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+#ok pre{white-space:pre-wrap;word-break:break-word;background:var(--gray);border-radius:16px;padding:16px;font:400 13px/1.5 var(--f);max-height:280px;overflow:auto;margin:14px 0 0}
+.okic{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--grad);color:#fff;margin-bottom:16px}
+
+footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+
+@media(max-width:980px){
+ .lay{grid-template-columns:1fr}
+ .dr{position:static;order:-1}
+ .dr .nav{display:none}
+ .mbar{display:flex;position:sticky;bottom:0;z-index:15;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-top:1px solid var(--line);padding:12px clamp(16px,4vw,48px)}
+ .mbar .prog{flex:1;margin:0}
+ .mbar .btn{height:44px;padding:0 20px;font-size:15px}
+ footer{padding-bottom:30px}
+}
+@media(max-width:640px){
+ .hr .pill:not(.waP){display:none}
+ .rcs{grid-template-columns:1fr}
+ .row.c-pf{grid-template-columns:1fr 36px}
+ .row.c-pf>:nth-child(2){grid-column:1/2}
+ .row.c-con{grid-template-columns:1fr 1fr 36px}
+ .row.c-con>:nth-child(2){grid-column:1/3;grid-row:2}
+ .row.c-con>:nth-child(3){grid-row:1}
+ .row.c-con>.rm{grid-column:3;grid-row:1}
+ .row.c-amb{grid-template-columns:1fr 1fr 1fr}
+ .row.c-amb>:first-child{grid-column:1/4}
+ .row.c-amb .m2{grid-column:1/3;text-align:left}
+ .row.c-amb>.rm{grid-column:3;justify-self:end}
+ .colh{display:none}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:active{transform:none}.prog b{transition:none}}
+</style>
+</head>
+<body>
+<header class="hd" id="top">
+<div class="w"><div class="hw">
+ <a class="logo" href="index.html" aria-label="Dueño Directo, inicio">
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 15L16 4l12 11"/><path d="M7 13v14h18V13"/><path d="M13 27v-8h6v8"/></svg>
+  <span>Dueño<b>Directo</b></span>
+ </a>
+ <div class="hr">
+  <a class="pill" href="landing_dueno_directo.html">Volver</a>
+  <a class="pill waP" data-wa="Hola, necesito ayuda para cargar mi propiedad en Dueño Directo." target="_blank" rel="noopener">Ayuda por WhatsApp</a>
+ </div>
+</div></div>
+</header>
+
+<main class="w">
+<div class="top">
+ <a class="back" href="landing_dueno_directo.html"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Volver</a>
+ <h1>Cargá tu propiedad</h1>
+ <p class="lead">Completá la ficha con todos los datos que quieras mostrar. Cuanto más completa, más confianza genera en quien la mira. Después de revisar y pagar, tu aviso queda online 15 días.</p>
+</div>
+
+<div class="lay">
+<form id="fm" novalidate>
+
+ <!-- 1. TIPO DE VENTA -->
+ <fieldset class="box" id="s-tipo">
+  <h2>Tipo de venta</h2>
+  <p class="hint">Es importante que el comprador sepa desde el principio cómo se concreta la operación.</p>
+  <div class="rcs" role="radiogroup">
+   <label class="rc"><input type="radio" name="tipoVenta" value="Escritura directa" required><b>Escritura directa</b><span>Tenés la escritura a tu nombre y vendés con traspaso de dominio.</span></label>
+   <label class="rc"><input type="radio" name="tipoVenta" value="Cesión de derechos"><b>Cesión de derechos</b><span>Cedés tu boleto o derechos sobre una unidad (por ejemplo, en pozo o en obra).</span></label>
+  </div>
+
+  <div class="cond" data-for="Escritura directa" hidden>
+   <div class="sub3">Datos de la escritura</div>
+   <div class="fg">
+    <label class="f">Ocupación<select name="e_ocupacion"><option value="">Elegí…</option><option>Desocupado</option><option>Ocupado por el propietario</option><option>Alquilado</option></select></label>
+    <label class="f">Hipoteca<select name="e_hipoteca"><option value="">Elegí…</option><option>Sin hipoteca</option><option>Con hipoteca, se cancela con la venta</option><option>Con hipoteca, se transfiere al comprador</option></select></label>
+    <label class="f">Escribanía<select name="e_escribania"><option value="">Elegí…</option><option>A elección del comprador</option><option>Propia del vendedor</option><option>A convenir</option></select></label>
+    <label class="f">Disponibilidad de la escritura<select name="e_disp"><option value="">Elegí…</option><option>Inmediata</option><option>Requiere trámites previos</option></select></label>
+   </div>
+   <span class="chk-wrap"><label class="chk"><input type="checkbox" name="e_credito" value="Sí"> Apta crédito hipotecario</label></span>
+  </div>
+
+  <div class="cond" data-for="Cesión de derechos" hidden>
+   <div class="sub3">Datos de la cesión</div>
+   <div class="fg">
+    <label class="f">Desarrolladora / fideicomiso<input type="text" name="c_desarrolladora" placeholder="Ej. Constructora X S.A."></label>
+    <label class="f">Estado de la obra<select name="c_obra"><option value="">Elegí…</option><option>En pozo</option><option>En construcción</option><option>Terminada, pendiente de escrituración</option></select></label>
+    <label class="f">Posesión estimada<input type="text" name="c_posesion" placeholder="Ej. Diciembre 2027"></label>
+    <label class="f">Monto abonado a la fecha (USD)<input type="number" name="c_abonado" min="0" step="100" inputmode="numeric"></label>
+    <label class="f">Saldo pendiente (USD)<input type="number" name="c_saldo" min="0" step="100" inputmode="numeric"></label>
+    <label class="f">Cuotas pendientes<input type="text" name="c_cuotas" placeholder="Ej. 24 cuotas de USD 1.200"></label>
+    <label class="f">¿La desarrolladora autoriza la cesión?<select name="c_autoriza"><option value="">Elegí…</option><option>Sí</option><option>En trámite</option><option>No lo sé todavía</option></select></label>
+    <label class="f">Gastos de cesión a cargo de<select name="c_gastos"><option value="">Elegí…</option><option>Vendedor</option><option>Comprador</option><option>A convenir</option></select></label>
+   </div>
+  </div>
+ </fieldset>
+
+ <!-- 2. LA PROPIEDAD -->
+ <fieldset class="box" id="s-prop">
+  <h2>La propiedad</h2>
+  <p class="hint">Lo básico que se ve primero en tu aviso.</p>
+  <div class="fg">
+   <label class="f">Tipo de propiedad <span class="req">*</span><select name="tipo" required><option value="">Elegí…</option><option>Departamento</option><option>PH</option><option>Casa</option><option>Local</option><option>Otro</option></select></label>
+   <label class="f">Barrio <span class="req">*</span><input type="text" name="barrio" required placeholder="Ej. Palermo" autocomplete="off"></label>
+  </div>
+  <div class="fg one">
+   <label class="f">Título del aviso <span class="req">*</span><input type="text" name="titulo" required maxlength="90" placeholder="Ej. 3 ambientes en penúltimo piso con balcón corrido"></label>
+   <label class="f">Bajada corta <span class="req">*</span><small>Una o dos frases que resuman lo mejor de la propiedad.</small><textarea name="bajada" required maxlength="260" placeholder="Muy luminoso, tranquilo y con balcón corrido al frente…"></textarea></label>
+  </div>
+  <div class="fg">
+   <label class="f">Ubicación que se muestra <span class="req">*</span><small>Calle e intersección o zona. No hace falta la altura.</small><input type="text" name="zona" required placeholder="Ej. Salguero y Güemes"></label>
+   <label class="f">Dirección exacta (privada)<small>No se publica. La usamos para verificar.</small><input type="text" name="direccion" placeholder="Calle, número, piso y depto" autocomplete="street-address"></label>
+   <label class="f">Precio de publicación (USD) <span class="req">*</span><input type="number" name="precio" required min="1" step="500" inputmode="numeric" placeholder="169000"></label>
+  </div>
+ </fieldset>
+
+ <!-- 3. SUPERFICIES Y CARACTERÍSTICAS -->
+ <fieldset class="box" id="s-sup">
+  <h2>Superficie y características</h2>
+  <p class="hint">Son los datos que se muestran como cifras destacadas en el aviso.</p>
+  <div class="fg">
+   <label class="f">Superficie total (m²) <span class="req">*</span><input type="number" name="m2total" required min="1" step="0.01" inputmode="decimal" placeholder="63"></label>
+   <label class="f">Superficie cubierta (m²) <span class="req">*</span><input type="number" name="m2cub" required min="1" step="0.01" inputmode="decimal" placeholder="54,5"></label>
+   <label class="f">Balcón / terraza (m²)<input type="number" name="m2balcon" min="0" step="0.01" inputmode="decimal" placeholder="8,5"></label>
+   <label class="f">Tipo de balcón<select name="balconTipo"><option value="">No tiene / no aplica</option><option>Balcón</option><option>Balcón corrido</option><option>Terraza</option><option>Patio</option></select></label>
+  </div>
+  <div class="fg">
+   <label class="f">Ambientes <span class="req">*</span><select name="ambientes" required><option value="">Elegí…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6 o más</option></select></label>
+   <label class="f">Dormitorios <span class="req">*</span><select name="dormitorios" required><option value="">Elegí…</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5 o más</option></select></label>
+   <label class="f">Baños<select name="banos"><option value="">Elegí…</option><option>1</option><option>2</option><option>3</option><option>4 o más</option></select></label>
+   <label class="f">Piso<input type="text" name="piso" placeholder="Ej. Penúltimo piso"></label>
+  </div>
+  <div class="fg">
+   <label class="f">Posición<select name="posicion"><option value="">Elegí…</option><option>Frente</option><option>Contrafrente</option><option>Lateral</option><option>Interno</option></select></label>
+   <label class="f">Orientación<select name="orientacion"><option value="">Elegí…</option><option>Norte</option><option>Sur</option><option>Este</option><option>Oeste</option><option>Noreste</option><option>Noroeste</option><option>Sureste</option><option>Suroeste</option></select></label>
+   <label class="f">Antigüedad (años)<input type="number" name="antiguedad" min="0" inputmode="numeric" placeholder="A estrenar = 0"></label>
+   <label class="f">Expensas aprox. (ARS por mes)<input type="number" name="expensas" min="0" step="1000" inputmode="numeric" placeholder="250000"></label>
+  </div>
+  <div class="fg">
+   <label class="f">Cochera<select name="cochera"><option value="">No tiene</option><option>1 cochera</option><option>2 cocheras</option><option>Cochera opcional</option></select></label>
+   <label class="f">Baulera<select name="baulera"><option value="">No tiene</option><option>Sí</option></select></label>
+   <label class="f">Estado general<select name="estado"><option value="">Elegí…</option><option>A estrenar</option><option>Excelente</option><option>Muy bueno</option><option>Bueno</option><option>A reciclar</option></select></label>
+  </div>
+  <div class="fg one">
+   <label class="f">Detalle del estado<small>Qué se renovó, qué falta, retoques previos a la venta.</small><input type="text" name="estadoDetalle" placeholder="Ej. Baño nuevo, sin reciclado integral, con retoques de pre-venta"></label>
+   <label class="f">Convivencia / vecinos<small>Qué tan silencioso es, quién vive arriba, etc.</small><input type="text" name="convivencia" placeholder="Ej. Muy tranquila. Arriba vive una pareja de adultos mayores"></label>
+  </div>
+ </fieldset>
+
+ <!-- 4. FOTOS -->
+ <fieldset class="box" id="s-fotos">
+  <h2>Galería de fotos</h2>
+  <p class="hint">Subí todas las que tengas. La primera es la portada. Escribí un epígrafe en cada una (por ejemplo, “Dormitorio principal”).</p>
+  <label class="drop" id="drop">
+   <input type="file" id="files" accept="image/*" multiple>
+   <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="1.6"/><path d="M21 16l-5-4.5L8 19"/></svg>
+   <b>Tocá para elegir fotos o arrastralas acá</b>
+   <span>JPG o PNG · hasta 20 fotos · máximo 10 MB cada una</span>
+  </label>
+  <div class="pn" id="pn" role="status"></div>
+  <div class="photos" id="photos"></div>
+  <div class="fg one" style="margin-top:16px">
+   <label class="f">Nota sobre las fotos<small>Opcional. Por ejemplo, si están retocadas o si hay algo que no refleja el estado real.</small><input type="text" name="notaFotos" placeholder="Ej. Fotos con corrección suave de luz y contraste"></label>
+  </div>
+ </fieldset>
+
+ <!-- 5. PUNTOS FUERTES -->
+ <fieldset class="box" id="s-fuertes">
+  <h2>Puntos fuertes</h2>
+  <p class="hint">Lo que hace especial a tu propiedad. Cada uno lleva un título corto y una explicación.</p>
+  <div class="chips" data-sug="pf"></div>
+  <div class="rp" id="rp-pf"></div>
+  <button type="button" class="addb" data-add="pf">+ Agregar punto fuerte</button>
+ </fieldset>
+
+ <!-- 6. EDIFICIO -->
+ <fieldset class="box" id="s-edif">
+  <h2>El edificio</h2>
+  <div class="fg">
+   <label class="f">Unidades en el edificio<input type="number" name="unidades" min="1" inputmode="numeric" placeholder="18"></label>
+   <label class="f">Ascensores<select name="ascensores"><option value="">Elegí…</option><option>Sin ascensor</option><option>1</option><option>2</option><option>3 o más</option></select></label>
+   <label class="f">Encargado<select name="encargado"><option value="">Elegí…</option><option>Sin encargado</option><option>Con encargado</option><option>Encargado part-time</option></select></label>
+   <label class="f">Seguridad<input type="text" name="seguridad" placeholder="Ej. Puerta Pentágono"></label>
+  </div>
+  <span class="lbl">Amenities</span>
+  <div class="chips">
+   <label class="chk"><input type="checkbox" name="amen" value="SUM"> SUM</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Pileta"> Pileta</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Parrilla"> Parrilla</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Terraza común"> Terraza común</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Gimnasio"> Gimnasio</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Laundry"> Laundry</label>
+   <label class="chk"><input type="checkbox" name="amen" value="Seguridad 24 hs"> Seguridad 24 hs</label>
+  </div>
+ </fieldset>
+
+ <!-- 7. DESCRIPCIÓN -->
+ <fieldset class="box" id="s-desc">
+  <h2>Descripción de la propiedad</h2>
+  <p class="hint">Contala como se la contarías a alguien que viene a verla.</p>
+  <div class="fg one">
+   <label class="f">Sobre el departamento <span class="req">*</span><textarea name="descripcion" required style="min-height:170px" placeholder="3 ambientes en penúltimo piso, al frente, sobre la esquina de…"></textarea></label>
+  </div>
+ </fieldset>
+
+ <!-- 8. IDEAL PARA -->
+ <fieldset class="box" id="s-ideal">
+  <h2>Ideal para</h2>
+  <p class="hint">Perfiles de personas a quienes les puede servir, y por qué.</p>
+  <div class="chips" data-sug="ideal"></div>
+  <div class="rp" id="rp-ideal"></div>
+  <button type="button" class="addb" data-add="ideal">+ Agregar perfil</button>
+  <div class="sep"></div>
+  <div class="sub3">Se adapta a cada etapa</div>
+  <p class="hint">Usos posibles y ventajas prácticas (por ejemplo, “Un dormitorio, mil usos” o “Expensas bajas”).</p>
+  <div class="rp" id="rp-etapa"></div>
+  <button type="button" class="addb" data-add="etapa">+ Agregar ítem</button>
+ </fieldset>
+
+ <!-- 9. CONECTIVIDAD -->
+ <fieldset class="box" id="s-conect">
+  <h2>Conectividad y vida de barrio</h2>
+  <p class="hint">Transporte, espacios verdes, comercios. Podés indicar la distancia en cuadras o minutos.</p>
+  <div class="chips" data-sug="con"></div>
+  <div class="rp" id="rp-con"></div>
+  <button type="button" class="addb" data-add="con">+ Agregar lugar</button>
+ </fieldset>
+
+ <!-- 10. SUPERFICIES POR AMBIENTE -->
+ <fieldset class="box" id="s-amb">
+  <h2>Superficie por ambiente</h2>
+  <p class="hint">Ancho × largo de cada ambiente. La superficie se calcula sola.</p>
+  <div class="chips" data-sug="amb"></div>
+  <div class="colh c-amb"><span>Ambiente</span><span>Ancho (m)</span><span>Largo (m)</span><span style="text-align:right">m²</span><span></span></div>
+  <div class="rp" id="rp-amb"></div>
+  <button type="button" class="addb" data-add="amb">+ Agregar ambiente</button>
+  <div class="tot"><span>Suma de ambientes: <b id="tAmb">0,00 m²</b></span><span id="tCmp" style="color:var(--mut)"></span></div>
+  <div class="fg one" style="margin-top:16px">
+   <label class="f">Aclaración<small>Opcional. Por ejemplo, si algún mueble está incluido en la superficie de un ambiente.</small><input type="text" name="notaAmb" placeholder="Ej. El mueble empotrado del dormitorio principal está incluido y no se suma de nuevo"></label>
+  </div>
+ </fieldset>
+
+ <!-- 11. CONTACTO -->
+ <fieldset class="box" id="s-contacto">
+  <h2>Tus datos de contacto</h2>
+  <p class="hint">Los interesados te escriben por WhatsApp. Tu mail y apellido no se muestran en el aviso.</p>
+  <div class="fg">
+   <label class="f">Nombre y apellido <span class="req">*</span><input type="text" name="nombre" required autocomplete="name"></label>
+   <label class="f">WhatsApp <span class="req">*</span><input type="tel" name="whatsapp" required autocomplete="tel" inputmode="tel" placeholder="11 1234 5678"></label>
+   <label class="f">Email <span class="req">*</span><input type="email" name="email" required autocomplete="email"></label>
+   <label class="f">Horario para visitas<input type="text" name="horario" placeholder="Ej. Lunes a viernes después de las 18"></label>
+  </div>
+  <label class="consent"><input type="checkbox" name="propietario" required><span>Declaro que soy propietario/a, o que estoy autorizado/a por el propietario, para ofrecer esta propiedad en venta. <span class="req">*</span></span></label>
+  <label class="consent"><input type="checkbox" name="consent" required><span>Acepto que Dueño Directo publique los datos y fotos que cargué y los use para gestionar mi aviso. <span class="req">*</span></span></label>
+  <div id="err" class="pn err" role="alert"></div>
+  <button class="btn full" type="submit" id="send">Revisar y enviar mi aviso</button>
+  <p class="note">Tu aviso se activa una vez acreditado el pago de $5.000.</p>
+ </fieldset>
+
+ <section id="ok" hidden aria-live="polite"></section>
+</form>
+
+<aside class="dr">
+ <div class="bk">
+  <div class="pr">$5.000 <span>por 15 días</span></div>
+  <ul>
+   <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Página propia con galería y ficha completa</li>
+   <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Botón de WhatsApp directo</li>
+   <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Online después del pago</li>
+  </ul>
+  <div class="pl"><span>Ficha completada</span><span id="pct">0%</span></div>
+  <div class="prog"><b id="bar"></b></div>
+  <p class="note" id="draftNote" style="text-align:left"></p>
+ </div>
+ <nav class="nav" aria-label="Secciones">
+  <b>Secciones</b>
+  <a href="#s-tipo">Tipo de venta</a><a href="#s-prop">La propiedad</a><a href="#s-sup">Superficie y características</a><a href="#s-fotos">Fotos</a><a href="#s-fuertes">Puntos fuertes</a><a href="#s-edif">El edificio</a><a href="#s-desc">Descripción</a><a href="#s-ideal">Ideal para</a><a href="#s-conect">Conectividad</a><a href="#s-amb">Ambientes</a><a href="#s-contacto">Contacto</a>
+ </nav>
+</aside>
+</div>
+</main>
+
+<div class="mbar"><div style="flex:1"><div class="pl" style="margin:0"><span>Completado</span><span id="pct2">0%</span></div><div class="prog"><b id="bar2"></b></div></div><a class="btn" href="#s-contacto">Enviar</a></div>
+
+<footer><div class="w">Dueño Directo · Portal de propiedades en venta entre particulares. La publicación no garantiza una venta. Los datos se usan solo para gestionar tu aviso.</div></footer>
+
+<script>
+/* ============ CONFIGURACIÓN: completar antes de publicar ============ */
+const CFG = {
+  whatsapp: "5491100000000",  // número con código de país, sin + ni espacios
+  endpoint: "",               // URL que recibe el formulario por POST (multipart). Ej. tu backend o un servicio de formularios
+  paymentUrl: ""              // link de pago (Mercado Pago, etc.). Puede incluir ?ref= que se agrega solo
+};
+/* ==================================================================== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const waLink = t => "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(t);
+$$("[data-wa]").forEach(a => a.href = waLink(a.dataset.wa));
+const X = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fm = $("#fm");
+
+/* ---------- tipo de venta: bloques condicionales ---------- */
+function syncVenta() {
+  const v = (fm.querySelector('[name="tipoVenta"]:checked') || {}).value;
+  $$(".cond").forEach(c => {
+    const on = c.dataset.for === v;
+    c.hidden = !on;
+    $$("input,select", c).forEach(i => i.disabled = !on);
+  });
+}
+fm.addEventListener("change", e => { if (e.target.name === "tipoVenta") syncVenta(); });
+
+/* ---------- repetidores ---------- */
+const REP = {
+  pf: { cls: "c-pf", min: 1,
+    fields: [["t", "Título (ej. Muy luminoso)", "input"], ["d", "Explicación", "input"]],
+    sug: [["Muy luminoso","Ambientes con muy buena entrada de luz natural."],["Muy silencioso","Solo se perciben los ruidos propios de la calle."],["Balcón","Con vista abierta y espacio al aire libre."],["Baño nuevo","La obra principal del baño ya está resuelta."],["Seguridad","Acceso reforzado y edificio con buen control."],["Ubicación estratégica","Acceso rápido a avenidas y transporte."],["Expensas bajas","Bajas para la zona y la superficie."]] },
+  ideal: { cls: "c-pf", min: 0,
+    fields: [["t", "Perfil (ej. Pareja con hijos)", "input"], ["d", "Por qué le conviene", "input"]],
+    sug: [["Pareja con hijos",""],["Parejas de adultos mayores",""],["Parejas solas",""],["Inversor",""],["Persona sola",""]] },
+  etapa: { cls: "c-pf", min: 0,
+    fields: [["t", "Título (ej. Un dormitorio, mil usos)", "input"], ["d", "Descripción", "input"]], sug: [] },
+  con: { cls: "c-con", min: 0,
+    fields: [["t", "Lugar (ej. Colectivos)", "input"], ["d", "Detalle", "input"], ["x", "Distancia", "input"]],
+    sug: [["Colectivos","","2 cuadras"],["Subte / tren","",""],["Parque o plaza","",""],["Supermercados","",""],["Vida nocturna","",""],["Colegios","",""]] },
+  amb: { cls: "c-amb", min: 0, fields: [], sug: [["Living"],["Cocina"],["Dormitorio principal"],["Dormitorio secundario"],["Baño"],["Pasillo"],["Balcón"],["Semiliving de ingreso"]] }
+};
+
+function addRow(key, vals = {}) {
+  const cfg = REP[key], box = $("#rp-" + key), row = document.createElement("div");
+  row.className = "row " + cfg.cls; row.dataset.k = key;
+  if (key === "amb") {
+    row.innerHTML = `<input data-f="t" placeholder="Ambiente" value="${esc(vals.t || "")}"><input data-f="a" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ancho" value="${esc(vals.a || "")}"><input data-f="l" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Largo" value="${esc(vals.l || "")}"><div class="m2">—</div><button type="button" class="rm" aria-label="Quitar">${X}</button>`;
+  } else {
+    row.innerHTML = cfg.fields.map(([f, ph]) => `<input data-f="${f}" placeholder="${esc(ph)}" value="${esc(vals[f] || "")}">`).join("") + `<button type="button" class="rm" aria-label="Quitar">${X}</button>`;
+  }
+  box.appendChild(row);
+  calcAmb(); updateProgress(); return row;
+}
+$$("[data-add]").forEach(b => b.addEventListener("click", () => { const r = addRow(b.dataset.add); r.querySelector("input").focus(); }));
+document.addEventListener("click", e => {
+  const rm = e.target.closest(".rm");
+  if (rm && rm.closest(".row")) { rm.closest(".row").remove(); calcAmb(); updateProgress(); saveDraft(); }
+});
+$$(".chips[data-sug]").forEach(c => {
+  const key = c.dataset.sug;
+  REP[key].sug.forEach(s => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = "+ " + s[0];
+    b.onclick = () => {
+      const empty = $$("#rp-" + key + " .row").find(r => $$("input", r).every(i => !i.value));
+      if (empty) empty.remove();
+      addRow(key, key === "amb" ? { t: s[0] } : { t: s[0], d: s[1] || "", x: s[2] || "" });
+      saveDraft();
+    };
+    c.appendChild(b);
+  });
+});
+
+/* ---------- superficies por ambiente ---------- */
+const nf = n => n.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function calcAmb() {
+  let sum = 0;
+  $$("#rp-amb .row").forEach(r => {
+    const a = parseFloat($('[data-f="a"]', r).value), l = parseFloat($('[data-f="l"]', r).value);
+    const m = a > 0 && l > 0 ? a * l : 0; sum += m;
+    $(".m2", r).textContent = m ? nf(m) + " m²" : "—";
+  });
+  $("#tAmb").textContent = nf(sum) + " m²";
+  const tot = parseFloat(fm.m2total.value);
+  $("#tCmp").textContent = tot ? "Superficie total cargada: " + nf(tot) + " m²" : "";
+}
+
+/* ---------- fotos ---------- */
+let photos = [];
+const MAX = 20, MAXB = 10 * 1024 * 1024;
+function addFiles(list) {
+  const msgs = [];
+  [...list].forEach(f => {
+    if (!f.type.startsWith("image/")) { msgs.push(f.name + ": no es una imagen."); return; }
+    if (f.size > MAXB) { msgs.push(f.name + ": supera los 10 MB."); return; }
+    if (photos.length >= MAX) { msgs.push("Máximo " + MAX + " fotos."); return; }
+    photos.push({ file: f, url: URL.createObjectURL(f), cap: "" });
+  });
+  const pn = $("#pn"); pn.className = msgs.length ? "pn err" : "pn"; pn.textContent = msgs[0] || "";
+  renderPhotos();
+}
+function renderPhotos() {
+  const box = $("#photos"); box.innerHTML = "";
+  photos.forEach((p, i) => {
+    const d = document.createElement("div"); d.className = "ph";
+    d.innerHTML = `<div class="im"><img src="${p.url}" alt="">${i === 0 ? '<span class="cov">Portada</span>' : ""}<button type="button" class="x" aria-label="Quitar foto">${X}</button></div><div class="cp"><input type="text" placeholder="Epígrafe (ej. Cocina)" value="${esc(p.cap)}" aria-label="Epígrafe de la foto ${i + 1}"><div class="mv"><button type="button" data-m="-1" ${i === 0 ? "disabled" : ""}>← Antes</button><button type="button" data-m="1" ${i === photos.length - 1 ? "disabled" : ""}>Después →</button></div></div>`;
+    $(".x", d).onclick = () => { URL.revokeObjectURL(p.url); photos.splice(i, 1); renderPhotos(); };
+    $("input", d).oninput = e => p.cap = e.target.value;
+    $$(".mv button", d).forEach(b => b.onclick = () => { const j = i + +b.dataset.m; [photos[i], photos[j]] = [photos[j], photos[i]]; renderPhotos(); });
+    box.appendChild(d);
+  });
+  if (photos.length) { $("#pn").className = "pn"; $("#pn").textContent = photos.length + " foto" + (photos.length > 1 ? "s" : "") + " cargada" + (photos.length > 1 ? "s" : "") + ". La primera es la portada."; }
+  updateProgress();
+}
+$("#files").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
+const drop = $("#drop");
+["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => addFiles(e.dataTransfer.files));
+
+/* ---------- progreso ---------- */
+function updateProgress() {
+  const names = new Set();
+  $$("[required]", fm).forEach(el => names.add(el.name));
+  let done = 0, total = names.size + 1;
+  names.forEach(n => {
+    const els = $$('[name="' + n + '"]', fm);
+    const ok = els.some(e => (e.type === "radio" || e.type === "checkbox") ? e.checked : e.value.trim());
+    if (ok) done++;
+  });
+  if (photos.length) done++;
+  const pct = Math.round(done / total * 100);
+  ["bar", "bar2"].forEach(id => $("#" + id).style.width = pct + "%");
+  ["pct", "pct2"].forEach(id => $("#" + id).textContent = pct + "%");
+}
+
+/* ---------- borrador local (sin fotos) ---------- */
+const DKEY = "dd_borrador_v1";
+function collect() {
+  const d = {};
+  $$("input,select,textarea", fm).forEach(el => {
+    if (!el.name || el.type === "file" || el.closest(".row")) return;
+    if (el.type === "radio") { if (el.checked) d[el.name] = el.value; }
+    else if (el.type === "checkbox") { (d[el.name] = d[el.name] || []); if (el.checked) d[el.name].push(el.value); }
+    else d[el.name] = el.value;
+  });
+  Object.keys(REP).forEach(k => {
+    d["rep_" + k] = $$("#rp-" + k + " .row").map(r => { const o = {}; $$("[data-f]", r).forEach(i => o[i.dataset.f] = i.value.trim()); return o; })
+      .filter(o => Object.values(o).some(v => v));
+  });
+  return d;
+}
+function saveDraft() {
+  try { localStorage.setItem(DKEY, JSON.stringify(collect())); $("#draftNote").textContent = "Guardamos tu avance en este dispositivo (las fotos no)."; } catch (e) {}
+}
+function loadDraft() {
+  let d; try { d = JSON.parse(localStorage.getItem(DKEY) || "null"); } catch (e) {}
+  if (!d) return false;
+  Object.entries(d).forEach(([k, v]) => {
+    if (k.startsWith("rep_")) { (v || []).forEach(o => addRow(k.slice(4), o)); return; }
+    const els = $$('[name="' + k + '"]', fm);
+    els.forEach(el => {
+      if (el.type === "radio") el.checked = el.value === v;
+      else if (el.type === "checkbox") el.checked = (v || []).includes(el.value);
+      else el.value = v;
+    });
+  });
+  return true;
+}
+fm.addEventListener("input", e => { if (e.target.closest(".row") || e.target.name === "m2total") calcAmb(); updateProgress(); saveDraft(); });
+fm.addEventListener("change", () => { updateProgress(); saveDraft(); });
+
+/* ---------- resumen y envío ---------- */
+function summary(d) {
+  const L = [], add = (k, v) => { if (v && String(v).trim()) L.push(k + ": " + v); };
+  const usd = n => n ? "USD " + Number(n).toLocaleString("es-AR") : "";
+  L.push("NUEVA PROPIEDAD PARA PUBLICAR");
+  add("Tipo de venta", d.tipoVenta); add("Tipo", d.tipo); add("Título", d.titulo); add("Barrio", d.barrio);
+  add("Ubicación pública", d.zona); add("Dirección exacta", d.direccion); add("Precio", usd(d.precio));
+  add("Bajada", d.bajada);
+  L.push("");
+  add("Sup. total", d.m2total && d.m2total + " m²"); add("Sup. cubierta", d.m2cub && d.m2cub + " m²");
+  add(d.balconTipo || "Balcón", d.m2balcon && d.m2balcon + " m²");
+  add("Ambientes", d.ambientes); add("Dormitorios", d.dormitorios); add("Baños", d.banos); add("Piso", d.piso);
+  add("Posición", d.posicion); add("Orientación", d.orientacion); add("Antigüedad", d.antiguedad && d.antiguedad + " años");
+  add("Expensas", d.expensas && "$" + Number(d.expensas).toLocaleString("es-AR")); add("Cochera", d.cochera); add("Baulera", d.baulera);
+  add("Estado", [d.estado, d.estadoDetalle].filter(Boolean).join(" · ")); add("Convivencia", d.convivencia);
+  if (d.tipoVenta === "Escritura directa") {
+    L.push(""); add("Ocupación", d.e_ocupacion); add("Hipoteca", d.e_hipoteca); add("Escribanía", d.e_escribania);
+    add("Escritura", d.e_disp); add("Apta crédito", (d.e_credito || []).length ? "Sí" : "");
+  } else if (d.tipoVenta === "Cesión de derechos") {
+    L.push(""); add("Desarrolladora", d.c_desarrolladora); add("Obra", d.c_obra); add("Posesión", d.c_posesion);
+    add("Abonado", usd(d.c_abonado)); add("Saldo", usd(d.c_saldo)); add("Cuotas pendientes", d.c_cuotas);
+    add("Autoriza la cesión", d.c_autoriza); add("Gastos de cesión", d.c_gastos);
+  }
+  L.push("");
+  add("Edificio", [d.unidades && d.unidades + " unidades", d.ascensores && "ascensores: " + d.ascensores, d.encargado, d.seguridad].filter(Boolean).join(" · "));
+  add("Amenities", (d.amen || []).join(", "));
+  const rep = (t, a, f) => { if (a.length) { L.push(""); L.push(t.toUpperCase()); a.forEach(o => L.push("- " + f(o))); } };
+  rep("Puntos fuertes", d.rep_pf, o => [o.t, o.d].filter(Boolean).join(": "));
+  add("Descripción", d.descripcion);
+  rep("Ideal para", d.rep_ideal, o => [o.t, o.d].filter(Boolean).join(": "));
+  rep("Se adapta a cada etapa", d.rep_etapa, o => [o.t, o.d].filter(Boolean).join(": "));
+  rep("Conectividad", d.rep_con, o => [o.t, o.d, o.x].filter(Boolean).join(" · "));
+  rep("Superficie por ambiente", d.rep_amb, o => o.t + (o.a && o.l ? " " + o.a + " × " + o.l + " m = " + nf(o.a * o.l) + " m²" : ""));
+  add("Aclaración ambientes", d.notaAmb);
+  L.push(""); add("Fotos", photos.length + (photos.length ? " (" + photos.map((p, i) => (i + 1) + "." + (p.cap || "sin epígrafe")).join("; ") + ")" : ""));
+  add("Nota sobre fotos", d.notaFotos);
+  L.push(""); add("Contacto", d.nombre); add("WhatsApp", d.whatsapp); add("Email", d.email); add("Horario de visitas", d.horario);
+  return L.join("\n");
+}
+
+fm.addEventListener("submit", async e => {
+  e.preventDefault();
+  const err = $("#err"); err.textContent = "";
+  if (!fm.checkValidity()) {
+    const bad = $$(":invalid", fm).find(el => !el.disabled);
+    fm.reportValidity();
+    err.textContent = "Faltan datos obligatorios. Revisá los campos marcados.";
+    if (bad) bad.scrollIntoView({ block: "center", behavior: "smooth" });
+    return;
+  }
+  if (!photos.length) {
+    err.textContent = "Cargá al menos una foto de la propiedad.";
+    $("#s-fotos").scrollIntoView({ behavior: "smooth" }); return;
+  }
+  const d = collect(), text = summary(d), btn = $("#send");
+  const ref = "DD-" + Date.now().toString(36).toUpperCase();
+  let sent = false;
+  if (CFG.endpoint) {
+    btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      const fd = new FormData();
+      fd.append("ref", ref); fd.append("data", JSON.stringify(d)); fd.append("resumen", text);
+      photos.forEach((p, i) => { fd.append("fotos", p.file, p.file.name); fd.append("epigrafe_" + i, p.cap); });
+      const r = await fetch(CFG.endpoint, { method: "POST", body: fd });
+      if (!r.ok) throw new Error(r.status);
+      sent = true;
+    } catch (x) {
+      err.textContent = "No pudimos enviar el formulario. Probá de nuevo o mandalo por WhatsApp.";
+    }
+    btn.disabled = false; btn.textContent = "Revisar y enviar mi aviso";
+  }
+  showOk(ref, text, sent);
+});
+
+function showOk(ref, text, sent) {
+  const ok = $("#ok");
+  const pay = CFG.paymentUrl ? CFG.paymentUrl + (CFG.paymentUrl.includes("?") ? "&" : "?") + "ref=" + ref : "";
+  ok.innerHTML = `<div class="okic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h2>${sent ? "¡Recibimos tu ficha!" : "Tu ficha está lista"}</h2>
+  <p>Código de tu aviso: <b>${ref}</b>.
+  ${sent ? "La vamos a revisar y te escribimos por WhatsApp para coordinar el pago. Una vez acreditado, tu aviso queda online 15 días."
+         : "Enviala por WhatsApp para que la revisemos. Las fotos mandalas en el mismo chat, en orden y con su epígrafe."}</p>
+  <div class="acts">
+   ${pay ? `<a class="btn" href="${esc(pay)}">Pagar $5.000</a>` : ""}
+   ${sent ? "" : `<a class="btn wa" target="_blank" rel="noopener" href="${waLink(text + "\n\nCódigo: " + ref)}">Enviar ficha por WhatsApp</a>`}
+   <button type="button" class="btn ghost" id="cp">Copiar resumen</button>
+   <button type="button" class="btn ghost" id="ed">Seguir editando</button>
+  </div>
+  <pre>${esc(text)}</pre>`;
+  ok.hidden = false; ok.scrollIntoView({ behavior: "smooth" });
+  $("#cp").onclick = async e => { try { await navigator.clipboard.writeText(text); e.target.textContent = "¡Copiado!"; } catch (x) { e.target.textContent = "No se pudo copiar"; } };
+  $("#ed").onclick = () => { ok.hidden = true; $("#s-tipo").scrollIntoView({ behavior: "smooth" }); };
+}
+
+/* ---------- inicio ---------- */
+if (!loadDraft()) { addRow("pf"); }
+if (!$$("#rp-amb .row").length) { /* vacío hasta que el usuario agregue */ }
+syncVenta(); calcAmb(); updateProgress();
+if (location.hash === "#cesion") { const r = $('[name="tipoVenta"][value="Cesión de derechos"]'); r.checked = true; syncVenta(); }
+</script>
+</body>
+</html>
