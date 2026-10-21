@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Propiedad · Ladrillo Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--f:Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--bg:#fff;--card:#fff;--ink:#222;--mut:#6a6a6a;--line:#ddd;--line2:#8a8a8a;--soft:#f7f7f7;--gray:#f2f2f2;--grad:linear-gradient(to right,#e61e4d,#e31c5f 50%,#d70466);--sh2:0 0 0 1px rgba(0,0,0,.04),0 2px 6px rgba(0,0,0,.06),0 10px 28px rgba(0,0,0,.12);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
+*,*:before,*:after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit}button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.w{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.hw{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#e31c5f;font:800 20px/1 var(--f);letter-spacing:-.02em;white-space:nowrap}
+.logo svg{width:32px;height:32px}.logo span{color:var(--ink)}.logo span b{color:#e31c5f}
+.hr{display:flex;gap:8px}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;height:42px;padding:0 16px;border-radius:999px;font:600 14px var(--f);text-decoration:none}
+.pill:hover{background:var(--soft)}.pill.waP{background:#1fa855;color:#fff}.pill.waP:hover{background:#188a45}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 24px;border:0;border-radius:999px;background:var(--grad);color:#fff;font:600 16px var(--f);cursor:pointer;text-decoration:none}
+.btn.wa{background:#1fa855}.btn.wa:hover{background:#188a45}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}.btn.ghost:hover{background:var(--soft)}.btn.sm{height:40px;padding:0 18px;font-size:14px}.btn.full{width:100%}
+.wa-ic{width:20px;height:20px;fill:currentColor}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--mut);font:600 14px var(--f);text-decoration:none;margin:24px 0 14px}.back:hover{color:var(--ink)}
+.th{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.12;margin:0 0 6px;font-weight:800;letter-spacing:-.03em}
+.sub{color:var(--mut);margin:0}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{background:var(--gray);border-radius:999px;padding:4px 12px;font:600 13px var(--f)}
+/* galería */
+.gal{position:relative;display:grid;gap:8px;border-radius:24px;overflow:hidden;aspect-ratio:2.1/1;background:var(--gray)}
+.gal.g1{grid-template-columns:1fr}.gal.g2{grid-template-columns:1fr 1fr}
+.gal.g3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}.gal.g3 .gi:first-child{grid-row:1/3}
+.gal.g5{grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr}.gal.g5 .gi:first-child{grid-row:1/3}
+.gi{position:relative;display:block;border:0;padding:0;margin:0;background:var(--gray);cursor:pointer;overflow:hidden;min-height:0}
+.gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gi:hover img{filter:brightness(.92)}
+.allp{position:absolute;right:16px;bottom:16px;height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--ink);background:#fff;font:600 14px var(--f);cursor:pointer}
+.allp:hover{background:var(--soft)}
+.nophoto{display:grid;place-items:center;color:var(--mut);aspect-ratio:2.1/1;border-radius:24px;background:var(--gray)}
+/* layout */
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:clamp(24px,4vw,64px);align-items:start;margin-top:28px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.fa{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.fa b{display:block;font:800 20px/1.2 var(--f);letter-spacing:-.02em}
+.fa span{color:var(--mut);font-size:13px}
+.sec{padding:28px 0;border-top:1px solid var(--line);margin-top:28px}
+.sec:first-of-type{border-top:0;margin-top:0}
+.sec h2{font:700 22px/1.2 var(--f);letter-spacing:-.01em;margin:0 0 14px}
+.sec p{margin:0 0 12px;max-width:70ch;white-space:pre-line}
+.bajada{font-size:18px;color:var(--ink);margin:24px 0 0;max-width:62ch}
+.pfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pf{border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.pf b{display:block;font:700 16px var(--f);margin-bottom:2px}
+.pf span{color:var(--mut);font-size:14.5px}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 32px;margin:0}
+.dl div{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.dl dt{color:var(--mut)}.dl dd{margin:0;font-weight:600;text-align:right}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:500 14px var(--f);background:var(--soft)}
+.lst{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lst li{padding:12px 16px;background:var(--soft);border-radius:16px}
+.lst li b{display:block}.lst li span{color:var(--mut);font-size:14.5px}
+.lst li i{font:600 13px var(--f);font-style:normal;float:right;margin-left:12px;background:#fff;border-radius:999px;padding:2px 10px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:10px 0;border-bottom:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:600;font-size:13px}
+td:nth-child(n+2),th:nth-child(n+2){text-align:right}
+tfoot td{font-weight:700;border-bottom:0}
+.note{font-size:14px;color:var(--mut);margin-top:12px}
+/* panel */
+.dr{position:sticky;top:84px}
+.bk{background:var(--card);border-radius:24px;box-shadow:var(--sh2);padding:24px;display:grid;gap:14px}
+.pr{font:800 34px/1.1 var(--f);letter-spacing:-.03em}
+.pr small{display:block;font:500 14px var(--f);color:var(--mut);letter-spacing:0;margin-top:4px}
+.cd{display:grid;gap:6px}.cdl{font:600 13px var(--f)}.cdb{display:block;height:6px;border-radius:999px;background:var(--gray);overflow:hidden}.cdb i{display:block;height:100%;border-radius:999px}
+.ref{font-size:13px;color:var(--mut);text-align:center;margin:0}
+.msg{text-align:center;padding:64px 16px;color:var(--mut)}.msg h1{color:var(--ink);font-size:28px}
+.mbar{display:none}
+footer{margin-top:64px;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+/* visor */
+dialog#lb{border:0;padding:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:#111;color:#fff}
+dialog#lb::backdrop{background:#111}
+.lbw{display:grid;grid-template-rows:auto 1fr auto;height:100%}
+.lbt{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font:600 14px var(--f)}
+.lbi{position:relative;display:grid;place-items:center;min-height:0;padding:0 56px}
+.lbi img{max-width:100%;max-height:100%;object-fit:contain}
+.lbc{padding:14px 18px 20px;text-align:center;font-size:15px;min-height:56px}
+.lbb{border:0;background:rgba(255,255,255,.14);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:20px}
+.lbb:hover{background:rgba(255,255,255,.28)}
+.lbi .lbb{position:absolute;top:50%;transform:translateY(-50%)}.lbi .pv{left:8px}.lbi .nx{right:8px}
+@media(max-width:980px){
+ .lay{grid-template-columns:1fr}.dr{display:none}
+ .mbar{display:flex;position:sticky;bottom:0;z-index:15;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-top:1px solid var(--line);padding:12px clamp(16px,4vw,48px);padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+ .mbar .mp{font:800 20px/1.1 var(--f);letter-spacing:-.02em}.mbar .mp small{display:block;font:500 12px var(--f);color:var(--mut)}
+ .mbar .btn{height:46px;padding:0 20px;font-size:15px}
+}
+@media(max-width:700px){
+ .hr .pill:not(.waP){display:none}
+ .gal,.gal.g2,.gal.g3,.gal.g5{grid-template-columns:1fr;grid-template-rows:none;aspect-ratio:4/3;border-radius:20px}
+ .gal .gi{display:none}.gal .gi:first-child{display:block;grid-row:auto}
+ .lbi{padding:0 8px}
+}
+</style>
+</head>
+<body>
+<header class="hd"><div class="w"><div class="hw">
+ <a class="logo" href="index.html" aria-label="Ladrillo Hub, inicio">
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="2"/><path d="M3 13h26M3 19h26M11 7v6M21 7v6M16 13v6M8 19v6M24 19v6"/></svg>
+  <span>Ladrillo<b>Hub</b></span></a>
+ <div class="hr">
+  <a class="pill" href="propiedades.html">Ver propiedades</a>
+  <a class="pill" href="publicar.html">Publicar mi propiedad</a>
+  <a class="pill waP" data-wa="Hola, quiero hacer una consulta sobre Ladrillo Hub." target="_blank" rel="noopener">WhatsApp</a>
+ </div>
+</div></div></header>
+
+<main class="w" id="app"><div class="msg">Cargando propiedad…</div></main>
+<div class="mbar" id="mbar" hidden></div>
+<footer><div class="w">Ladrillo Hub · Portal de propiedades en venta entre particulares. La publicación no garantiza una venta. Verificá siempre la documentación antes de señar.</div></footer>
+
+<dialog id="lb" aria-label="Galería de fotos"><div class="lbw">
+ <div class="lbt"><span id="lbn"></span><button class="lbb" id="lbx" aria-label="Cerrar">✕</button></div>
+ <div class="lbi"><button class="lbb pv" id="lbp" aria-label="Foto anterior">‹</button><img id="lbim" alt=""><button class="lbb nx" id="lbnx" aria-label="Foto siguiente">›</button></div>
+ <div class="lbc" id="lbc"></div>
+</div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ============ CONFIGURACIÓN (la misma que en propiedades.html) ============ */
+const CFG = {
+  whatsapp: "5491137991082",
+  supabaseUrl: "https://rnjztkswciepopttxmqr.supabase.co",
+  supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuanp0a3N3Y2llcG9wdHR4bXFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU2MzIsImV4cCI6MjEwODE2MTYzMn0.dL4y4RSRdWF2DY4acO1viCPl2dnTsiCXzL54imizPeM"
+};
+/* ========================================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const waLink = (n, t) => "https://wa.me/" + n + "?text=" + encodeURIComponent(t);
+const phone = t => { let n = String(t || "").replace(/\D/g, "").replace(/^0+/, ""); return n.startsWith("54") ? n : "549" + n; };
+const nf = n => Number(n).toLocaleString("es-AR", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+const usd = n => "USD " + Number(n).toLocaleString("es-AR");
+const WA = '<svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.4-2.9-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1 1.5-1 2.4.1 1 .5 2 1.1 2.8 1.2 1.7 2.7 3 4.6 3.7 1.7.6 2.3.5 3.2.4.7-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/></svg>';
+
+const sb = supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey);
+document.querySelectorAll("[data-wa]").forEach(a => a.href = waLink(CFG.whatsapp, a.dataset.wa));
+
+/* Lee un dato probando varios nombres de columna posibles */
+const g = (p, ...k) => { for (const n of k) { const v = p[n]; if (v !== null && v !== undefined && String(v).trim() !== "" && v !== false) return v; } return ""; };
+const list = v => { if (typeof v === "string") { try { v = JSON.parse(v); } catch (e) { return []; } } return Array.isArray(v) ? v : []; };
+const item = o => typeof o === "string" ? { t: o, d: "", x: "" } : ({
+  t: o.t || o.titulo || o.title || o.nombre || o.lugar || "",
+  d: o.d || o.descripcion || o.detalle || o.explicacion || "",
+  x: o.x || o.distancia || "" });
+
+const row = (k, v) => v ? `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>` : "";
+const sec = (title, body) => body ? `<section class="sec"><h2>${esc(title)}</h2>${body}</section>` : "";
+const num = (...v) => { for (const x of v) if (x !== "" && x != null && !isNaN(+x)) return +x; return null; };
+
+function gallery(fotos, titulo) {
+  if (!fotos.length) return '<div class="nophoto">Esta propiedad todavía no tiene fotos</div>';
+  const show = fotos.length >= 5 ? 5 : fotos.length >= 3 ? 3 : fotos.length;
+  const cells = fotos.slice(0, show).map((f, i) => `<button type="button" class="gi" data-i="${i}" aria-label="Ver foto ${i + 1}"><img src="${esc(f.url)}" alt="${esc(f.cap || titulo)}" ${i ? 'loading="lazy"' : ""}></button>`).join("");
+  return `<div class="gal g${show}">${cells}<button type="button" class="allp" data-i="0">Ver ${fotos.length === 1 ? "foto" : "las " + fotos.length + " fotos"}</button></div>`;
+}
+
+function render(p) {
+  const fotos = (p.fotos || []).slice().sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0)).map(f => ({
+    url: sb.storage.from("propiedades").getPublicUrl(f.path).data.publicUrl,
+    cap: f.cap || f.epigrafe || f.caption || f.leyenda || "" }));
+  const dias = Math.ceil((new Date(p.vence_en) - Date.now()) / 864e5);
+  const r = Math.max(0, Math.min(30, dias)) / 30;
+  const cd = `<div class="cd" role="img" aria-label="${dias} días restantes"><span class="cdl">${dias === 1 ? "1 día restante" : dias + " días restantes"} de publicación</span><span class="cdb"><i style="width:${Math.max(4, r * 100)}%;background:hsl(${Math.round(120 * r)} 78% 42%)"></i></span></div>`;
+  const msg = "Hola, vi tu propiedad en Ladrillo Hub (" + p.codigo + "): " + p.titulo + ". Me gustaría más información.";
+  const wa = waLink(phone(p.whatsapp), msg);
+  const expensas = g(p, "expensas_ars", "expensas");
+  const venta = p.tipo_venta;
+  const m2c = num(p.m2_cubierta), m2t = num(p.m2_total), m2b = num(g(p, "m2_balcon", "balcon_m2", "m2balcon"));
+  const balTipo = g(p, "balcon_tipo", "tipo_balcon", "balconTipo");
+  const cochera = g(p, "cochera"), baulera = p.baulera === true || /^s[ií]/i.test(String(p.baulera || ""));
+
+  const facts = [
+    m2t && [nf(m2t) + " m²", "totales"], m2c && [nf(m2c) + " m²", "cubiertos"], m2b && [nf(m2b) + " m²", balTipo || "balcón"],
+    p.ambientes && [p.ambientes, "ambientes"], p.dormitorios != null && p.dormitorios !== "" && [p.dormitorios, +p.dormitorios === 1 ? "dormitorio" : "dormitorios"],
+    p.banos && [p.banos, +p.banos === 1 ? "baño" : "baños"], cochera && [cochera, "cochera"], baulera && ["Sí", "baulera"]
+  ].filter(Boolean).map(([v, l]) => `<div class="fa"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
+
+  const pfs = list(g(p, "puntos_fuertes", "fuertes", "pf")).map(item).filter(o => o.t);
+  const ideal = list(g(p, "ideal_para", "ideal")).map(item).filter(o => o.t);
+  const etapas = list(g(p, "etapas", "se_adapta", "etapa")).map(item).filter(o => o.t);
+  const cons = list(g(p, "conectividad", "conect", "cercanias")).map(item).filter(o => o.t);
+  const ambs = list(g(p, "ambientes_detalle", "superficie_ambientes", "sup_ambientes", "ambientes_sup", "detalle_ambientes")).map(o => ({
+    t: o.t || o.nombre || o.ambiente || "", a: num(o.a, o.ancho), l: num(o.l, o.largo), m: num(o.m2, o.m) })).filter(o => o.t);
+  ambs.forEach(o => { if (o.m == null && o.a && o.l) o.m = o.a * o.l; });
+  const sumAmb = ambs.reduce((s, o) => s + (o.m || 0), 0);
+  const amen = list(g(p, "amenities", "amen"));
+
+  const credito = p.e_apta_credito === true || /^s[ií]/i.test(String(p.e_apta_credito || ""));
+  const oper = venta === "Cesión de derechos"
+    ? row("Desarrolladora", g(p, "c_desarrolladora")) + row("Estado de la obra", g(p, "c_obra")) + row("Posesión estimada", g(p, "c_posesion"))
+      + row("Abonado a la fecha", g(p, "c_abonado") && usd(g(p, "c_abonado"))) + row("Saldo pendiente", g(p, "c_saldo") !== "" && g(p, "c_saldo") !== 0 ? usd(g(p, "c_saldo")) : "")
+      + row("Cuotas pendientes", g(p, "c_cuotas")) + row("La desarrolladora autoriza", g(p, "c_autoriza")) + row("Gastos de cesión", g(p, "c_gastos"))
+    : row("Ocupación", g(p, "e_ocupacion")) + row("Hipoteca", g(p, "e_hipoteca")) + row("Escribanía", g(p, "e_escribania"))
+      + row("Escritura", g(p, "e_disp", "e_disponibilidad")) + row("Apta crédito hipotecario", credito ? "Sí" : "");
+
+  const car = row("Tipo", p.tipo) + row("Ubicación", [p.zona, p.barrio].filter(Boolean).join(", ")) + row("Piso", g(p, "piso")) + row("Posición", g(p, "posicion"))
+    + row("Orientación", g(p, "orientacion")) + row("Antigüedad", p.antiguedad != null && p.antiguedad !== "" ? (+p.antiguedad === 0 ? "A estrenar" : p.antiguedad + " años") : "")
+    + row("Estado", g(p, "estado")) + row("Detalle del estado", g(p, "estado_detalle", "estadoDetalle")) + row("Convivencia", g(p, "convivencia"))
+    + row("Expensas", expensas && "$" + Number(expensas).toLocaleString("es-AR") + " por mes");
+
+  const edif = row("Unidades", g(p, "unidades")) + row("Ascensores", g(p, "ascensores")) + row("Encargado", g(p, "encargado")) + row("Seguridad", g(p, "seguridad"));
+  const notaFotos = g(p, "nota_fotos", "notaFotos"), notaAmb = g(p, "nota_amb", "notaAmb", "nota_ambientes");
+  const horario = g(p, "horario", "horario_visitas");
+
+  const panel = `<div class="bk"><div class="pr">${usd(p.precio_usd)}${expensas ? `<small>Expensas aprox. $${Number(expensas).toLocaleString("es-AR")} por mes</small>` : ""}</div>${cd}
+    <a class="btn wa full" target="_blank" rel="noopener" href="${wa}">${WA}Consultar por WhatsApp</a>
+    ${horario ? `<p class="note" style="margin:0;text-align:center">Visitas: ${esc(horario)}</p>` : ""}
+    <button type="button" class="btn ghost full" id="share">Compartir aviso</button>
+    <p class="ref">Código del aviso: <b>${esc(p.codigo)}</b></p></div>`;
+
+  document.title = p.titulo + " · Ladrillo Hub";
+  $("#app").innerHTML = `
+  <a class="back" href="propiedades.html"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Volver a los resultados</a>
+  <div class="tags"><span class="tag">${esc(venta)}</span>${p.tipo ? `<span class="tag">${esc(p.tipo)}</span>` : ""}${credito ? '<span class="tag">Apta crédito</span>' : ""}</div>
+  <div class="th"><div><h1>${esc(p.titulo)}</h1><p class="sub">${esc([p.zona, p.barrio].filter(Boolean).join(", "))}</p></div></div>
+  ${gallery(fotos, p.titulo)}
+  <div class="lay"><div>
+   ${g(p, "bajada") ? `<p class="bajada">${esc(g(p, "bajada"))}</p>` : ""}
+   <div class="facts" style="margin-top:24px">${facts}</div>
+   ${sec("Puntos fuertes", pfs.length ? `<div class="pfs">${pfs.map(o => `<div class="pf"><b>${esc(o.t)}</b>${o.d ? `<span>${esc(o.d)}</span>` : ""}</div>`).join("")}</div>` : "")}
+   ${sec("Sobre la propiedad", g(p, "descripcion") ? `<p>${esc(g(p, "descripcion"))}</p>` : "")}
+   ${sec("Características", car ? `<dl class="dl">${car}</dl>` : "")}
+   ${sec(venta === "Cesión de derechos" ? "Datos de la cesión" : "Datos de la escritura", oper ? `<dl class="dl">${oper}</dl>` : "")}
+   ${sec("El edificio", (edif ? `<dl class="dl">${edif}</dl>` : "") + (amen.length ? `<div class="chips">${amen.map(a => `<span class="chip">${esc(a)}</span>`).join("")}</div>` : ""))}
+   ${sec("Ideal para", ideal.length ? `<ul class="lst">${ideal.map(o => `<li><b>${esc(o.t)}</b>${o.d ? `<span>${esc(o.d)}</span>` : ""}</li>`).join("")}</ul>` : "")}
+   ${sec("Se adapta a cada etapa", etapas.length ? `<ul class="lst">${etapas.map(o => `<li><b>${esc(o.t)}</b>${o.d ? `<span>${esc(o.d)}</span>` : ""}</li>`).join("")}</ul>` : "")}
+   ${sec("Conectividad y vida de barrio", cons.length ? `<ul class="lst">${cons.map(o => `<li>${o.x ? `<i>${esc(o.x)}</i>` : ""}<b>${esc(o.t)}</b>${o.d ? `<span>${esc(o.d)}</span>` : ""}</li>`).join("")}</ul>` : "")}
+   ${sec("Superficie por ambiente", ambs.length ? `<table><thead><tr><th>Ambiente</th><th>Medidas</th><th>Superficie</th></tr></thead><tbody>${ambs.map(o => `<tr><td>${esc(o.t)}</td><td>${o.a && o.l ? nf(o.a) + " × " + nf(o.l) + " m" : "—"}</td><td>${o.m ? nf(o.m) + " m²" : "—"}</td></tr>`).join("")}</tbody><tfoot><tr><td>Suma de ambientes</td><td></td><td>${nf(sumAmb)} m²</td></tr></tfoot></table>${notaAmb ? `<p class="note">${esc(notaAmb)}</p>` : ""}` : "")}
+   ${notaFotos ? `<p class="note">Sobre las fotos: ${esc(notaFotos)}</p>` : ""}
+  </div><aside class="dr">${panel}</aside></div>`;
+
+  const mb = $("#mbar"); mb.hidden = false;
+  mb.innerHTML = `<div class="mp">${usd(p.precio_usd)}<small>${dias === 1 ? "1 día restante" : dias + " días restantes"}</small></div><a class="btn wa" target="_blank" rel="noopener" href="${wa}">${WA}WhatsApp</a>`;
+
+  $("#share").onclick = async e => {
+    const data = { title: p.titulo, url: location.href };
+    try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(location.href); e.target.textContent = "¡Enlace copiado!"; } } catch (x) {}
+  };
+  setupViewer(fotos);
+}
+
+/* visor de fotos */
+function setupViewer(fotos) {
+  const lb = $("#lb"); let i = 0;
+  const show = n => { i = (n + fotos.length) % fotos.length; $("#lbim").src = fotos[i].url; $("#lbim").alt = fotos[i].cap || "";
+    $("#lbn").textContent = (i + 1) + " / " + fotos.length; $("#lbc").textContent = fotos[i].cap || ""; };
+  document.querySelectorAll(".gal [data-i]").forEach(b => b.onclick = () => { show(+b.dataset.i); lb.showModal(); });
+  $("#lbx").onclick = () => lb.close(); $("#lbp").onclick = () => show(i - 1); $("#lbnx").onclick = () => show(i + 1);
+  lb.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
+  const single = fotos.length < 2; $("#lbp").hidden = $("#lbnx").hidden = single;
+}
+
+function notFound(txt) {
+  $("#app").innerHTML = `<div class="msg"><h1>${esc(txt)}</h1><p>Puede que el aviso haya vencido o que el enlace esté incompleto.</p><a class="btn" href="propiedades.html">Ver todas las propiedades</a></div>`;
+}
+
+(async function () {
+  const c = new URLSearchParams(location.search).get("c");
+  if (!c) return notFound("No encontramos esa propiedad");
+  /* primero intenta traer todas las columnas; si la base solo expone algunas, usa las del listado */
+  let r = await sb.from("propiedades").select("*, fotos(*)").eq("codigo", c).maybeSingle();
+  if (r.error) {
+    console.warn("select * falló, uso columnas del listado:", r.error);
+    r = await sb.from("propiedades").select("codigo,tipo_venta,tipo,barrio,titulo,zona,precio_usd,m2_total,m2_cubierta,ambientes,dormitorios,banos,expensas_ars,cochera,baulera,whatsapp,e_apta_credito,vence_en,fotos(path,orden)").eq("codigo", c).maybeSingle();
+  }
+  if (r.error) { console.error(r.error); return notFound("No pudimos cargar la propiedad"); }
+  if (!r.data || new Date(r.data.vence_en) <= new Date()) return notFound("Este aviso ya no está disponible");
+  render(r.data);
+})();
+</script>
+</body>
+</html>

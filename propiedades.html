@@ -56,7 +56,7 @@ h1{font-size:clamp(28px,4.2vw,40px);line-height:1.1;margin:0 0 6px;font-weight:8
 .lo{color:var(--mut);font-size:14px}
 .ft{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;margin:4px 0 10px}
 .ft span{white-space:nowrap}
-.cb .btn{margin-top:auto}
+.cb .acts{display:flex;gap:8px;margin-top:auto}.cb .acts .btn{flex:1}.im{display:block}.ti a{text-decoration:none}.ti a:hover{text-decoration:underline}
 .more{display:flex;justify-content:center;margin:28px 0 0}
 .empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--mut)}
 .empty h2{color:var(--ink);margin:0 0 6px}
@@ -194,11 +194,12 @@ function card(p) {
   const f = p.fotos && p.fotos[0], m2 = p.m2_cubierta ? p.m2_cubierta + " m² cub." : p.m2_total + " m²";
   const hechos = [p.ambientes + " amb.", p.dormitorios + " dorm.", p.banos ? p.banos + " baño" + (p.banos > 1 ? "s" : "") : "", m2, p.cochera || "", p.baulera ? "Baulera" : ""].filter(Boolean);
   const msg = "Hola, vi tu propiedad en Ladrillo Hub (" + p.codigo + "): " + p.titulo + ". Me gustaría más información.";
-  return `<article class="card"><div class="im">${f ? `<img src="${esc(foto(f.path))}" alt="${esc(p.titulo)}" loading="lazy">` : ""}<span class="tg">${esc(p.tipo_venta)}</span></div>
+  const det = "propiedad.html?c=" + encodeURIComponent(p.codigo);
+  return `<article class="card"><a class="im" href="${det}" aria-label="Ver detalle: ${esc(p.titulo)}">${f ? `<img src="${esc(foto(f.path))}" alt="${esc(p.titulo)}" loading="lazy">` : ""}<span class="tg">${esc(p.tipo_venta)}</span></a>
   <div class="cb">${cdHTML(Math.ceil((new Date(p.vence_en) - Date.now()) / 864e5))}<div class="pr">${usd(p.precio_usd)}${p.expensas_ars ? ` <small>· exp. $${Number(p.expensas_ars).toLocaleString("es-AR")}</small>` : ""}</div>
-  <h2 class="ti">${esc(p.titulo)}</h2><div class="lo">${esc(p.tipo)} · ${esc(p.zona)}, ${esc(p.barrio)}</div>
+  <h2 class="ti"><a href="${det}">${esc(p.titulo)}</a></h2><div class="lo">${esc(p.tipo)} · ${esc(p.zona)}, ${esc(p.barrio)}</div>
   <div class="ft">${hechos.map(h => `<span>${esc(h)}</span>`).join("")}</div>
-  <a class="btn wa sm" target="_blank" rel="noopener" href="${waLink(phone(p.whatsapp), msg)}">Consultar por WhatsApp</a></div></article>`;
+  <div class="acts"><a class="btn sm" href="${det}">Ver detalle</a><a class="btn wa sm" target="_blank" rel="noopener" href="${waLink(phone(p.whatsapp), msg)}">WhatsApp</a></div></div></article>`;
 }
 
 function render() {
