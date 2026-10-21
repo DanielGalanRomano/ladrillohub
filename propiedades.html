@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Propiedades en venta · Dueño Directo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--f:Figtree,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--bg:#fff;--card:#fff;--ink:#222;--mut:#6a6a6a;--line:#ddd;--line2:#8a8a8a;--soft:#f7f7f7;--gray:#f2f2f2;--grad:linear-gradient(to right,#e61e4d,#e31c5f 50%,#d70466);--sh:0 6px 16px rgba(0,0,0,.12);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
+*,*:before,*:after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit}button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.w{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.hw{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#e31c5f;font:800 20px/1 var(--f);letter-spacing:-.02em;white-space:nowrap}
+.logo svg{width:32px;height:32px}.logo span{color:var(--ink)}.logo span b{color:#e31c5f}
+.hr{display:flex;gap:8px}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;height:42px;padding:0 16px;border-radius:999px;background:transparent;font:600 14px var(--f);text-decoration:none}
+.pill:hover{background:var(--soft)}.pill.waP{background:#1fa855;color:#fff}.pill.waP:hover{background:#188a45}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border:0;border-radius:999px;background:var(--grad);color:#fff;font:600 15px var(--f);cursor:pointer;text-decoration:none}
+.btn.wa{background:#1fa855}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}.btn.sm{height:38px;padding:0 16px;font-size:14px}
+.top{padding:32px 0 8px}
+h1{font-size:clamp(28px,4.2vw,40px);line-height:1.1;margin:0 0 6px;font-weight:800;letter-spacing:-.03em}
+.lead{color:var(--mut);margin:0}
+.lay{display:grid;grid-template-columns:290px minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start;margin:24px 0 0}
+#fl{position:sticky;top:84px;border:1px solid var(--line);border-radius:20px;background:var(--card);max-height:calc(100vh - 100px);overflow:auto}
+#fl>summary{list-style:none;cursor:pointer;padding:16px 20px;font:700 17px var(--f);display:flex;justify-content:space-between;align-items:center}
+#fl>summary::-webkit-details-marker{display:none}
+#fl form{padding:0 20px 20px;display:grid;gap:14px}
+.fld{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;margin:0;border:0;padding:0;min-width:0}
+.fld input,.fld select{height:44px;padding:0 12px;border:1px solid var(--line2);border-radius:12px;background:#fff;font:400 15px var(--f);width:100%}
+.fld input:focus,.fld select:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chk{display:flex;align-items:center;gap:8px;font:500 14px var(--f);cursor:pointer}
+.chk input{accent-color:#e31c5f;width:16px;height:16px;margin:0}
+.grp{display:grid;gap:8px}.grp>b{font-size:13px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.bar select{height:40px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;background:#fff;font:500 14px var(--f)}
+#cnt{font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--sh)}
+.im{position:relative;aspect-ratio:4/3;background:var(--gray)}
+.im img{width:100%;height:100%;object-fit:cover;display:block}
+.tg{position:absolute;left:10px;top:10px;background:var(--card);border-radius:999px;padding:4px 10px;font:600 12px var(--f);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.cb{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pr{font:800 24px/1.1 var(--f);letter-spacing:-.02em}
+.pr small{font:500 13px var(--f);color:var(--mut);letter-spacing:0}
+.ti{font:600 16px/1.3 var(--f);margin:2px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lo{color:var(--mut);font-size:14px}
+.ft{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;margin:4px 0 10px}
+.ft span{white-space:nowrap}
+.cb .btn{margin-top:auto}
+.more{display:flex;justify-content:center;margin:28px 0 0}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--mut)}
+.empty h2{color:var(--ink);margin:0 0 6px}
+.msg{padding:14px 18px;border-radius:14px;background:var(--gray);font-size:14.5px}
+footer{margin-top:64px;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+@media(max-width:900px){.lay{grid-template-columns:1fr}#fl{position:static;max-height:none}}
+@media(max-width:640px){.hr .pill:not(.waP){display:none}}
+</style>
+</head>
+<body>
+<header class="hd"><div class="w"><div class="hw">
+ <a class="logo" href="index.html" aria-label="Dueño Directo, inicio">
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 15L16 4l12 11"/><path d="M7 13v14h18V13"/><path d="M13 27v-8h6v8"/></svg>
+  <span>Dueño<b>Directo</b></span></a>
+ <div class="hr">
+  <a class="pill" href="index.html">Inicio</a>
+  <a class="pill" href="publicar.html">Publicar mi propiedad</a>
+  <a class="pill waP" data-wa="Hola, quiero hacer una consulta sobre Dueño Directo." target="_blank" rel="noopener">WhatsApp</a>
+ </div>
+</div></div></header>
+
+<main class="w">
+<div class="top"><h1>Propiedades en venta</h1><p class="lead">Avisos de dueños directos. Contactalos por WhatsApp, sin intermediarios.</p></div>
+<div class="lay">
+ <details id="fl" open>
+  <summary>Filtros <button type="button" class="btn ghost sm" id="clr">Limpiar</button></summary>
+  <form id="ff" autocomplete="off">
+   <label class="fld">Tipo de venta<select name="tipo_venta"><option value="">Todas</option><option>Escritura directa</option><option>Cesión de derechos</option></select></label>
+   <label class="fld">Tipo de propiedad<select name="tipo"><option value="">Todas</option><option>Departamento</option><option>PH</option><option>Casa</option><option>Local</option><option>Otro</option></select></label>
+   <label class="fld">Barrio<select name="barrio"><option value="">Todos</option></select></label>
+   <div class="two">
+    <label class="fld">Precio mín. (USD)<input type="number" name="pmin" min="0" step="1000" inputmode="numeric"></label>
+    <label class="fld">Precio máx. (USD)<input type="number" name="pmax" min="0" step="1000" inputmode="numeric"></label>
+   </div>
+   <div class="two">
+    <label class="fld">Ambientes (mín.)<select name="amb"><option value="">Todos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5+</option></select></label>
+    <label class="fld">Dormitorios (mín.)<select name="dorm"><option value="">Todos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+   </div>
+   <div class="two">
+    <label class="fld">Baños (mín.)<select name="banos"><option value="">Todos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option></select></label>
+    <label class="fld">Sup. total mín. (m²)<input type="number" name="m2" min="0" inputmode="numeric"></label>
+   </div>
+   <label class="fld">Antigüedad máx. (años)<input type="number" name="antig" min="0" inputmode="numeric"></label>
+   <div class="grp"><b>Incluye</b>
+    <label class="chk"><input type="checkbox" name="cochera"> Cochera</label>
+    <label class="chk"><input type="checkbox" name="baulera"> Baulera</label>
+    <label class="chk"><input type="checkbox" name="credito"> Apta crédito hipotecario</label>
+   </div>
+   <div class="grp"><b>Amenities del edificio</b>
+    <label class="chk"><input type="checkbox" name="amen" value="SUM"> SUM</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Pileta"> Pileta</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Parrilla"> Parrilla</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Terraza común"> Terraza común</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Gimnasio"> Gimnasio</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Laundry"> Laundry</label>
+    <label class="chk"><input type="checkbox" name="amen" value="Seguridad 24 hs"> Seguridad 24 hs</label>
+   </div>
+  </form>
+ </details>
+
+ <section aria-live="polite">
+  <div class="bar">
+   <span id="cnt">Cargando…</span>
+   <label>Ordenar: <select id="ord">
+    <option value="new">Más recientes</option><option value="pa">Menor precio</option><option value="pd">Mayor precio</option><option value="m2">Mayor superficie</option></select></label>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button type="button" class="btn ghost" id="more" hidden>Ver más propiedades</button></div>
+ </section>
+</div>
+</main>
+<footer><div class="w">Dueño Directo · Portal de propiedades en venta entre particulares. La publicación no garantiza una venta.</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ============ CONFIGURACIÓN: completar antes de publicar ============ */
+const CFG = {
+  whatsapp: "5491100000000",   // número del portal, con código de país
+  supabaseUrl: "",             // Project Settings → API → Project URL
+  supabaseKey: ""              // Project Settings → API → anon public key
+};
+/* ==================================================================== */
+const PAGE = 12;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const waLink = (n, t) => "https://wa.me/" + n + "?text=" + encodeURIComponent(t);
+$$("[data-wa]").forEach(a => a.href = waLink(CFG.whatsapp, a.dataset.wa));
+const ff = $("#ff"), grid = $("#grid"), cnt = $("#cnt"), more = $("#more");
+
+if (innerWidth <= 900) $("#fl").open = false;
+if (!CFG.supabaseUrl || !CFG.supabaseKey) {
+  cnt.textContent = ""; grid.innerHTML = '<div class="empty"><div class="msg">Falta configurar Supabase (URL y clave anon) en este archivo.</div></div>';
+  throw new Error("Supabase sin configurar");
+}
+const sb = supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey);
+
+const COLS = "codigo,tipo_venta,tipo,barrio,titulo,zona,precio_usd,m2_total,m2_cubierta,ambientes,dormitorios,banos,expensas_ars,cochera,baulera,whatsapp,e_apta_credito,fotos(path,orden)";
+let items = [], total = 0;
+
+/* arma la consulta con los filtros elegidos (se filtra en la base, no en el navegador) */
+function buildQuery() {
+  const g = n => ff.elements[n], v = n => g(n).value.trim();
+  let q = sb.from("propiedades").select(COLS, { count: "exact" }).order("orden", { referencedTable: "fotos" });
+  if (v("tipo_venta")) q = q.eq("tipo_venta", v("tipo_venta"));
+  if (v("tipo")) q = q.eq("tipo", v("tipo"));
+  if (v("barrio")) q = q.eq("barrio", v("barrio"));
+  if (v("pmin")) q = q.gte("precio_usd", v("pmin"));
+  if (v("pmax")) q = q.lte("precio_usd", v("pmax"));
+  if (v("amb")) q = q.gte("ambientes", v("amb"));
+  if (v("dorm")) q = q.gte("dormitorios", v("dorm"));
+  if (v("banos")) q = q.gte("banos", v("banos"));
+  if (v("m2")) q = q.gte("m2_total", v("m2"));
+  if (v("antig")) q = q.lte("antiguedad", v("antig"));
+  if (g("cochera").checked) q = q.not("cochera", "is", null);
+  if (g("baulera").checked) q = q.eq("baulera", true);
+  if (g("credito").checked) q = q.eq("e_apta_credito", true);
+  const am = $$('[name="amen"]:checked', ff).map(i => i.value);
+  if (am.length) q = q.contains("amenities", am);
+  const o = $("#ord").value;
+  return o === "pa" ? q.order("precio_usd", { ascending: true })
+       : o === "pd" ? q.order("precio_usd", { ascending: false })
+       : o === "m2" ? q.order("m2_total", { ascending: false })
+       : q.order("publicada_en", { ascending: false });
+}
+
+const usd = n => "USD " + Number(n).toLocaleString("es-AR");
+const phone = t => { let n = String(t || "").replace(/\D/g, "").replace(/^0+/, ""); return n.startsWith("54") ? n : "549" + n; };
+const foto = p => p ? sb.storage.from("propiedades").getPublicUrl(p).data.publicUrl : "";
+
+function card(p) {
+  const f = p.fotos && p.fotos[0], m2 = p.m2_cubierta ? p.m2_cubierta + " m² cub." : p.m2_total + " m²";
+  const hechos = [p.ambientes + " amb.", p.dormitorios + " dorm.", p.banos ? p.banos + " baño" + (p.banos > 1 ? "s" : "") : "", m2, p.cochera || "", p.baulera ? "Baulera" : ""].filter(Boolean);
+  const msg = "Hola, vi tu propiedad en Dueño Directo (" + p.codigo + "): " + p.titulo + ". Me gustaría más información.";
+  return `<article class="card"><div class="im">${f ? `<img src="${esc(foto(f.path))}" alt="${esc(p.titulo)}" loading="lazy">` : ""}<span class="tg">${esc(p.tipo_venta)}</span></div>
+  <div class="cb"><div class="pr">${usd(p.precio_usd)}${p.expensas_ars ? ` <small>· exp. $${Number(p.expensas_ars).toLocaleString("es-AR")}</small>` : ""}</div>
+  <h2 class="ti">${esc(p.titulo)}</h2><div class="lo">${esc(p.tipo)} · ${esc(p.zona)}, ${esc(p.barrio)}</div>
+  <div class="ft">${hechos.map(h => `<span>${esc(h)}</span>`).join("")}</div>
+  <a class="btn wa sm" target="_blank" rel="noopener" href="${waLink(phone(p.whatsapp), msg)}">Consultar por WhatsApp</a></div></article>`;
+}
+
+function render() {
+  grid.innerHTML = items.length ? items.map(card).join("")
+    : '<div class="empty"><h2>No hay propiedades con esos filtros</h2><p>Probá ampliar la búsqueda o <a href="publicar.html">publicá la tuya</a>.</p></div>';
+  cnt.textContent = total + (total === 1 ? " propiedad" : " propiedades");
+  more.hidden = items.length >= total;
+}
+
+/* reset=true: vuelve a pedir lo que ya se estaba viendo (sirve para refrescos automáticos) */
+let busy = false;
+async function load(reset) {
+  if (busy) return; busy = true;
+  const to = reset ? Math.max(PAGE, items.length) - 1 : items.length + PAGE - 1, from = reset ? 0 : items.length;
+  const { data, count, error } = await buildQuery().range(from, to);
+  busy = false;
+  if (error) { cnt.textContent = ""; grid.innerHTML = '<div class="empty"><div class="msg">No pudimos cargar las propiedades. Probá de nuevo en un momento.</div></div>'; console.error(error); return; }
+  items = reset ? data : items.concat(data); total = count ?? items.length; render();
+}
+const fresh = () => { items = []; load(true); };
+
+/* barrios disponibles, tomados de los avisos publicados */
+async function loadBarrios() {
+  const { data } = await sb.from("propiedades").select("barrio");
+  const sel = ff.elements.barrio, cur = sel.value;
+  const bs = [...new Set((data || []).map(r => r.barrio))].sort((a, b) => a.localeCompare(b, "es"));
+  sel.innerHTML = '<option value="">Todos</option>' + bs.map(b => `<option>${esc(b)}</option>`).join("");
+  sel.value = cur;
+}
+
+let t;
+const later = () => { clearTimeout(t); t = setTimeout(fresh, 350); };
+ff.addEventListener("input", later); ff.addEventListener("change", later);
+$("#ord").addEventListener("change", fresh);
+more.addEventListener("click", () => load(false));
+$("#clr").addEventListener("click", e => { e.preventDefault(); ff.reset(); fresh(); });
+ff.addEventListener("submit", e => e.preventDefault());
+
+/* avisos nuevos: aparecen solos (Realtime) y, por las dudas, se refresca cada minuto */
+sb.channel("propiedades-vivo").on("postgres_changes", { event: "*", schema: "public", table: "propiedades" }, () => { loadBarrios(); load(true); }).subscribe();
+setInterval(() => { if (!document.hidden) { loadBarrios(); load(true); } }, 60000);
+
+loadBarrios(); load(true);
+</script>
+</body>
+</html>

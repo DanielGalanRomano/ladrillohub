@@ -205,6 +205,7 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
   <span>Dueño<b>Directo</b></span>
  </a>
  <div class="hr">
+  <a class="pill" href="propiedades.html">Ver propiedades</a>
   <a class="pill" href="index.html">Volver</a>
   <a class="pill waP" data-wa="Hola, necesito ayuda para cargar mi propiedad en Dueño Directo." target="_blank" rel="noopener">Ayuda por WhatsApp</a>
  </div>
@@ -445,11 +446,13 @@ footer{margin-top:64px;padding:24px 0 110px;border-top:1px solid var(--line);col
 
 <footer><div class="w">Dueño Directo · Portal de propiedades en venta entre particulares. La publicación no garantiza una venta. Los datos se usan solo para gestionar tu aviso.</div></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* ============ CONFIGURACIÓN: completar antes de publicar ============ */
 const CFG = {
   whatsapp: "5491100000000",  // número con código de país, sin + ni espacios
-  endpoint: "",               // URL que recibe el formulario por POST (multipart). Ej. tu backend o un servicio de formularios
+  supabaseUrl: "",            // Supabase → Project Settings → API → Project URL
+  supabaseKey: "",            // Supabase → Project Settings → API → anon public key
   paymentUrl: ""              // link de pago (Mercado Pago, etc.). Puede incluir ?ref= que se agrega solo
 };
 /* ==================================================================== */
@@ -659,6 +662,16 @@ function summary(d) {
   return L.join("\n");
 }
 
+/* achica y convierte a JPG (también resuelve fotos HEIC del iPhone en Safari) */
+async function toJpeg(file, max = 1600) {
+  const bmp = await createImageBitmap(file);
+  const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  return new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error("No se pudo procesar " + file.name)), "image/jpeg", 0.85));
+}
+
 fm.addEventListener("submit", async e => {
   e.preventDefault();
   const err = $("#err"); err.textContent = "";
@@ -674,18 +687,26 @@ fm.addEventListener("submit", async e => {
     $("#s-fotos").scrollIntoView({ behavior: "smooth" }); return;
   }
   const d = collect(), text = summary(d), btn = $("#send");
-  const ref = "DD-" + Date.now().toString(36).toUpperCase();
-  let sent = false;
-  if (CFG.endpoint) {
-    btn.disabled = true; btn.textContent = "Enviando…";
+  let ref = "DD-" + Date.now().toString(36).toUpperCase(), sent = false;
+  if (CFG.supabaseUrl && CFG.supabaseKey) {
+    btn.disabled = true;
     try {
-      const fd = new FormData();
-      fd.append("ref", ref); fd.append("data", JSON.stringify(d)); fd.append("resumen", text);
-      photos.forEach((p, i) => { fd.append("fotos", p.file, p.file.name); fd.append("epigrafe_" + i, p.cap); });
-      const r = await fetch(CFG.endpoint, { method: "POST", body: fd });
-      if (!r.ok) throw new Error(r.status);
-      sent = true;
+      const sb = supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey);
+      const id = crypto.randomUUID(), fotos = [];
+      for (let i = 0; i < photos.length; i++) {
+        btn.textContent = "Subiendo foto " + (i + 1) + " de " + photos.length + "…";
+        const path = id + "/" + i + ".jpg";
+        const up = await sb.storage.from("propiedades").upload(path, await toJpeg(photos[i].file), { contentType: "image/jpeg" });
+        if (up.error) throw up.error;
+        fotos.push({ path, cap: photos[i].cap });
+      }
+      btn.textContent = "Enviando…";
+      const r = await sb.rpc("crear_propiedad", { d: { ...d, id, fotos } });
+      if (r.error) throw r.error;
+      ref = r.data; sent = true;
+      try { localStorage.removeItem(DKEY); } catch (x) {}
     } catch (x) {
+      console.error(x);
       err.textContent = "No pudimos enviar el formulario. Probá de nuevo o mandalo por WhatsApp.";
     }
     btn.disabled = false; btn.textContent = "Revisar y enviar mi aviso";
