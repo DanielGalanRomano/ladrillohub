@@ -42,6 +42,8 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .btn.wa{background:#1fa855}.btn.red{background:transparent;color:#c13515;border:1px solid #c13515}
 .btn.blk{width:100%}
 #map{flex:1;z-index:1;background:var(--gray)}
+.legal{position:fixed;z-index:900;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));height:28px;padding:0 12px;border:0;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 1px 5px rgba(0,0,0,.3);font:600 12px var(--f);color:var(--ink);cursor:pointer}
+.legal:hover{background:var(--ink);color:#fff}
 .pinw{background:none;border:0}
 .pin{position:absolute;transform:translate(-50%,calc(-100% - 6px));white-space:nowrap;background:var(--card);border-radius:999px;padding:7px 12px;font:700 14px var(--f);box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;line-height:1.1}
 .pin small{display:block;font-weight:500;font-size:11px;color:var(--mut)}
@@ -66,8 +68,9 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .own span i{display:grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--grad)}
 .wab{height:54px;font-size:16px}
 .wab svg{width:22px;height:22px}
-.rep{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:none;border:0;padding:14px 0 2px;color:var(--mut);font:500 14px var(--f);cursor:pointer}
+.rep{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:none;border:0;padding:14px 0 2px;color:var(--mut);font:500 14px var(--f);cursor:pointer;text-decoration:none}
 .rep:hover{color:#c13515}.rep:disabled{opacity:.6;cursor:default}
+.mine{display:flex;gap:8px;margin-top:10px}.mine .btn{flex:1;height:42px;padding:0 12px;font-size:14px}
 .desc{white-space:pre-wrap;word-break:break-word;margin:14px 0 0;padding-bottom:4px;font-size:16px;line-height:1.5}
 .stack{display:grid;gap:10px}
 .gal{position:relative;margin:-26px -24px 14px;height:190px;background:var(--gray)}
@@ -75,9 +78,15 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .gb{position:absolute;top:50%;left:10px;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.9);font-size:22px;line-height:1;cursor:pointer}
 .gb.n{left:auto;right:10px}
 .gc{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:2px 9px;font:600 12px var(--f)}
-.sheet{position:fixed;z-index:1100;left:0;right:0;bottom:0;max-height:78%;overflow:auto;background:var(--card);border-radius:24px 24px 0 0;padding:22px;box-shadow:var(--sh);padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+
+/* ===== panel lateral / inferior: cabecera fija con botón cerrar siempre visible ===== */
+.sheet{position:fixed;z-index:1100;left:0;right:0;bottom:0;max-height:78%;max-height:78dvh;display:flex;flex-direction:column;overflow:hidden;background:var(--card);border-radius:24px 24px 0 0;box-shadow:var(--sh)}
 @media(min-width:760px){.sheet{left:20px;top:88px;bottom:20px;right:auto;width:400px;max-height:none;border-radius:24px}}
-.sheet h2{margin:0 0 4px;font:700 24px var(--f);letter-spacing:-.02em}
+.shh{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 12px 22px;border-bottom:1px solid var(--line);background:var(--card)}
+.shh h2{margin:0;font:700 22px var(--f);letter-spacing:-.02em}
+.shb{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px 22px calc(22px + env(safe-area-inset-bottom,0px))}
+.x{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--gray);font-size:22px;line-height:1;cursor:pointer}
+.x:hover{background:var(--line)}
 .sub{color:var(--mut);font-size:14px;margin:0 0 14px}
 .grp{border:1px solid var(--line2);border-radius:16px;overflow:hidden;margin-bottom:12px}
 .grp label{display:block;padding:10px 16px 8px;border-top:1px solid var(--line2)}.grp label:first-child{border-top:0}
@@ -85,7 +94,6 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .grp input,.grp textarea{width:100%;border:0;padding:2px 0 0;background:transparent;font-size:16px;outline:0}
 .grp textarea{min-height:84px;resize:none}
 .cnt{text-align:right;font-size:12px;color:var(--mut);margin:-6px 4px 10px}
-.x{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:0;background:var(--gray);font-size:20px;cursor:pointer}
 .msg{font-size:14px;color:var(--mut);margin:10px 0}.err{color:#c13515;font-weight:600}
 .row{display:flex;gap:8px;margin-bottom:10px}.row>*{flex:1}
 .lab{margin:16px 0 8px;font:700 11px var(--f);letter-spacing:.04em;text-transform:uppercase}
@@ -95,6 +103,21 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .chip span{display:block;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;font:600 14px var(--f);background:var(--card)}
 .chip input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
 .chip input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}.thumbs:empty{display:none}
+.th{position:relative;width:64px;height:64px}
+.th img{width:100%;height:100%;object-fit:cover;border-radius:10px;background:var(--gray)}
+.th button{position:absolute;top:-7px;right:-7px;width:24px;height:24px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:15px;line-height:1;cursor:pointer}
+.ck{display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-size:13px;line-height:1.4;cursor:pointer}
+.ck input{flex:none;width:18px;height:18px;margin:1px 0 0;accent-color:#e31c5f}
+.lk{background:none;border:0;padding:0;font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;color:var(--ink)}
+
+/* ===== ventana legal ===== */
+.ov{position:fixed;inset:0;z-index:1300;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.5)}
+.dlg{display:flex;flex-direction:column;width:min(720px,100%);max-height:100%;background:var(--card);border-radius:24px;box-shadow:var(--sh);overflow:hidden}
+.dlg .db{flex:1;min-height:0;overflow:auto;padding:6px 24px 24px;font-size:14px;line-height:1.55}
+.dlg h3{margin:22px 0 6px;font:800 18px var(--f);letter-spacing:-.01em}
+.dlg h4{margin:16px 0 4px;font:700 14.5px var(--f)}
+.dlg p{margin:0 0 8px;white-space:pre-wrap}
 @media(max-width:760px){
  .brand{margin-right:0;flex:1 1 0}
  .tag{font-size:10px;white-space:normal}
@@ -114,6 +137,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
  .own b{font-size:14px}.own span{font-size:12px}
  .wab{height:42px;font-size:14.5px}.wab svg{width:18px;height:18px}
  .rep{padding:9px 0 0;font-size:12.5px}
+ .mine .btn{height:38px;font-size:13px}
  .leaflet-container a.leaflet-popup-close-button{top:8px;right:8px;width:26px;height:26px;font-size:18px;line-height:24px}
 }
 </style>
@@ -127,6 +151,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
  <button class="btn sm" id="add"><span class="lg">Publicar propiedad</span><span class="sh">Publicar</span></button>
 </header>
 <div id="map"></div>
+<button class="legal" id="legalb" type="button">Términos y privacidad</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -140,9 +165,14 @@ const pr=p=>fmt(p.price)+(p.operacion==="alquiler"?" /mes":"");
 const OP={venta:"venta",alquiler:"alquiler",permuta:"permuta"};
 const TIPO={depto:"Depto",ph:"PH",casa:"Casa",terreno:"Terreno"};
 const AMEN=["Balcón","Cochera","Terraza","Pileta","SUM","Parrilla","Baulera"];
+
+/* ===== DATOS LEGALES: COMPLETAR ANTES DE PUBLICAR ===== */
+const EMP={nombre:"[NOMBRE Y APELLIDO O RAZÓN SOCIAL]",cuit:"[CUIT/CUIL]",dom:"[DOMICILIO LEGAL EN CABA]",mail:"[EMAIL DE CONTACTO]"};
+const TERMS_V="2026-11-28"; // cambiá esta versión cada vez que modifiques los textos legales
+
 if(!CFG.url||!CFG.key||String(CFG.url).startsWith("PEGAR")){document.body.append(Object.assign(mk("div","msg err","Falta configurar Supabase en config.js."),{style:"padding:20px"}));throw new Error("config")}
 const sb=supabase.createClient(CFG.url,CFG.key);
-let user=null,pins=[],pmin=0,pmax=Infinity,draft=null,placing=false,panel=null,dm=null;
+let user=null,pins=[],mine=new Set(),pmin=0,pmax=Infinity,draft=null,placing=false,panel=null,dm=null,last="";
 let f={op:[],tipo:[],amb:0,am:[]};
 
 const map=L.map("map",{zoomControl:false}).setView([-34.6037,-58.42],12);
@@ -155,10 +185,16 @@ const badge=()=>{const n=f.op.length+f.tipo.length+(f.amb?1:0)+f.am.length;$("#f
 function draw(){layer.clearLayers();
  vis().forEach(p=>L.marker([p.lat,p.lon],{icon:icon("",(TIPO[p.tipo]||"Depto")+" · "+pr(p),p.name)}).addTo(layer).bindPopup(()=>popup(p),{autoPanPadding:[30,80]}))}
 const COLS="id,name,phone,price,descr,lat,lon,operacion,tipo,ambientes,banios,m2,amenities,es_inmobiliaria,fotos";
+async function loadMine(){mine=new Set();if(!user)return;
+ const r=await sb.from("pins").select("id").eq("user_id",user.id);
+ if(!r.error)(r.data||[]).forEach(x=>mine.add(x.id))}
 async function load(){
  let r=await sb.from("pins_public_v2").select(COLS);
  if(r.error)r=await sb.from("pins_public").select("id,name,phone,price,descr,lat,lon"); // todavía sin migrar
- if(!r.error){pins=(r.data||[]).map(p=>({operacion:"venta",tipo:"depto",amenities:[],es_inmobiliaria:false,fotos:[],...p}));draw()}}
+ if(r.error)return;
+ if(user)await loadMine();
+ const s=JSON.stringify(r.data||[]);if(s===last)return; // evita cerrar popups abiertos si no hubo cambios
+ last=s;pins=(r.data||[]).map(p=>({operacion:"venta",tipo:"depto",amenities:[],es_inmobiliaria:false,fotos:[],...p}));draw()}
 const waNum=v=>{let d=String(v).replace(/\D/g,"").replace(/^0+/,"");if(d.length===10)d="549"+d;else if(/^54\d{10}$/.test(d))d="549"+d.slice(2);return d};
 
 function popup(p){
@@ -175,11 +211,27 @@ function popup(p){
  d.append(mk("span","ptag",(TIPO[p.tipo]||"Depto")+" en "+(OP[p.operacion]||"venta")),mk("div","price",pr(p)));
  if(sp2.children.length)d.append(sp2);
  d.append(mk("div","desc",p.descr),own,a);
+ if(mine.has(p.id)){
+  const b=mk("div","mine"),e=mk("button","btn ghost","Editar"),x=mk("button","btn red","Eliminar");e.type=x.type="button";
+  e.onclick=()=>{map.closePopup();openForm(p)};x.onclick=()=>borrar(p,x);b.append(e,x);d.append(b)}
+ else{const rp=mk("a","rep","Reportar esta publicación");
+  rp.href="mailto:"+EMP.mail+"?subject="+encodeURIComponent("Reporte de publicación #"+p.id+" (Ladrillo Hub)")+"&body="+encodeURIComponent("Motivo del reporte (describí qué contenido es ilícito, falso o vulnera tus derechos):\n\n\nTu nombre y contacto:\n");d.append(rp)}
  const ph=(p.fotos||[]).filter(u=>/^https:\/\//.test(u));
  if(ph.length){let k=0;const g=mk("div","gal"),im=new Image();im.alt="Foto de la propiedad";im.loading="lazy";im.referrerPolicy="no-referrer";im.src=ph[0];g.append(im);
   if(ph.length>1){const c=mk("span","gc","1/"+ph.length),go=n=>{k=(k+n+ph.length)%ph.length;im.src=ph[k];c.textContent=(k+1)+"/"+ph.length},b1=mk("button","gb","‹"),b2=mk("button","gb n","›");b1.setAttribute("aria-label","Foto anterior");b2.setAttribute("aria-label","Foto siguiente");b1.onclick=()=>go(-1);b2.onclick=()=>go(1);g.append(b1,b2,c)}
   d.prepend(g)}
  return d}
+
+// borra las fotos del storage (solo las del propio usuario; si falla, no pasa nada)
+function quitarFotos(urls){if(!user)return;
+ const ps=(urls||[]).map(u=>{const i=String(u).indexOf("/fotos/");return i<0?"":decodeURIComponent(String(u).slice(i+7).split("?")[0])}).filter(x=>x.startsWith(user.id+"/"));
+ if(ps.length)Promise.resolve(sb.storage.from("fotos").remove(ps)).catch(()=>{})}
+async function borrar(p,btn){
+ if(!confirm("¿Eliminar esta publicación? Esta acción no se puede deshacer."))return;
+ btn.disabled=true;
+ const r=await sb.from("pins").delete().eq("id",p.id).select("id");
+ if(r.error||!(r.data||[]).length){btn.disabled=false;alert("No se pudo eliminar. Probá de nuevo o revisá que hayas corrido la migración SQL.");return}
+ quitarFotos(p.fotos);mine.delete(p.id);map.closePopup();last="";load()}
 
 const STEPS=[50,75,100,125,150,175,200,250,300,350,400,450,500,600,700,800,900,1000].map(k=>k*1000);
 const opts=(sel,first)=>{sel.append(new Option(first,""));STEPS.forEach(v=>sel.append(new Option(v>=1e6?"USD 1.000.000":fmt(v),v)))};
@@ -196,8 +248,8 @@ function paint(){const b=$("#login");b.textContent="";
   b.append(mk("span",0,String(nm).split(" ")[0]),mk("span","mut","Salir"));b.setAttribute("aria-label","Cerrar sesión")}
  else{b.insertAdjacentHTML("beforeend",G);b.append(mk("span","t-long","Ingresar con Google"),mk("span","t-short","Ingresar"));b.setAttribute("aria-label","Ingresar con Google")}}
 $("#login").onclick=()=>user?sb.auth.signOut():login();
-sb.auth.getSession().then(({data})=>{user=data.session?data.session.user:null;paint()});
-sb.auth.onAuthStateChange((_e,s)=>{user=s?s.user:null;paint()});
+sb.auth.getSession().then(({data})=>{user=data.session?data.session.user:null;paint();loadMine()});
+sb.auth.onAuthStateChange((_e,s)=>{const n=s?s.user:null,ch=(n&&n.id)!==(user&&user.id);user=n;paint();if(ch)loadMine()});
 
 // ===== paneles =====
 function closePanel(){if(panel){panel.remove();panel=null}placing=false;if(dm){map.removeLayer(dm);dm=null}draft=null}
@@ -208,7 +260,9 @@ function chips(items,multi,sel){const n="c"+(uid++),w=mk("div","chips"),all=[];
 const OPS=[["venta","Venta"],["alquiler","Alquiler"],["permuta","Permuta"]];
 const TIPOS=Object.entries(TIPO);
 const AMENS=AMEN.map(a=>[a,a]);
-const shell=h=>{closePanel();const s=panel=mk("div","sheet"),x=mk("button","x","×");x.setAttribute("aria-label","Cerrar");x.onclick=closePanel;s.append(x,mk("h2",0,h));document.body.append(s);return s};
+// cabecera fija (título + botón cerrar) y cuerpo con scroll propio: el botón de cerrar nunca se pierde
+const shell=h=>{closePanel();const s=panel=mk("div","sheet"),hd=mk("div","shh"),x=mk("button","x","×"),b=mk("div","shb");
+ x.type="button";x.setAttribute("aria-label","Cerrar");x.onclick=closePanel;hd.append(mk("h2",0,h),x);s.append(hd,b);document.body.append(s);return b};
 
 // ===== filtros =====
 $("#fbtn").onclick=()=>{
@@ -220,47 +274,142 @@ $("#fbtn").onclick=()=>{
  s.addEventListener("change",apply);apply();
  clr.onclick=()=>{f={op:[],tipo:[],amb:0,am:[]};draw();badge();$("#fbtn").click()}};
 
-// ===== publicar =====
+// ===== publicar / editar =====
 function setDraft(la,lo,z){draft={lat:la,lon:lo};if(dm)dm.setLatLng([la,lo]);else{dm=L.marker([la,lo],{icon:icon("d","Tu propiedad"),draggable:true}).addTo(map);dm.on("dragend",()=>{const p=dm.getLatLng();draft={lat:p.lat,lon:p.lng}})}
  map.setView([la,lo],z||Math.max(map.getZoom(),16))}
 map.on("click",e=>{if(placing)setDraft(e.latlng.lat,e.latlng.lng)});
 
-async function subir(files){const out=[];
- for(const fl of Array.from(files||[]).slice(0,6)){if(!/^image\//.test(fl.type)||fl.size>5e6)continue;
+async function subir(files,max){const out=[];
+ for(const fl of Array.from(files||[]).slice(0,Math.max(0,max))){if(!/^image\//.test(fl.type)||fl.size>5e6)continue;
   const path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+(fl.type.split("/")[1]||"jpg").replace(/[^a-z0-9]/gi,"");
   const {error}=await sb.storage.from("fotos").upload(path,fl,{contentType:fl.type});
   if(!error)out.push(sb.storage.from("fotos").getPublicUrl(path).data.publicUrl)}
  return out}
-$("#add").onclick=()=>{if(!user){login();return}
- const s=shell("Publicar propiedad");placing=true;
+$("#add").onclick=()=>openForm(null);
+
+function openForm(ex){if(!user){login();return}
+ const edit=!!ex,s=shell(edit?"Editar publicación":"Publicar propiedad");placing=true;
  const grp=mk("div","grp"),fld=(t,e)=>{const l=mk("label");l.append(mk("span",0,t),e);grp.append(l);return e};
- const nm=fld("Tu nombre",mk("input"));nm.maxLength=40;nm.value=String((user.user_metadata||{}).full_name||"").split(" ")[0];
- const ph=fld("Celular con WhatsApp",mk("input"));ph.type="tel";ph.placeholder="11 5555 5555";
- const pc=fld("Precio que pedís (USD)",mk("input"));pc.type="number";pc.min=1;pc.inputMode="numeric";
- const m2=fld("Superficie (m²)",mk("input"));m2.type="number";m2.min=1;m2.inputMode="numeric";
- const ta=fld("Características y precio (máx. 200)",mk("textarea"));ta.maxLength=200;ta.placeholder="Luminoso, al frente, con balcón. Acepto permuta.";
- const ct=mk("div","cnt","0/200");ta.oninput=()=>ct.textContent=ta.value.length+"/200";
- const op=chips(OPS,false,["venta"]),tp=chips(TIPOS,false,["depto"]),am=chips([["1","1"],["2","2"],["3","3"],["4","4"],["5","5+"]],false,[]),bn=chips([["1","1"],["2","2"],["3","3+"]],false,[]),ae=chips(AMENS,true,[]);
- const qn=chips([["d","Dueño"],["i","Inmobiliaria"]],false,["d"]),fi=mk("input");fi.type="file";fi.accept="image/*";fi.multiple=true;fi.setAttribute("aria-label","Fotos");
+ const nm=fld("Tu nombre",mk("input"));nm.maxLength=40;nm.value=edit?ex.name:String((user.user_metadata||{}).full_name||"").split(" ")[0];
+ const ph=fld("Celular con WhatsApp",mk("input"));ph.type="tel";ph.placeholder="11 5555 5555";if(edit)ph.value=ex.phone;
+ const pc=fld("Precio que pedís (USD)",mk("input"));pc.type="number";pc.min=1;pc.inputMode="numeric";if(edit)pc.value=ex.price;
+ const m2=fld("Superficie (m²)",mk("input"));m2.type="number";m2.min=1;m2.inputMode="numeric";if(edit&&ex.m2)m2.value=ex.m2;
+ const ta=fld("Características y precio (máx. 200)",mk("textarea"));ta.maxLength=200;ta.placeholder="Luminoso, al frente, con balcón. Acepto permuta.";if(edit)ta.value=ex.descr||"";
+ const ct=mk("div","cnt",ta.value.length+"/200");ta.oninput=()=>ct.textContent=ta.value.length+"/200";
+ const op=chips(OPS,false,[edit?ex.operacion:"venta"]),tp=chips(TIPOS,false,[edit?ex.tipo:"depto"]),
+  am=chips([["1","1"],["2","2"],["3","3"],["4","4"],["5","5+"]],false,edit&&ex.ambientes?[String(Math.min(5,ex.ambientes))]:[]),
+  bn=chips([["1","1"],["2","2"],["3","3+"]],false,edit&&ex.banios?[String(Math.min(3,ex.banios))]:[]),
+  ae=chips(AMENS,true,edit?(ex.amenities||[]):[]);
+ const qn=chips([["d","Dueño"],["i","Inmobiliaria"]],false,[edit&&ex.es_inmobiliaria?"i":"d"]),fi=mk("input");fi.type="file";fi.accept="image/*";fi.multiple=true;fi.setAttribute("aria-label","Fotos");
+ let keep=edit?(ex.fotos||[]).filter(u=>/^https:\/\//.test(u)):[];const th=mk("div","thumbs");
+ const rt=()=>{th.textContent="";keep.forEach((u,i)=>{const w=mk("div","th"),im=new Image(),b=mk("button",0,"×");im.src=u;im.alt="Foto actual";im.referrerPolicy="no-referrer";b.type="button";b.setAttribute("aria-label","Quitar foto");b.onclick=()=>{keep.splice(i,1);rt()};w.append(im,b);th.append(w)});fi.disabled=keep.length>=6};
+ rt();
  const gps=mk("button","btn ghost sm","Usar mi GPS"),ad=mk("input");ad.style.cssText="width:100%;padding:12px 16px;border:1px solid var(--line2);border-radius:16px;margin:16px 0 10px";ad.placeholder="O escribí la dirección (calle y altura)";
- const bs=mk("button","btn ghost sm","Buscar dirección"),row=mk("div","row");row.append(gps,bs);
- const ms=mk("div","msg","Ubicá el pin con el GPS, la dirección o tocando el mapa. Podés arrastrarlo para ajustarlo."),ok=mk("button","btn blk","Publicar");
+ const bs=mk("button","btn ghost sm","Buscar dirección"),row=mk("div","row");gps.type=bs.type="button";row.append(gps,bs);
+ const ms=mk("div","msg",edit?"Podés arrastrar el pin para corregir la ubicación.":"Ubicá el pin con el GPS, la dirección o tocando el mapa. Podés arrastrarlo para ajustarlo."),ok=mk("button","btn blk",edit?"Guardar cambios":"Publicar");
+ // consentimientos (solo al publicar por primera vez)
+ const ckb=(parts)=>{const l=mk("label","ck"),i=mk("input"),sp=mk("span");i.type="checkbox";parts.forEach(x=>sp.append(x));l.append(i,sp);return {l,i}};
+ const lnk=t=>{const b=mk("button","lk",t);b.type="button";b.onclick=e=>{e.preventDefault();showLegal()};return b};
+ const tc=ckb(["Soy mayor de 18 años y leí y acepto los ",lnk("Términos y Condiciones"),", la ",lnk("Política de Privacidad")," y declaro que la información publicada es veraz y que tengo derecho a ofrecer el inmueble."]);
+ const ds=ckb(["Presto mi consentimiento libre, expreso e informado para que mi nombre, celular, fotos y la ubicación del inmueble sean publicados y visibles para cualquier persona, y para el tratamiento y la transferencia internacional de mis datos descriptos en la Política de Privacidad (Ley 25.326)."]);
  s.append(mk("p","sub","Contacto directo por WhatsApp. Podés sumar hasta 6 fotos."),grp,ct,mk("div","lab","Publicás como"),qn.el,
   mk("div","lab","Operación"),op.el,mk("div","lab","Tipo de propiedad"),tp.el,mk("div","lab","Ambientes"),am.el,mk("div","lab","Baños"),bn.el,mk("div","lab","Amenities"),ae.el,
-  mk("div","lab","Fotos (hasta 6, 5 MB c/u)"),fi,ad,row,ms,ok);
+  mk("div","lab","Fotos (hasta 6, 5 MB c/u)"),th,fi,ad,row,ms);
+ if(!edit)s.append(tc.l,ds.l);
+ s.append(ok);
+ if(edit)setDraft(ex.lat,ex.lon,17);
  gps.onclick=()=>{ms.className="msg";ms.textContent="Buscando tu ubicación…";navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>{setDraft(p.coords.latitude,p.coords.longitude,17);ms.textContent="Pin colocado. Podés arrastrarlo."},()=>{ms.className="msg err";ms.textContent="No pudimos leer el GPS. Tocá el mapa."},{enableHighAccuracy:true,timeout:10000}):(ms.className="msg err",ms.textContent="Tu navegador no permite GPS.")};
  bs.onclick=async()=>{const q=ad.value.trim();if(!q)return;ms.className="msg";ms.textContent="Buscando…";
   try{const j=await(await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ar&q="+encodeURIComponent(q+", Buenos Aires"))).json();if(!j[0])throw 0;setDraft(+j[0].lat,+j[0].lon,17);ms.textContent="Pin colocado. Podés arrastrarlo."}catch(e){ms.className="msg err";ms.textContent="No encontramos esa dirección. Probá con el GPS o tocá el mapa."}};
  ok.onclick=async()=>{const price=Math.round(Number(pc.value)),d=ta.value.trim(),n=nm.value.trim(),w=waNum(ph.value),tipo=tp.val()[0],ambs=+(am.val()[0]||0);
-  const bad=!n?"Poné tu nombre.":w.length<12?"Revisá el celular (código de área + número).":!(price>0)?"Poné el precio.":(tipo!=="terreno"&&!ambs)?"Elegí la cantidad de ambientes.":d.length<10?"Contá las características.":!draft?"Ubicá el pin en el mapa.":"";
+  const bad=!n?"Poné tu nombre.":w.length<12?"Revisá el celular (código de área + número).":!(price>0)?"Poné el precio.":(tipo!=="terreno"&&!ambs)?"Elegí la cantidad de ambientes.":d.length<10?"Contá las características.":!draft?"Ubicá el pin en el mapa.":(!edit&&!(tc.i.checked&&ds.i.checked))?"Para publicar tenés que aceptar los Términos, la Política de Privacidad y el consentimiento.":"";
   if(bad){ms.className="msg err";ms.textContent=bad;return}
-  ok.disabled=true;ms.className="msg";ms.textContent="Subiendo…";
-  const fotos=await subir(fi.files);
-  const row={name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon,operacion:op.val()[0],tipo,ambientes:tipo==="terreno"?null:ambs,banios:+(bn.val()[0]||0)||null,m2:Math.round(Number(m2.value))||null,amenities:ae.val(),es_inmobiliaria:qn.val()[0]==="i",fotos};
-  const {error}=await sb.from("pins").insert(row);
-  if(error){ok.disabled=false;ms.className="msg err";ms.textContent="No se pudo publicar. ¿Ya corriste la migración SQL?";return}
-  closePanel();load()};
-};
+  ok.disabled=true;ms.className="msg";ms.textContent=edit?"Guardando…":"Subiendo…";
+  const nuevas=await subir(fi.files,6-keep.length),fotos=keep.concat(nuevas);
+  const data={name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon,operacion:op.val()[0],tipo,ambientes:tipo==="terreno"?null:ambs,banios:+(bn.val()[0]||0)||null,m2:Math.round(Number(m2.value))||null,amenities:ae.val(),es_inmobiliaria:qn.val()[0]==="i",fotos};
+  let error=null,quitar=[];
+  if(edit){const r=await sb.from("pins").update(data).eq("id",ex.id).select("id");
+   error=r.error||((r.data||[]).length?null:{message:"permiso"});
+   if(!error)quitar=(ex.fotos||[]).filter(u=>!keep.includes(u))}
+  else{data.user_id=user.id;data.terms_version=TERMS_V;({error}=await sb.from("pins").insert(data))}
+  if(error){quitarFotos(nuevas);ok.disabled=false;ms.className="msg err";ms.textContent=edit?"No se pudo guardar. ¿Corriste la migración SQL de edición?":"No se pudo publicar. ¿Ya corriste la migración SQL?";return}
+  quitarFotos(quitar);closePanel();last="";load()};
+}
+
+// ===== términos y privacidad =====
+function legalText(){return `# TÉRMINOS Y CONDICIONES DE USO
+Versión ${TERMS_V}. Última actualización: ${TERMS_V}.
+## 1. Titular del Sitio
+Ladrillo Hub (el "Sitio") es operado por ${EMP.nombre}, CUIT/CUIL ${EMP.cuit}, con domicilio en ${EMP.dom} (el "Titular"). Contacto: ${EMP.mail}.
+## 2. Aceptación
+Al ingresar con tu cuenta de Google, publicar o editar un aviso, o utilizar el Sitio, declarás haber leído, comprendido y aceptado estos Términos y la Política de Privacidad. Si no estás de acuerdo, no uses el Sitio. Explorar el mapa no requiere cuenta. Para publicar es obligatorio marcar las casillas de aceptación; el Titular registra la versión de los Términos aceptada y la fecha y hora de la aceptación.
+## 3. Capacidad
+Solo pueden publicar personas mayores de 18 años con capacidad legal para contratar, o personas jurídicas debidamente representadas.
+## 4. Qué es y qué no es el Sitio
+El Sitio es una plataforma gratuita de exhibición de avisos que permite ubicar inmuebles en un mapa y contactar directamente al anunciante por WhatsApp. El Titular actúa únicamente como proveedor de alojamiento y exhibición de contenidos de terceros. NO es corredor inmobiliario, martillero ni inmobiliaria; no intermedia, no cobra comisiones, no participa en visitas, negociaciones, reservas, pagos, señas, firmas ni escrituras, y no es parte de ningún contrato celebrado entre usuarios. No verifica la identidad de los usuarios, la titularidad o el estado de dominio de los inmuebles, ni la veracidad, exactitud, vigencia o disponibilidad de los avisos, precios, medidas o fotografías. Las operaciones se realizan bajo exclusiva responsabilidad de las partes. Recomendamos verificar la identidad de la contraparte, solicitar el informe de dominio al Registro de la Propiedad Inmueble y no entregar dinero sin comprobar la operación.
+## 5. Obligaciones de quien publica
+Al publicar declarás y te comprometés a que: (a) la información es veraz, completa y actualizada; (b) sos titular del inmueble o contás con autorización expresa y suficiente del titular o con la habilitación legal necesaria para ofrecerlo; si actuás como inmobiliaria o corredor, contás con las habilitaciones exigidas por la normativa aplicable; (c) los datos personales que publicás son tuyos o tenés el consentimiento de su titular; (d) sos titular de los derechos sobre las fotografías y textos, y no incluís personas identificables, datos personales de terceros, documentos ni información confidencial sin su consentimiento (derecho a la imagen, art. 53 del Código Civil y Comercial; Ley 11.723); (e) el inmueble está ubicado en la Ciudad Autónoma de Buenos Aires; (f) eliminarás o actualizarás el aviso cuando el inmueble deje de estar disponible o cambien sus condiciones; (g) cumplirás la normativa aplicable a la operación publicada.
+Está prohibido: publicar avisos falsos, engañosos, duplicados o con fines de estafa; contenido discriminatorio (Ley 23.592), ilegal, difamatorio, injurioso, sexual u ofensivo; infringir derechos de terceros; publicar spam, publicidad ajena a inmuebles o enlaces externos; usar bots, scraping o cualquier recolección automatizada; intentar vulnerar la seguridad del Sitio; y suplantar identidades.
+## 6. Uso de los datos de contacto de los anunciantes
+Quien acceda a los datos de contacto publicados solo puede utilizarlos para consultar por el inmueble. Está prohibido copiarlos masivamente, almacenarlos en bases de datos, cederlos, usarlos para publicidad, spam, ofertas comerciales ajenas al aviso, hostigamiento o cualquier fin distinto, conforme la Ley 25.326 y demás normas aplicables.
+## 7. Licencia sobre los contenidos
+Conservás la titularidad de tus contenidos. Al publicar le otorgás al Titular una licencia gratuita, no exclusiva, mundial y revocable (eliminando el aviso) para alojar, reproducir, adaptar su formato o tamaño y comunicar públicamente esos contenidos a través del Sitio mientras el aviso esté publicado. Al eliminar un aviso, este deja de mostrarse; pueden subsistir copias de respaldo por un plazo limitado y copias hechas por terceros fuera del control del Titular.
+## 8. Moderación y reportes
+El Titular no tiene obligación de controlar previamente los contenidos, pero puede, a su criterio y sin aviso previo, ocultar, modificar o eliminar avisos y suspender o bloquear cuentas que incumplan estos Términos o la ley, o ante denuncias fundadas. Cualquier persona puede reportar contenido ilícito o que afecte sus derechos mediante el botón "Reportar esta publicación" o escribiendo a ${EMP.mail}, indicando el aviso, el motivo, y sus datos de contacto y acreditando, de corresponder, su derecho afectado. El Titular analizará el reporte con diligencia y retirará el contenido cuando su ilicitud sea manifiesta o lo ordene una autoridad competente. El Titular colaborará con las autoridades judiciales y administrativas y podrá informarles los datos que le requieran conforme la ley.
+## 9. Responsabilidad
+En la máxima medida permitida por la ley: (a) el Sitio se ofrece "tal cual" y "según disponibilidad", sin garantía de funcionamiento continuo o libre de errores; (b) el Titular no responde por la veracidad ni licitud de los contenidos publicados por usuarios, ni por los daños derivados de contactos, negociaciones, operaciones, fraudes o incumplimientos entre usuarios, ni por el uso que terceros hagan de los datos publicados; (c) el Titular no responde por servicios de terceros (Google, Supabase, WhatsApp/Meta, OpenStreetMap), ni por interrupciones ajenas a su control; (d) el Titular responderá por contenidos de terceros únicamente en los supuestos y con el alcance que establezcan la ley y la jurisprudencia aplicables. Nada de lo aquí dispuesto limita derechos irrenunciables ni excluye responsabilidades que por ley no puedan excluirse, incluidos los derechos de los consumidores y usuarios (Ley 24.240) y la responsabilidad por dolo.
+## 10. Indemnidad
+Quien publica mantendrá indemne al Titular frente a reclamos, daños, multas y gastos (incluidos honorarios razonables) de terceros o autoridades derivados de sus contenidos, de su incumplimiento de estos Términos o de la normativa, en la medida permitida por la ley.
+## 11. Propiedad intelectual del Sitio
+La marca, el diseño y el código del Sitio pertenecen al Titular. Los mapas son © OpenStreetMap contributors (licencia ODbL).
+## 12. Servicios de terceros
+El Sitio utiliza Google (inicio de sesión), Supabase (base de datos, autenticación y almacenamiento), OpenStreetMap/Nominatim (mapas y búsqueda de direcciones) y WhatsApp (contacto). Esos servicios se rigen por sus propios términos y políticas.
+## 13. Baja
+Podés editar o eliminar tus avisos en cualquier momento desde el Sitio, y solicitar la eliminación de tu cuenta y datos escribiendo a ${EMP.mail}. El Titular puede suspender o cancelar el acceso ante incumplimientos.
+## 14. Modificaciones
+El Titular puede modificar estos Términos. La versión vigente estará publicada en el Sitio con su fecha. El uso posterior implica aceptación; ante cambios sustanciales se solicitará una nueva aceptación para publicar.
+## 15. Ley aplicable y jurisdicción
+Estos Términos se rigen por las leyes de la República Argentina. Para cualquier controversia serán competentes los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires, sin perjuicio de los derechos que la ley otorga a los consumidores y usuarios para elegir otra jurisdicción. Ante reclamos como consumidor podés acudir a la Dirección General de Defensa y Protección del Consumidor de la Ciudad de Buenos Aires o a la Dirección Nacional de Defensa del Consumidor.
+## 16. Validez parcial
+Si alguna cláusula fuera declarada nula o inaplicable, las restantes mantendrán su plena vigencia.
+
+# POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS PERSONALES
+## 1. Responsable
+El responsable del tratamiento es ${EMP.nombre}, CUIT/CUIL ${EMP.cuit}, domicilio en ${EMP.dom}, contacto ${EMP.mail}. Esta política se rige por la Ley 25.326 de Protección de los Datos Personales, su decreto reglamentario 1558/2001 y normas concordantes.
+## 2. Datos que tratamos
+(a) Datos de tu cuenta de Google: nombre, correo electrónico, foto de perfil e identificador de usuario. (b) Datos del aviso: nombre, número de celular/WhatsApp, descripción, precio, características, fotografías y la ubicación (coordenadas) del inmueble, que vos cargás. (c) Ubicación GPS de tu dispositivo, solo si presionás "Usar mi GPS", para colocar el pin; no la guardamos aparte de las coordenadas que decidas publicar. (d) Datos técnicos (IP, navegador, registros) que generan los proveedores de infraestructura. (e) La versión de los Términos aceptada y la fecha y hora de aceptación.
+## 3. Finalidades
+Crear y administrar tu cuenta; publicar y mostrar tu aviso en el mapa; permitir que interesados te contacten; permitirte editar o eliminar tus avisos; prevenir fraudes y abusos, garantizar la seguridad y atender reportes y reclamos; conservar prueba de tu aceptación; y cumplir obligaciones legales o requerimientos de autoridades. No vendemos tus datos ni los usamos para publicidad de terceros.
+## 4. Consentimiento
+Tratamos tus datos con tu consentimiento libre, expreso e informado (art. 5, Ley 25.326), que otorgás al marcar las casillas al publicar. Podés revocarlo en cualquier momento eliminando tu aviso o escribiendo a ${EMP.mail}, sin efectos retroactivos.
+## 5. Datos que se hacen públicos
+Al publicar, tu nombre, tu número de celular, tus fotografías, la descripción y la ubicación del inmueble serán visibles para cualquier persona que acceda al Sitio, sin necesidad de registrarse, y podrán ser copiados o utilizados por terceros fuera del control del Titular. Tu correo electrónico y demás datos de la cuenta de Google no se muestran públicamente. Publicá únicamente los datos que quieras hacer públicos.
+## 6. Destinatarios y transferencias internacionales
+No cedemos tus datos a terceros, salvo: (a) proveedores que los tratan por nuestra cuenta (Google, Supabase, OpenStreetMap/Nominatim, que recibe las direcciones que escribas para ubicar el pin); (b) autoridades judiciales o administrativas competentes que los requieran legalmente; (c) cuando una ley lo exija. Los servidores de estos proveedores pueden estar ubicados fuera de Argentina, incluso en países que no brinden un nivel de protección adecuado según el art. 12 de la Ley 25.326. Al aceptar, consentís expresamente esa transferencia.
+## 7. Conservación
+Conservamos tus datos mientras tu aviso esté publicado o tu cuenta esté activa. Al eliminar un aviso se retira de la vista pública y se borran sus fotografías; pueden persistir copias de respaldo y registros por un tiempo limitado, y la prueba de aceptación de los Términos durante los plazos de prescripción legales para la defensa de derechos.
+## 8. Seguridad
+Aplicamos medidas técnicas y organizativas razonables (conexión cifrada, control de acceso a nivel de fila, autenticación mediante Google) para proteger tus datos (art. 9, Ley 25.326). Ningún sistema es completamente seguro.
+## 9. Tus derechos
+Tenés derecho de acceso, rectificación, actualización y supresión de tus datos (arts. 14 a 16, Ley 25.326). Podés editar o eliminar tus avisos desde el Sitio, o ejercer tus derechos escribiendo a ${EMP.mail} con tu nombre y copia de tu DNI. Responderemos dentro de los plazos legales: 10 días corridos para el acceso y 5 días hábiles para rectificación, actualización o supresión.
+El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326. La AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales.
+## 10. Menores
+El Sitio no está dirigido a menores de 18 años. Si detectamos datos de un menor, los eliminaremos.
+## 11. Almacenamiento local y cookies
+El Sitio utiliza almacenamiento del navegador necesario para mantener tu sesión iniciada. No utilizamos cookies publicitarias propias. Los proveedores de terceros pueden aplicar las suyas conforme a sus políticas.
+## 12. Cambios
+Podemos actualizar esta política; la versión vigente estará siempre disponible en el Sitio con su fecha.`}
+function showLegal(){if($(".ov"))return;
+ const o=mk("div","ov"),dl=mk("div","dlg"),hd=mk("div","shh"),x=mk("button","x","×"),bd=mk("div","db");
+ o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+ x.type="button";x.setAttribute("aria-label","Cerrar");const close=()=>o.remove();x.onclick=close;
+ o.onclick=e=>{if(e.target===o)close()};
+ hd.append(mk("h2",0,"Términos y privacidad"),x);
+ legalText().split("\n").forEach(l=>{if(l.startsWith("# "))bd.append(mk("h3",0,l.slice(2)));else if(l.startsWith("## "))bd.append(mk("h4",0,l.slice(3)));else if(l.trim())bd.append(mk("p",0,l))});
+ dl.append(hd,bd);o.append(dl);document.body.append(o);x.focus()}
+$("#legalb").onclick=showLegal;
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;const o=$(".ov");if(o)o.remove();else if(panel)closePanel()});
+
 load();setInterval(()=>{if(!document.hidden)load()},60000);
 </script>
 </body>
