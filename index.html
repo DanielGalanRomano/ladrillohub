@@ -34,6 +34,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .pill{flex:none;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;font:600 13px var(--f);cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .pill:hover{border-color:var(--ink);background:var(--soft)}
 .pill svg{width:18px;height:18px}.pill .ua{width:22px;height:22px;border-radius:50%;object-fit:cover;background:var(--gray)}.pill .mut{font-size:13px;font-weight:500;color:var(--mut)}
+.cn{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--ink);color:#fff;font:700 12px/20px var(--f);text-align:center}.cn:empty{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 26px;border:0;border-radius:999px;background:var(--grad);color:#fff;font:600 16px var(--f);cursor:pointer;text-decoration:none}
 .btn:active{transform:scale(.98)}.btn:disabled{opacity:.5}
 .btn.sm{flex:none;height:36px;padding:0 16px;font-size:13px}
@@ -55,6 +56,9 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .pp{padding:26px 24px 18px}
 .ptag{display:inline-block;background:var(--gray);border-radius:999px;padding:5px 12px;font:600 12px var(--f);margin-bottom:10px}
 .price{font:800 36px/1.05 var(--f);letter-spacing:-.03em}
+.specs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.specs span{background:var(--gray);border-radius:999px;padding:4px 11px;font:600 13px var(--f)}
+.specs .am{background:transparent;border:1px solid var(--line)}
 .own{display:flex;align-items:center;gap:12px;padding:16px 0 18px}
 .av{flex:none;width:46px;height:46px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:700 19px var(--f)}
 .own b{display:block;font:600 16px/1.2 var(--f)}
@@ -79,6 +83,13 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .x{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:0;background:var(--gray);font-size:20px;cursor:pointer}
 .msg{font-size:14px;color:var(--mut);margin:10px 0}.err{color:#c13515;font-weight:600}
 .row{display:flex;gap:8px;margin-bottom:10px}.row>*{flex:1}
+.lab{margin:16px 0 8px;font:700 11px var(--f);letter-spacing:.04em;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip span{display:block;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;font:600 14px var(--f);background:var(--card)}
+.chip input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
 @media(max-width:760px){
  .brand{margin-right:0;flex:1 1 0}
  .tag{font-size:10px;white-space:normal}
@@ -90,6 +101,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
  .pp{padding:14px 16px 8px}
  .ptag{display:none}
  .price{font-size:25px;padding-right:26px}
+ .specs{margin-top:8px}.specs span{font-size:12px;padding:3px 9px}
  .desc{font-size:14px;line-height:1.4;margin-top:6px;padding-bottom:0;max-height:4.4em;overflow:auto}
  .own{padding:10px 0 12px;gap:10px}
  .av{width:32px;height:32px;font-size:14px}
@@ -104,6 +116,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 <header>
  <div class="brand"><a class="logo" href="./" aria-label="Ladrillo Hub"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="2"/><path d="M3 13h26M3 19h26M11 7v6M21 7v6M16 13v6M8 19v6M24 19v6"/></svg><span>Ladrillo<b>Hub</b></span></a><p class="tag">Vende y compra, sin intermediarios, solo dueños</p></div>
  <div class="flt"><label class="sg"><span>Precio desde</span><select id="pmin"></select></label><label class="sg"><span>Precio hasta</span><select id="pmax"></select></label></div>
+ <button class="pill" id="fbtn" aria-label="Filtros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Filtros</span><span class="cn"></span></button>
  <button class="pill" id="login"></button>
  <button class="btn sm" id="add"><span class="lg">Vendo mi depto</span><span class="sh">Vendo</span></button>
 </header>
@@ -113,23 +126,34 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script><!-- window.CFG = {url:"https://xxxx.supabase.co", key:"anon key"} -->
 <script>
-const REPORTS_TO_BLOCK=3; // debe coincidir con la vista pins_public de supabase.sql
+const REPORTS_TO_BLOCK=3; // debe coincidir con la vista pins_public_v2 de supabase_migracion_filtros.sql
 const CFG=window.CFG||{};
 const $=s=>document.querySelector(s);
 const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 const fmt=n=>"USD "+Number(n).toLocaleString("es-AR");
+const pr=p=>fmt(p.price)+(p.operacion==="alquiler"?" /mes":"");
+const OP={venta:"venta",alquiler:"alquiler",permuta:"permuta"};
+const TIPO={depto:"Depto",ph:"PH",casa:"Casa",terreno:"Terreno"};
+const AMEN=["Balcón","Cochera","Terraza","Pileta","SUM","Parrilla","Baulera"];
 if(!CFG.url||!CFG.key||String(CFG.url).startsWith("PEGAR")){document.body.append(Object.assign(mk("div","msg err","Falta configurar Supabase en config.js."),{style:"padding:20px"}));throw new Error("config")}
 const sb=supabase.createClient(CFG.url,CFG.key);
 let user=null,pins=[],pmin=0,pmax=Infinity,draft=null,placing=false,panel=null,dm=null;
+let f={op:[],tipo:[],amb:0,am:[]};
 
 const map=L.map("map",{zoomControl:false}).setView([-34.6037,-58.42],12);
 L.control.zoom({position:"bottomright"}).addTo(map);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
 const layer=L.layerGroup().addTo(map);
 function icon(cls,a,b){const w=mk("div","pin"+(cls?" "+cls:""));w.append(mk("span",0,a));if(b)w.append(mk("small",0,b));return L.divIcon({className:"pinw",html:w,iconSize:[0,0]})}
+const vis=()=>pins.filter(p=>p.price>=pmin&&p.price<=pmax&&(!f.op.length||f.op.includes(p.operacion))&&(!f.tipo.length||f.tipo.includes(p.tipo))&&(p.ambientes||0)>=f.amb&&f.am.every(a=>(p.amenities||[]).includes(a)));
+const badge=()=>{const n=f.op.length+f.tipo.length+(f.amb?1:0)+f.am.length;$("#fbtn .cn").textContent=n||""};
 function draw(){layer.clearLayers();
- pins.filter(p=>p.price>=pmin&&p.price<=pmax).forEach(p=>L.marker([p.lat,p.lon],{icon:icon("","Depto · "+fmt(p.price),p.name)}).addTo(layer).bindPopup(()=>popup(p),{autoPanPadding:[30,80]}))}
-async function load(){const {data,error}=await sb.from("pins_public").select("id,name,phone,price,descr,lat,lon");if(!error){pins=data||[];draw()}}
+ vis().forEach(p=>L.marker([p.lat,p.lon],{icon:icon("",(TIPO[p.tipo]||"Depto")+" · "+pr(p),p.name)}).addTo(layer).bindPopup(()=>popup(p),{autoPanPadding:[30,80]}))}
+const COLS="id,name,phone,price,descr,lat,lon,operacion,tipo,ambientes,banios,m2,amenities";
+async function load(){
+ let r=await sb.from("pins_public_v2").select(COLS);
+ if(r.error)r=await sb.from("pins_public").select("id,name,phone,price,descr,lat,lon"); // todavía sin migrar
+ if(!r.error){pins=(r.data||[]).map(p=>({operacion:"venta",tipo:"depto",amenities:[],...p}));draw()}}
 const waNum=v=>{let d=String(v).replace(/\D/g,"").replace(/^0+/,"");if(d.length===10)d="549"+d;else if(/^54\d{10}$/.test(d))d="549"+d.slice(2);return d};
 
 function popup(p){
@@ -138,14 +162,19 @@ function popup(p){
  sp.innerHTML='<i><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>';sp.append("Dueño directo");
  t.append(mk("b",0,p.name),sp);own.append(av,t);
  const a=mk("a","btn blk wab");a.insertAdjacentHTML("beforeend",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20.5l1.5-4.8A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14.5h4"/></svg>');a.append("Escribir por WhatsApp");
- a.href="https://wa.me/"+p.phone+"?text="+encodeURIComponent("Hola "+p.name+", vi tu depto de "+fmt(p.price)+" en Ladrillo Hub. ¿Sigue disponible?");a.target="_blank";a.rel="noopener";
+ a.href="https://wa.me/"+p.phone+"?text="+encodeURIComponent("Hola "+p.name+", vi tu "+(TIPO[p.tipo]||"depto").toLowerCase()+" de "+pr(p)+" en Ladrillo Hub. ¿Sigue disponible?");a.target="_blank";a.rel="noopener";
  const r=mk("button","rep");r.insertAdjacentHTML("beforeend",'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>');r.append("Denunciar: es una inmobiliaria");
  const fb=mk("div","msg");fb.style.textAlign="center";
  r.onclick=async()=>{if(!user){login();return}r.disabled=true;
   const {error}=await sb.from("pin_reports").insert({pin_id:p.id});
   fb.textContent=!error?"Gracias. Con "+REPORTS_TO_BLOCK+" denuncias el aviso se bloquea.":error.code==="23505"?"Ya denunciaste este aviso.":"No se pudo enviar la denuncia.";
   if(!error)load()};
- d.append(mk("span","ptag","Depto en venta"),mk("div","price",fmt(p.price)),mk("div","desc",p.descr),own,a,r,fb);return d}
+ const sp2=mk("div","specs");
+ [p.ambientes&&p.ambientes+" amb",p.banios&&p.banios+(p.banios>1?" baños":" baño"),p.m2&&p.m2+" m²"].filter(Boolean).forEach(x=>sp2.append(mk("span",0,x)));
+ (p.amenities||[]).forEach(x=>sp2.append(mk("span","am",x)));
+ d.append(mk("span","ptag",(TIPO[p.tipo]||"Depto")+" en "+(OP[p.operacion]||"venta")),mk("div","price",pr(p)));
+ if(sp2.children.length)d.append(sp2);
+ d.append(mk("div","desc",p.descr),own,a,r,fb);return d}
 
 const STEPS=[50,75,100,125,150,175,200,250,300,350,400,450,500,600,700,800,900,1000].map(k=>k*1000);
 const opts=(sel,first)=>{sel.append(new Option(first,""));STEPS.forEach(v=>sel.append(new Option(v>=1e6?"USD 1.000.000":fmt(v),v)))};
@@ -165,33 +194,58 @@ $("#login").onclick=()=>user?sb.auth.signOut():login();
 sb.auth.getSession().then(({data})=>{user=data.session?data.session.user:null;paint()});
 sb.auth.onAuthStateChange((_e,s)=>{user=s?s.user:null;paint()});
 
-// ===== publicar =====
+// ===== paneles =====
 function closePanel(){if(panel){panel.remove();panel=null}placing=false;if(dm){map.removeLayer(dm);dm=null}draft=null}
-function setDraft(la,lo,z){draft={lat:la,lon:lo};if(dm)dm.setLatLng([la,lo]);else{dm=L.marker([la,lo],{icon:icon("d","Tu depto"),draggable:true}).addTo(map);dm.on("dragend",()=>{const p=dm.getLatLng();draft={lat:p.lat,lon:p.lng}})}
+let uid=0;
+function chips(items,multi,sel){const n="c"+(uid++),w=mk("div","chips"),all=[];
+ items.forEach(([v,t])=>{const l=mk("label","chip"),i=mk("input");i.type=multi?"checkbox":"radio";if(!multi)i.name=n;i.value=v;i.checked=sel.includes(String(v));l.append(i,mk("span",0,t));w.append(l);all.push(i)});
+ return {el:w,val:()=>all.filter(i=>i.checked).map(i=>i.value)}}
+const OPS=[["venta","Venta"],["alquiler","Alquiler"],["permuta","Permuta"]];
+const TIPOS=Object.entries(TIPO);
+const AMENS=AMEN.map(a=>[a,a]);
+const shell=h=>{closePanel();const s=panel=mk("div","sheet"),x=mk("button","x","×");x.setAttribute("aria-label","Cerrar");x.onclick=closePanel;s.append(x,mk("h2",0,h));document.body.append(s);return s};
+
+// ===== filtros =====
+$("#fbtn").onclick=()=>{
+ const s=shell("Filtros"),cnt=mk("p","sub");
+ const op=chips(OPS,true,f.op),tp=chips(TIPOS,true,f.tipo),am=chips([["0","Todos"],["1","1+"],["2","2+"],["3","3+"],["4","4+"]],false,[String(f.amb)]),ae=chips(AMENS,true,f.am);
+ const clr=mk("button","btn ghost blk","Limpiar filtros");clr.style.marginTop="18px";
+ const apply=()=>{f.op=op.val();f.tipo=tp.val();f.amb=+(am.val()[0]||0);f.am=ae.val();draw();badge();cnt.textContent=vis().length+" en el mapa"};
+ s.append(cnt,mk("div","lab","Operación"),op.el,mk("div","lab","Tipo de propiedad"),tp.el,mk("div","lab","Ambientes mínimos"),am.el,mk("div","lab","Amenities"),ae.el,clr);
+ s.addEventListener("change",apply);apply();
+ clr.onclick=()=>{f={op:[],tipo:[],amb:0,am:[]};draw();badge();$("#fbtn").click()}};
+
+// ===== publicar =====
+function setDraft(la,lo,z){draft={lat:la,lon:lo};if(dm)dm.setLatLng([la,lo]);else{dm=L.marker([la,lo],{icon:icon("d","Tu propiedad"),draggable:true}).addTo(map);dm.on("dragend",()=>{const p=dm.getLatLng();draft={lat:p.lat,lon:p.lng}})}
  map.setView([la,lo],z||Math.max(map.getZoom(),16))}
 map.on("click",e=>{if(placing)setDraft(e.latlng.lat,e.latlng.lng)});
 
-$("#add").onclick=()=>{if(!user){login();return}closePanel();placing=true;
- const s=panel=mk("div","sheet"),x=mk("button","x","×");x.setAttribute("aria-label","Cerrar");x.onclick=closePanel;
+$("#add").onclick=()=>{if(!user){login();return}
+ const s=shell("Vendo mi depto");placing=true;
  const grp=mk("div","grp"),fld=(t,e)=>{const l=mk("label");l.append(mk("span",0,t),e);grp.append(l);return e};
  const nm=fld("Tu nombre",mk("input"));nm.maxLength=40;nm.value=String((user.user_metadata||{}).full_name||"").split(" ")[0];
  const ph=fld("Celular con WhatsApp",mk("input"));ph.type="tel";ph.placeholder="11 5555 5555";
- const pr=fld("Precio que pedís (USD)",mk("input"));pr.type="number";pr.min=1;pr.inputMode="numeric";
- const ta=fld("Características y precio (máx. 200)",mk("textarea"));ta.maxLength=200;ta.placeholder="3 amb, 65 m², balcón, cochera. Acepto permuta.";
+ const pc=fld("Precio que pedís (USD)",mk("input"));pc.type="number";pc.min=1;pc.inputMode="numeric";
+ const m2=fld("Superficie (m²)",mk("input"));m2.type="number";m2.min=1;m2.inputMode="numeric";
+ const ta=fld("Características y precio (máx. 200)",mk("textarea"));ta.maxLength=200;ta.placeholder="Luminoso, al frente, con balcón. Acepto permuta.";
  const ct=mk("div","cnt","0/200");ta.oninput=()=>ct.textContent=ta.value.length+"/200";
- const gps=mk("button","btn ghost sm","Usar mi GPS"),ad=mk("input");ad.style.cssText="width:100%;padding:12px 16px;border:1px solid var(--line2);border-radius:16px;margin-bottom:10px";ad.placeholder="O escribí la dirección (calle y altura)";
+ const op=chips(OPS,false,["venta"]),tp=chips(TIPOS,false,["depto"]),am=chips([["1","1"],["2","2"],["3","3"],["4","4"],["5","5+"]],false,[]),bn=chips([["1","1"],["2","2"],["3","3+"]],false,[]),ae=chips(AMENS,true,[]);
+ const gps=mk("button","btn ghost sm","Usar mi GPS"),ad=mk("input");ad.style.cssText="width:100%;padding:12px 16px;border:1px solid var(--line2);border-radius:16px;margin:16px 0 10px";ad.placeholder="O escribí la dirección (calle y altura)";
  const bs=mk("button","btn ghost sm","Buscar dirección"),row=mk("div","row");row.append(gps,bs);
  const ms=mk("div","msg","Ubicá el pin con el GPS, la dirección o tocando el mapa. Podés arrastrarlo para ajustarlo."),ok=mk("button","btn blk","Publicar");
- s.append(x,mk("h2",0,"Vendo mi depto"),mk("p","sub","Solo dueños directos. Las inmobiliarias se denuncian y se bloquean."),grp,ct,ad,row,ms,ok);document.body.append(s);
+ s.append(mk("p","sub","Solo dueños directos. Las inmobiliarias se denuncian y se bloquean."),grp,ct,
+  mk("div","lab","Operación"),op.el,mk("div","lab","Tipo de propiedad"),tp.el,mk("div","lab","Ambientes"),am.el,mk("div","lab","Baños"),bn.el,mk("div","lab","Amenities"),ae.el,
+  ad,row,ms,ok);
  gps.onclick=()=>{ms.className="msg";ms.textContent="Buscando tu ubicación…";navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>{setDraft(p.coords.latitude,p.coords.longitude,17);ms.textContent="Pin colocado. Podés arrastrarlo."},()=>{ms.className="msg err";ms.textContent="No pudimos leer el GPS. Tocá el mapa."},{enableHighAccuracy:true,timeout:10000}):(ms.className="msg err",ms.textContent="Tu navegador no permite GPS.")};
  bs.onclick=async()=>{const q=ad.value.trim();if(!q)return;ms.className="msg";ms.textContent="Buscando…";
   try{const j=await(await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ar&q="+encodeURIComponent(q+", Buenos Aires"))).json();if(!j[0])throw 0;setDraft(+j[0].lat,+j[0].lon,17);ms.textContent="Pin colocado. Podés arrastrarlo."}catch(e){ms.className="msg err";ms.textContent="No encontramos esa dirección. Probá con el GPS o tocá el mapa."}};
- ok.onclick=async()=>{const price=Math.round(Number(pr.value)),d=ta.value.trim(),n=nm.value.trim(),w=waNum(ph.value);
-  const bad=!n?"Poné tu nombre.":w.length<12?"Revisá el celular (código de área + número).":!(price>0)?"Poné el precio.":d.length<10?"Contá las características del depto.":!draft?"Ubicá el pin en el mapa.":"";
+ ok.onclick=async()=>{const price=Math.round(Number(pc.value)),d=ta.value.trim(),n=nm.value.trim(),w=waNum(ph.value),tipo=tp.val()[0],ambs=+(am.val()[0]||0);
+  const bad=!n?"Poné tu nombre.":w.length<12?"Revisá el celular (código de área + número).":!(price>0)?"Poné el precio.":(tipo!=="terreno"&&!ambs)?"Elegí la cantidad de ambientes.":d.length<10?"Contá las características.":!draft?"Ubicá el pin en el mapa.":"";
   if(bad){ms.className="msg err";ms.textContent=bad;return}
   ok.disabled=true;
-  const {error}=await sb.from("pins").insert({name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon});
-  if(error){ok.disabled=false;ms.className="msg err";ms.textContent="No se pudo publicar. Probá de nuevo.";return}
+  const row={name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon,operacion:op.val()[0],tipo,ambientes:tipo==="terreno"?null:ambs,banios:+(bn.val()[0]||0)||null,m2:Math.round(Number(m2.value))||null,amenities:ae.val()};
+  const {error}=await sb.from("pins").insert(row);
+  if(error){ok.disabled=false;ms.className="msg err";ms.textContent="No se pudo publicar. ¿Ya corriste la migración SQL?";return}
   closePanel();load()};
 };
 load();setInterval(()=>{if(!document.hidden)load()},60000);
