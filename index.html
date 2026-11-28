@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Mapa de departamentos en venta de dueños directos en CABA. Contacto directo por WhatsApp.">
-<title>Ladrillo Hub — Deptos en venta, dueños directos</title>
+<meta name="description" content="Mapa de propiedades en venta, alquiler y permuta en CABA. Contacto directo por WhatsApp.">
+<title>Ladrillo Hub — Propiedades en CABA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -70,6 +70,11 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 .rep:hover{color:#c13515}.rep:disabled{opacity:.6;cursor:default}
 .desc{white-space:pre-wrap;word-break:break-word;margin:14px 0 0;padding-bottom:4px;font-size:16px;line-height:1.5}
 .stack{display:grid;gap:10px}
+.gal{position:relative;margin:-26px -24px 14px;height:190px;background:var(--gray)}
+.gal img{width:100%;height:100%;object-fit:cover;display:block}
+.gb{position:absolute;top:50%;left:10px;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.9);font-size:22px;line-height:1;cursor:pointer}
+.gb.n{left:auto;right:10px}
+.gc{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:2px 9px;font:600 12px var(--f)}
 .sheet{position:fixed;z-index:1100;left:0;right:0;bottom:0;max-height:78%;overflow:auto;background:var(--card);border-radius:24px 24px 0 0;padding:22px;box-shadow:var(--sh);padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
 @media(min-width:760px){.sheet{left:20px;top:88px;bottom:20px;right:auto;width:400px;max-height:none;border-radius:24px}}
 .sheet h2{margin:0 0 4px;font:700 24px var(--f);letter-spacing:-.02em}
@@ -100,6 +105,7 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
  .leaflet-popup-content{width:min(252px,72vw)!important}
  .pp{padding:14px 16px 8px}
  .ptag{display:none}
+ .gal{margin:-14px -16px 10px;height:130px}
  .price{font-size:25px;padding-right:26px}
  .specs{margin-top:8px}.specs span{font-size:12px;padding:3px 9px}
  .desc{font-size:14px;line-height:1.4;margin-top:6px;padding-bottom:0;max-height:4.4em;overflow:auto}
@@ -114,11 +120,11 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 </head>
 <body>
 <header>
- <div class="brand"><a class="logo" href="./" aria-label="Ladrillo Hub"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="2"/><path d="M3 13h26M3 19h26M11 7v6M21 7v6M16 13v6M8 19v6M24 19v6"/></svg><span>Ladrillo<b>Hub</b></span></a><p class="tag">Vende y compra, sin intermediarios, solo dueños</p></div>
+ <div class="brand"><a class="logo" href="./" aria-label="Ladrillo Hub"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="2"/><path d="M3 13h26M3 19h26M11 7v6M21 7v6M16 13v6M8 19v6M24 19v6"/></svg><span>Ladrillo<b>Hub</b></span></a><p class="tag">Propiedades en CABA, contacto directo por WhatsApp</p></div>
  <div class="flt"><label class="sg"><span>Precio desde</span><select id="pmin"></select></label><label class="sg"><span>Precio hasta</span><select id="pmax"></select></label></div>
  <button class="pill" id="fbtn" aria-label="Filtros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Filtros</span><span class="cn"></span></button>
  <button class="pill" id="login"></button>
- <button class="btn sm" id="add"><span class="lg">Vendo mi depto</span><span class="sh">Vendo</span></button>
+ <button class="btn sm" id="add"><span class="lg">Publicar propiedad</span><span class="sh">Publicar</span></button>
 </header>
 <div id="map"></div>
 
@@ -126,7 +132,6 @@ header{display:flex;align-items:center;gap:8px 10px;padding:8px clamp(12px,3vw,3
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script><!-- window.CFG = {url:"https://xxxx.supabase.co", key:"anon key"} -->
 <script>
-const REPORTS_TO_BLOCK=3; // debe coincidir con la vista pins_public_v2 de supabase_migracion_filtros.sql
 const CFG=window.CFG||{};
 const $=s=>document.querySelector(s);
 const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
@@ -149,32 +154,32 @@ const vis=()=>pins.filter(p=>p.price>=pmin&&p.price<=pmax&&(!f.op.length||f.op.i
 const badge=()=>{const n=f.op.length+f.tipo.length+(f.amb?1:0)+f.am.length;$("#fbtn .cn").textContent=n||""};
 function draw(){layer.clearLayers();
  vis().forEach(p=>L.marker([p.lat,p.lon],{icon:icon("",(TIPO[p.tipo]||"Depto")+" · "+pr(p),p.name)}).addTo(layer).bindPopup(()=>popup(p),{autoPanPadding:[30,80]}))}
-const COLS="id,name,phone,price,descr,lat,lon,operacion,tipo,ambientes,banios,m2,amenities";
+const COLS="id,name,phone,price,descr,lat,lon,operacion,tipo,ambientes,banios,m2,amenities,es_inmobiliaria,fotos";
 async function load(){
  let r=await sb.from("pins_public_v2").select(COLS);
  if(r.error)r=await sb.from("pins_public").select("id,name,phone,price,descr,lat,lon"); // todavía sin migrar
- if(!r.error){pins=(r.data||[]).map(p=>({operacion:"venta",tipo:"depto",amenities:[],...p}));draw()}}
+ if(!r.error){pins=(r.data||[]).map(p=>({operacion:"venta",tipo:"depto",amenities:[],es_inmobiliaria:false,fotos:[],...p}));draw()}}
 const waNum=v=>{let d=String(v).replace(/\D/g,"").replace(/^0+/,"");if(d.length===10)d="549"+d;else if(/^54\d{10}$/.test(d))d="549"+d.slice(2);return d};
 
 function popup(p){
  const d=mk("div","pp");
  const av=mk("div","av",String(p.name||"?").trim().charAt(0).toUpperCase()),t=mk("div"),own=mk("div","own"),sp=mk("span");
- sp.innerHTML='<i><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>';sp.append("Dueño directo");
+ sp.innerHTML='<i><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>';sp.append(p.es_inmobiliaria?"Inmobiliaria":"Dueño directo");
  t.append(mk("b",0,p.name),sp);own.append(av,t);
  const a=mk("a","btn blk wab");a.insertAdjacentHTML("beforeend",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20.5l1.5-4.8A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14.5h4"/></svg>');a.append("Escribir por WhatsApp");
  a.href="https://wa.me/"+p.phone+"?text="+encodeURIComponent("Hola "+p.name+", vi tu "+(TIPO[p.tipo]||"depto").toLowerCase()+" de "+pr(p)+" en Ladrillo Hub. ¿Sigue disponible?");a.target="_blank";a.rel="noopener";
- const r=mk("button","rep");r.insertAdjacentHTML("beforeend",'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>');r.append("Denunciar: es una inmobiliaria");
- const fb=mk("div","msg");fb.style.textAlign="center";
- r.onclick=async()=>{if(!user){login();return}r.disabled=true;
-  const {error}=await sb.from("pin_reports").insert({pin_id:p.id});
-  fb.textContent=!error?"Gracias. Con "+REPORTS_TO_BLOCK+" denuncias el aviso se bloquea.":error.code==="23505"?"Ya denunciaste este aviso.":"No se pudo enviar la denuncia.";
-  if(!error)load()};
+
  const sp2=mk("div","specs");
  [p.ambientes&&p.ambientes+" amb",p.banios&&p.banios+(p.banios>1?" baños":" baño"),p.m2&&p.m2+" m²"].filter(Boolean).forEach(x=>sp2.append(mk("span",0,x)));
  (p.amenities||[]).forEach(x=>sp2.append(mk("span","am",x)));
  d.append(mk("span","ptag",(TIPO[p.tipo]||"Depto")+" en "+(OP[p.operacion]||"venta")),mk("div","price",pr(p)));
  if(sp2.children.length)d.append(sp2);
- d.append(mk("div","desc",p.descr),own,a,r,fb);return d}
+ d.append(mk("div","desc",p.descr),own,a);
+ const ph=(p.fotos||[]).filter(u=>/^https:\/\//.test(u));
+ if(ph.length){let k=0;const g=mk("div","gal"),im=new Image();im.alt="Foto de la propiedad";im.loading="lazy";im.referrerPolicy="no-referrer";im.src=ph[0];g.append(im);
+  if(ph.length>1){const c=mk("span","gc","1/"+ph.length),go=n=>{k=(k+n+ph.length)%ph.length;im.src=ph[k];c.textContent=(k+1)+"/"+ph.length},b1=mk("button","gb","‹"),b2=mk("button","gb n","›");b1.setAttribute("aria-label","Foto anterior");b2.setAttribute("aria-label","Foto siguiente");b1.onclick=()=>go(-1);b2.onclick=()=>go(1);g.append(b1,b2,c)}
+  d.prepend(g)}
+ return d}
 
 const STEPS=[50,75,100,125,150,175,200,250,300,350,400,450,500,600,700,800,900,1000].map(k=>k*1000);
 const opts=(sel,first)=>{sel.append(new Option(first,""));STEPS.forEach(v=>sel.append(new Option(v>=1e6?"USD 1.000.000":fmt(v),v)))};
@@ -220,8 +225,14 @@ function setDraft(la,lo,z){draft={lat:la,lon:lo};if(dm)dm.setLatLng([la,lo]);els
  map.setView([la,lo],z||Math.max(map.getZoom(),16))}
 map.on("click",e=>{if(placing)setDraft(e.latlng.lat,e.latlng.lng)});
 
+async function subir(files){const out=[];
+ for(const fl of Array.from(files||[]).slice(0,6)){if(!/^image\//.test(fl.type)||fl.size>5e6)continue;
+  const path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+(fl.type.split("/")[1]||"jpg").replace(/[^a-z0-9]/gi,"");
+  const {error}=await sb.storage.from("fotos").upload(path,fl,{contentType:fl.type});
+  if(!error)out.push(sb.storage.from("fotos").getPublicUrl(path).data.publicUrl)}
+ return out}
 $("#add").onclick=()=>{if(!user){login();return}
- const s=shell("Vendo mi depto");placing=true;
+ const s=shell("Publicar propiedad");placing=true;
  const grp=mk("div","grp"),fld=(t,e)=>{const l=mk("label");l.append(mk("span",0,t),e);grp.append(l);return e};
  const nm=fld("Tu nombre",mk("input"));nm.maxLength=40;nm.value=String((user.user_metadata||{}).full_name||"").split(" ")[0];
  const ph=fld("Celular con WhatsApp",mk("input"));ph.type="tel";ph.placeholder="11 5555 5555";
@@ -230,20 +241,22 @@ $("#add").onclick=()=>{if(!user){login();return}
  const ta=fld("Características y precio (máx. 200)",mk("textarea"));ta.maxLength=200;ta.placeholder="Luminoso, al frente, con balcón. Acepto permuta.";
  const ct=mk("div","cnt","0/200");ta.oninput=()=>ct.textContent=ta.value.length+"/200";
  const op=chips(OPS,false,["venta"]),tp=chips(TIPOS,false,["depto"]),am=chips([["1","1"],["2","2"],["3","3"],["4","4"],["5","5+"]],false,[]),bn=chips([["1","1"],["2","2"],["3","3+"]],false,[]),ae=chips(AMENS,true,[]);
+ const qn=chips([["d","Dueño"],["i","Inmobiliaria"]],false,["d"]),fi=mk("input");fi.type="file";fi.accept="image/*";fi.multiple=true;fi.setAttribute("aria-label","Fotos");
  const gps=mk("button","btn ghost sm","Usar mi GPS"),ad=mk("input");ad.style.cssText="width:100%;padding:12px 16px;border:1px solid var(--line2);border-radius:16px;margin:16px 0 10px";ad.placeholder="O escribí la dirección (calle y altura)";
  const bs=mk("button","btn ghost sm","Buscar dirección"),row=mk("div","row");row.append(gps,bs);
  const ms=mk("div","msg","Ubicá el pin con el GPS, la dirección o tocando el mapa. Podés arrastrarlo para ajustarlo."),ok=mk("button","btn blk","Publicar");
- s.append(mk("p","sub","Solo dueños directos. Las inmobiliarias se denuncian y se bloquean."),grp,ct,
+ s.append(mk("p","sub","Contacto directo por WhatsApp. Podés sumar hasta 6 fotos."),grp,ct,mk("div","lab","Publicás como"),qn.el,
   mk("div","lab","Operación"),op.el,mk("div","lab","Tipo de propiedad"),tp.el,mk("div","lab","Ambientes"),am.el,mk("div","lab","Baños"),bn.el,mk("div","lab","Amenities"),ae.el,
-  ad,row,ms,ok);
+  mk("div","lab","Fotos (hasta 6, 5 MB c/u)"),fi,ad,row,ms,ok);
  gps.onclick=()=>{ms.className="msg";ms.textContent="Buscando tu ubicación…";navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>{setDraft(p.coords.latitude,p.coords.longitude,17);ms.textContent="Pin colocado. Podés arrastrarlo."},()=>{ms.className="msg err";ms.textContent="No pudimos leer el GPS. Tocá el mapa."},{enableHighAccuracy:true,timeout:10000}):(ms.className="msg err",ms.textContent="Tu navegador no permite GPS.")};
  bs.onclick=async()=>{const q=ad.value.trim();if(!q)return;ms.className="msg";ms.textContent="Buscando…";
   try{const j=await(await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ar&q="+encodeURIComponent(q+", Buenos Aires"))).json();if(!j[0])throw 0;setDraft(+j[0].lat,+j[0].lon,17);ms.textContent="Pin colocado. Podés arrastrarlo."}catch(e){ms.className="msg err";ms.textContent="No encontramos esa dirección. Probá con el GPS o tocá el mapa."}};
  ok.onclick=async()=>{const price=Math.round(Number(pc.value)),d=ta.value.trim(),n=nm.value.trim(),w=waNum(ph.value),tipo=tp.val()[0],ambs=+(am.val()[0]||0);
   const bad=!n?"Poné tu nombre.":w.length<12?"Revisá el celular (código de área + número).":!(price>0)?"Poné el precio.":(tipo!=="terreno"&&!ambs)?"Elegí la cantidad de ambientes.":d.length<10?"Contá las características.":!draft?"Ubicá el pin en el mapa.":"";
   if(bad){ms.className="msg err";ms.textContent=bad;return}
-  ok.disabled=true;
-  const row={name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon,operacion:op.val()[0],tipo,ambientes:tipo==="terreno"?null:ambs,banios:+(bn.val()[0]||0)||null,m2:Math.round(Number(m2.value))||null,amenities:ae.val()};
+  ok.disabled=true;ms.className="msg";ms.textContent="Subiendo…";
+  const fotos=await subir(fi.files);
+  const row={name:n,phone:w,price,descr:d,lat:draft.lat,lon:draft.lon,operacion:op.val()[0],tipo,ambientes:tipo==="terreno"?null:ambs,banios:+(bn.val()[0]||0)||null,m2:Math.round(Number(m2.value))||null,amenities:ae.val(),es_inmobiliaria:qn.val()[0]==="i",fotos};
   const {error}=await sb.from("pins").insert(row);
   if(error){ok.disabled=false;ms.className="msg err";ms.textContent="No se pudo publicar. ¿Ya corriste la migración SQL?";return}
   closePanel();load()};
